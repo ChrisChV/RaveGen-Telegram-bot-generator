@@ -1,0 +1,19 @@
+
+_DF_ = "/"
+
+_OUTPUT_BOT_NAME_ = "bot.py"
+_OUTPUT_BOT_DIR_ = "Bot"
+_MODULES_DIR_ = "../modules"
+_MODULES_EXTENTION_ = "py"
+OUTPUT_BOT_PATH = _OUTPUT_BOT_DIR_ +  _DF_ + _OUTPUT_BOT_NAME_
+
+
+_TEMP_LS_MODULES_FILE_NAME = ".tempModuels"
+
+
+
+_LINUX_MKDIR_COMMAND_ = "mkdir "
+_LINUX_LS_COMMAND_ = "ls "
+_LINUX_RM_COMMAND_ = "rm -f "
+_LINUX_RM_COMMAND_DIR = "rm -Rf "
+_LINUX_WRITE_COMMAND_ = " > "
