@@ -1,5 +1,7 @@
 import os
-import sad
+import sys
+import Utils.sad as sad
+
 
 def generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     rmCommand = sad._LINUX_RM_COMMAND_DIR + sad._OUTPUT_BOT_DIR_
@@ -48,6 +50,7 @@ def generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     if(webhookURL != None):
         if(webhookPath == None):
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=TOKEN)\n")
+            webhookURL += sad._DF_ + webhookPath
         else:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=\"" + webhookPath + "\")\n")
         outputBotFile.write("\tupdater.bot.setWebhook(\"" + webhookURL + "\")\n")
