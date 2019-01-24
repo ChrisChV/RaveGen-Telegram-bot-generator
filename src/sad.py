@@ -2,8 +2,8 @@
 _DF_ = "/"
 
 _OUTPUT_BOT_NAME_ = "bot.py"
-_OUTPUT_BOT_DIR_ = "Bot"
-_MODULES_DIR_ = "../modules"
+_OUTPUT_BOT_DIR_ = "bot"
+_MODULES_DIR_ = "modules"
 _MODULES_EXTENTION_ = "py"
 OUTPUT_BOT_PATH = _OUTPUT_BOT_DIR_ +  _DF_ + _OUTPUT_BOT_NAME_
 

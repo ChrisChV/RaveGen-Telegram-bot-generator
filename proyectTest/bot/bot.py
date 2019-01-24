@@ -2,7 +2,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging 
 import os 
 import sys 
-sys.path.insert(0, '../../modules')
+sys.path.insert(0, '../modules')
 from echo import *
 from start import *
 
@@ -19,4 +19,3 @@ if __name__ == "__main__":
 	updater.bot.deleteWebhook()
 	updater.start_polling()
 	updater.idle()
-
