@@ -9,4 +9,10 @@ def getConfig():
     config.readfp(io.BytesIO(configStream))
     configFile.close()
     return config
+
+def verifyConfig(config):
+    
+    if not config.has_option(_CONFIG_RAVEGEN_SECTION_, _CONFIG_TOKEN_OPTION_):
+
+
     

@@ -3,7 +3,7 @@ import sys
 import Utils.sad as sad
 
 
-def generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
+def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     rmCommand = sad._LINUX_RM_COMMAND_DIR + sad._OUTPUT_BOT_DIR_
     os.system(rmCommand)
     mkdirCommand = sad._LINUX_MKDIR_COMMAND_ +  sad._OUTPUT_BOT_DIR_
