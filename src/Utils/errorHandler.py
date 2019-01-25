@@ -1,11 +1,14 @@
 import os
+import sys
 import sad
 
 class ErrorHandler:
     _errorList = {}
-    
-    def __init__(self):
+    _errorHandlerName = ""
+
+    def __init__(self, name):
         self._errorList = {}
+        self._errorHandlerName = name
 
     def addError(self, error, errorType = sad._NORMAL_ERROR_):
         if not errorType in self._errorList:
@@ -14,10 +17,20 @@ class ErrorHandler:
 
     def handle(self):
         #TODO si es critico, matar el programa
+        terminate = False
+
+        for typeOfError, errors in self._errorList.iteritems():
+            if(typeOfError == sad._CRITICAL_ERROR_):
+                terminate = True            
+            for error in errors:
+                print(self._errorHandlerName + ": " + error)
         
-        for key, typesOfErrors in self._errorList.iteritems():
-            for error in typesOfErrors:
-                print(error)
+        if terminate == True:
+            print(self._errorHandlerName + ": CRITICAL ERROR")
+            print(self._errorHandlerName + ": Terminate execution")
+            sys.exit()
+
+
         
 
 

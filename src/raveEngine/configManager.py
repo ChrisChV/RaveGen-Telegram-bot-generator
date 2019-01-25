@@ -1,10 +1,9 @@
 import ConfigParser
 import io
-import sad
-from errorHandler import *
+import Utils.sad as sad
+import Utils.errorHandler as errorHandler
 
-configErrorHandler = ErrorHandler()
-
+configErrorHandler = errorHandler.ErrorHandler("Config Manager")
 
 def getConfig():
     configFile = open(sad._CONFIG_FILE_PATH, 'r')
@@ -13,7 +12,6 @@ def getConfig():
     config.readfp(io.BytesIO(configStream))
     configFile.close()
     verifyConfig(config)
-
 
 
 def verifyConfig(config):
@@ -52,5 +50,3 @@ def _section_exists(config, section):
     else:
         configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
         return False
-
-getConfig()
