@@ -1,15 +1,13 @@
 import os
 import sys
 import Utils.sad as sad
+import Utils.commandManager as commandManager
 
 
 def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
-    rmCommand = sad._LINUX_RM_COMMAND_DIR + sad._OUTPUT_BOT_DIR_
-    os.system(rmCommand)
-    mkdirCommand = sad._LINUX_MKDIR_COMMAND_ +  sad._OUTPUT_BOT_DIR_
-    os.system(mkdirCommand)
-    lsCommand = sad._LINUX_LS_COMMAND_ + sad._MODULES_DIR_ + sad._LINUX_WRITE_COMMAND_ + sad._TEMP_LS_MODULES_FILE_NAME
-    os.system(lsCommand)
+    commandManager.runRmDirCommand(sad._OUTPUT_BOT_DIR_)    
+    commandManager.runMkdirCommand(sad._OUTPUT_BOT_DIR_)
+    commandManager.runLsCommand(sad._MODULES_DIR_, writeFile=sad._TEMP_LS_MODULES_FILE_NAME)
     modules = []
     tempLsFile = open(sad._TEMP_LS_MODULES_FILE_NAME, 'r')
 
@@ -19,8 +17,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     tempLsFile.close()
 
     modules = [module.split('.')[0] for module in modules if module.split('.')[1] == sad._MODULES_EXTENTION_]
-    rmCommand = sad._LINUX_RM_COMMAND_ + sad._TEMP_LS_MODULES_FILE_NAME
-    os.system(rmCommand)
+    commandManager.runRmCommand(sad._TEMP_LS_MODULES_FILE_NAME)
     outputBotFile = open(sad.OUTPUT_BOT_PATH, 'w')
     outputBotFile.write("from telegram.ext import Updater, CommandHandler, MessageHandler, Filters \n")
     outputBotFile.write("import logging \n")

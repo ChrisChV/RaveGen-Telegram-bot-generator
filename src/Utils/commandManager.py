@@ -10,8 +10,8 @@ def runRmCommand(file, *args):
 def runRmDirCommand(directory, *args):
     _executeCommand(sad._LINUX_RM_COMMAND_DIR, directory, args)
 
-def runLsCommand(directory):
-    _executeCommand(sad._LINUX_LS_COMMAND_, directory, [])
+def runLsCommand(directory, writeFile = None):
+    _executeCommand(sad._LINUX_LS_COMMAND_, directory, [], writeFile=writeFile)
 
 def _executeCommand(command, fistrArg, args, writeFile = None):
     command = command + fistrArg
