@@ -7,6 +7,4 @@ def createInitProject(fillConfig=False, createBasicModules=False):
 
 
 
-    
-
 

@@ -16,7 +16,6 @@ class ErrorHandler:
         self._errorList[errorType].append(error)
 
     def handle(self):
-        #TODO si es critico, matar el programa
         terminate = False
 
         for typeOfError, errors in self._errorList.iteritems():
