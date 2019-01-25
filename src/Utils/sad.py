@@ -15,7 +15,9 @@ _TEMP_LS_MODULES_FILE_NAME = ".tempModuels"
 
 
 _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
+_CONFIG_HOSTING_OPTION_ = "hosting"
 _CONFIG_TOKEN_OPTION_ = "token"
+_CONFIG_PROJECT_NAME_OPTION_ = "project_name"
 
 
 _LINUX_MKDIR_COMMAND_ = "mkdir "
@@ -23,5 +25,10 @@ _LINUX_LS_COMMAND_ = "ls "
 _LINUX_RM_COMMAND_ = "rm -f "
 _LINUX_RM_COMMAND_DIR = "rm -Rf "
 _LINUX_WRITE_COMMAND_ = " > "
+
+
+
+_CRITICAL_ERROR_ = 1
+_NORMAL_ERROR_ = 2
 
 
