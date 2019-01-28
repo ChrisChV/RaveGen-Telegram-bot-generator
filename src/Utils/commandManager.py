@@ -13,6 +13,9 @@ def runRmDirCommand(directory, *args):
 def runLsCommand(directory, writeFile = None):
     _executeCommand(sad._LINUX_LS_COMMAND_, directory, [], writeFile=writeFile)
 
+def runPythonCommand(pythonFile, *args):
+    _executeCommand(sad._LINUX_PYTHON_COMMAND_, pythonFile, args)
+
 def _executeCommand(command, fistrArg, args, writeFile = None):
     command = command + fistrArg
     for arg in args:

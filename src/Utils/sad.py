@@ -2,6 +2,8 @@
 _DF_ = "/"
 _DD_ = ":"
 
+_ACTUAL_PATH = "./"
+
 _OUTPUT_BOT_NAME_ = "bot.py"
 _OUTPUT_BOT_DIR_ = "bot"
 _MODULES_DIR_ = "modules"
@@ -17,6 +19,7 @@ _CONSOLE_ENGINE_OPTION_TAG_ = "Options"
 
 
 _TEMP_LS_MODULES_FILE_NAME = ".tempModuels"
+_TEMP_LS_VERIFY_FILE_NAME = ".tempVerifyFiles"
 
 
 _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
@@ -34,7 +37,11 @@ _LINUX_LS_COMMAND_ = "ls "
 _LINUX_RM_COMMAND_ = "rm -f "
 _LINUX_RM_COMMAND_DIR = "rm -Rf "
 _LINUX_WRITE_COMMAND_ = " > "
+_LINUX_PYTHON_COMMAND_ = "python "
+_LINUX_ALL_TAG_ = "*"
 
+
+_PYC_EXTENTION = ".pyc"
 
 
 _CRITICAL_ERROR_ = 1

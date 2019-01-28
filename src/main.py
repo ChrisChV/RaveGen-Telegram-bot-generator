@@ -1,7 +1,6 @@
 import sys
 import ConsoleEngine.consoleAPI as consoleAPI
-
-
+import Utils.utils as utils
 
 #TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
 #webhookURLHeroku = "https://rave-osioluyo.herokuapp.com/717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
@@ -21,6 +20,7 @@ import ConsoleEngine.consoleAPI as consoleAPI
 
 consoleAPI.initProgram(sys.argv)
 
+#print(utils.file_Or_Directory_Exists("bot/", "bot.py"))
 
 
 

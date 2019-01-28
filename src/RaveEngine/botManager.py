@@ -2,6 +2,7 @@ import os
 import sys
 import Utils.sad as sad
 import Utils.commandManager as commandManager
+import Utils.utils as utils
 import configManager as configManager
 
 def generateBot(testFlag = True):
@@ -14,6 +15,21 @@ def generateBot(testFlag = True):
         port = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION)
         webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION)
         _generateBot(TOKEN, webhookURL, port, webhookPath)
+
+def deployBot(withOptions = False, testFlag = True, generateFlag = True):
+    if(withOptions == False):
+        if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._OUTPUT_BOT_DIR_):
+            if utils.file_Or_Directory_Exists(sad._OUTPUT_BOT_DIR_, sad._OUTPUT_BOT_NAME_):
+                generateFlag = False                
+    if(generateFlag == True):
+        generateBot(testFlag)
+    if(testFlag == True):
+        commandManager.runPythonCommand(sad.OUTPUT_BOT_PATH)
+        commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)        
+    #TODO deploy bot in heroku
+
+
+
 
 
 def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
@@ -34,7 +50,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     outputBotFile.write("import logging \n")
     outputBotFile.write("import os \n")
     outputBotFile.write("import sys \n")
-    outputBotFile.write("sys.path.insert(0, '../" + sad._MODULES_DIR_ + "')\n")
+    outputBotFile.write("sys.path.insert(0, '" + sad._MODULES_DIR_ + "')\n")
     for module in modules:
         outputBotFile.write("from " + module + " import *\n")
     outputBotFile.write('\n')

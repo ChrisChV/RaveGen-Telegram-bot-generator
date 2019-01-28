@@ -13,7 +13,6 @@ def createInitProject(fillConfig=True, createBasicModules=False):
         _createBasicModules()
 
 
-
 def _createBasicModules():
     moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "start.py", 'w')
     moduleFile.write("def start(bot,update):\n")

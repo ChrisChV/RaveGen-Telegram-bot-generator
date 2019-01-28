@@ -28,6 +28,19 @@ def initProgram(argv):
             if option == 'd':
                 testFlag = False
         botManager.generateBot(testFlag)
+    elif command == "deploy":
+        options = consoleManager.getOptions(argv)
+        if(len(options) == 0):
+            botManager.deployBot() 
+        else:
+            testFlag = True
+            for option in options:
+                if option == 't':
+                    testFlag = True
+                if option == 'd':
+                    testFlag = False
+                botManager.deployBot(withOptions=True, testFlag=testFlag)
+
 
 
         

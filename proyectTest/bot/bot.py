@@ -2,13 +2,12 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging 
 import os 
 import sys 
-sys.path.insert(0, '../modules')
+sys.path.insert(0, 'modules')
 from echo import *
 from start import *
 
 if __name__ == "__main__":
-	TOKEN = "TOKEN"
-	PORT = PORT
+	TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
 	logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 	logger = logging.getLogger(__name__)
 	updater = Updater(TOKEN)
@@ -17,6 +16,6 @@ if __name__ == "__main__":
 	dispatcher.add_handler(echo_handler)
 	start_handler = CommandHandler('start',start)
 	dispatcher.add_handler(start_handler)
-	updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path="PATH")
-	updater.bot.setWebhook("URL")
+	updater.bot.deleteWebhook()
+	updater.start_polling()
 	updater.idle()
