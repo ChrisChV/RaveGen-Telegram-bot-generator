@@ -1,9 +1,6 @@
 import sys
-import RaveEngine.configManager as configManager
-import RaveEngine.projectManager as projectManager
-import RaveEngine.generateBot as generateBot
-import ConsoleEngine.consoleManager as consoleManager
-import Utils.commandManager as commandManager
+import ConsoleEngine.consoleAPI as consoleAPI
+
 
 
 #TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
@@ -22,8 +19,9 @@ import Utils.commandManager as commandManager
 #    print("--help for more information")
 
 
-consoleManager.verifyArgs(sys.argv)
-print("DONE")
+consoleAPI.initProgram(sys.argv)
+
+
 
 
 

@@ -1,3 +1,6 @@
+help None Display this help
 init None Initialize a new project in the actual path.
-t init Test option
-e init Other test option
+m init Create example modules.
+create None Create a telegram bot with configuration and modules. The output bot is in bot/ directory.
+t create Create a test bot
+d create Create a deployable bot

@@ -2,6 +2,18 @@ import os
 import sys
 import Utils.sad as sad
 import Utils.commandManager as commandManager
+import configManager as configManager
+
+def generateBot(testFlag = True):
+    config = configManager.getConfig()
+    TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
+    if(testFlag == True):
+        _generateBot(TOKEN)
+    else:
+        webhookURL = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
+        port = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION)
+        webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION)
+        _generateBot(TOKEN, webhookURL, port, webhookPath)
 
 
 def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):

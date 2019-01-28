@@ -5,6 +5,9 @@ import Utils.errorHandler as errorHandler
 
 consoleErrorHandler = errorHandler.ErrorHandler("Console Manager")
 
+#TODO ver como hacer esto en la instalacion
+_CONSOLE_ENGINE_COMMANDS_FILE_PATH = "/home/xnpiochv/Documentos/Rave_Gen/src/ConsoleEngine/commands"
+
 def verifyArgs(argv):
     if(len(argv) < 2):
         consoleErrorHandler.addError("Args needed", sad._CRITICAL_ERROR_)
@@ -30,14 +33,23 @@ def verifyArgs(argv):
                     if not option in commandsInfo[ansFatherCommand][sad._CONSOLE_ENGINE_OPTION_TAG_]:
                         consoleErrorHandler.addError("Command " + ansFatherCommand + " dosen't have option " + option, sad._CRITICAL_ERROR_)
                     
-                
     consoleErrorHandler.handle()
 
 def printHelp():
-    print("Help")
+    _, commandsInfo = getConsoleCommands()
+    print("Rave Gen - By ChrisChV")
+    print("Program for generate basic telegram bots with python-telegram-bot")
+    print("COMMANDS\n")
+    for command, info in commandsInfo.iteritems():
+        print("\t" + command + ": " + info[sad._CONSOLE_ENGINE_INFO_OPTION_])
+        if(len(info[sad._CONSOLE_ENGINE_OPTION_TAG_]) > 0):
+            print("\tOPTIONS")
+            for option, optionInfo in info[sad._CONSOLE_ENGINE_OPTION_TAG_].iteritems():
+                print("\t\t-" + option + ": " + optionInfo)
+        
 
 def getConsoleCommands():
-    commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_PATH, 'r')
+    commandsFile = open(_CONSOLE_ENGINE_COMMANDS_FILE_PATH, 'r')
     commandsInfo = {}
     commands = []
     for line in commandsFile:
@@ -55,6 +67,16 @@ def getConsoleCommands():
             commandsInfo[tokens[1]][sad._CONSOLE_ENGINE_OPTION_TAG_][tokens[0]] = infoString
     commandsFile.close()
     return commands, commandsInfo
+
+def getOptions(argv):
+    options = []
+    for i in range(2,len(argv)):
+        option = argv[i]
+        options += _splitOptions(option)
+    return options
+
+
+    
 
 def _setAutocompleter():
     readline.parse_and_bind("tab: complete")
@@ -80,3 +102,5 @@ def _splitOptions(command):
     for i in range(1,len(command)):
         options.append(command[i])
     return options
+
+

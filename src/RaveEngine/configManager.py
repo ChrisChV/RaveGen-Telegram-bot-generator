@@ -12,6 +12,7 @@ def getConfig():
     config.readfp(io.BytesIO(configStream))
     configFile.close()
     verifyConfig(config)
+    return config
 
 
 def verifyConfig(config):
@@ -35,6 +36,11 @@ def createInitConfig():
     config.write(configFile)
     configFile.close()
     
+def get(config, section, option):
+    if _option_exists_and_is_NotEmpty(config, section, option) == False:
+        return None
+    return config.get(section, option)
+
 
 def _option_exists_and_is_NotEmpty(config, section, option):
     if _section_exists(config, section) == False:
