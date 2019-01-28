@@ -1,0 +1,3 @@
+init None Initialize a new project in the actual path.
+t init Test option
+e init Other test option

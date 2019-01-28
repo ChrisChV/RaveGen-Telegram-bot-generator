@@ -1,10 +1,12 @@
+import sys
 import RaveEngine.configManager as configManager
 import RaveEngine.projectManager as projectManager
 import RaveEngine.generateBot as generateBot
+import ConsoleEngine.consoleManager as consoleManager
 import Utils.commandManager as commandManager
 
 
-TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
+#TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
 #webhookURLHeroku = "https://rave-osioluyo.herokuapp.com/717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
 #webhookURL = "https://bad72e47.ngrok.io"
 #generateBot._generateBot(TOKEN)
@@ -14,4 +16,22 @@ TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
 
 #projectManager.createInitProject(createBasicModules=True)
 
-generateBot._generateBot(TOKEN)
+#generateBot._generateBot(TOKEN)
+
+#if(len(sys.argv) < 2):
+#    print("--help for more information")
+
+
+consoleManager.verifyArgs(sys.argv)
+print("DONE")
+
+
+
+
+
+
+
+
+
+
+
