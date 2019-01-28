@@ -24,6 +24,18 @@ def verifyConfig(config):
     configErrorHandler.handle()
 
 
+def createInitConfig():
+    config = ConfigParser.ConfigParser()
+    config.add_section(sad._CONFIG_RAVEGEN_SECTION_)
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._CONFIG_HEROKU_OPTION_)
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, "TOKEN")
+    config.add_section(sad._CONFIG_HEROKU_OPTION_)
+    config.set(sad._CONFIG_HEROKU_OPTION_, sad._CONFIG_PROJECT_NAME_OPTION_, "PROJECT NAME")
+    configFile = open(sad._CONFIG_FILE_PATH, 'w')
+    config.write(configFile)
+    configFile.close()
+    
+
 def _option_exists_and_is_NotEmpty(config, section, option):
     if _section_exists(config, section) == False:
         return False

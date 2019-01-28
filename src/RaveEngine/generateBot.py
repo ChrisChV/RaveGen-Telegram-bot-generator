@@ -5,7 +5,6 @@ import Utils.commandManager as commandManager
 
 
 def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
-    commandManager.runRmDirCommand(sad._OUTPUT_BOT_DIR_)    
     commandManager.runMkdirCommand(sad._OUTPUT_BOT_DIR_)
     commandManager.runLsCommand(sad._MODULES_DIR_, writeFile=sad._TEMP_LS_MODULES_FILE_NAME)
     modules = []

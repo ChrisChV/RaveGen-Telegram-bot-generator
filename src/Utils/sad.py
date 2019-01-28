@@ -18,9 +18,10 @@ _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
 _CONFIG_HOSTING_OPTION_ = "hosting"
 _CONFIG_TOKEN_OPTION_ = "token"
 _CONFIG_PROJECT_NAME_OPTION_ = "project_name"
+_CONFIG_HEROKU_OPTION_ = "heroku"
 
 
-_LINUX_MKDIR_COMMAND_ = "mkdir "
+_LINUX_MKDIR_COMMAND_ = "mkdir -p "
 _LINUX_LS_COMMAND_ = "ls "
 _LINUX_RM_COMMAND_ = "rm -f "
 _LINUX_RM_COMMAND_DIR = "rm -Rf "
