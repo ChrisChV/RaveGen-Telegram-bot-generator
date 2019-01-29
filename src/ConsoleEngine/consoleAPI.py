@@ -39,7 +39,16 @@ def initProgram(argv):
                     testFlag = True
                 if option == 'd':
                     testFlag = False
-                botManager.deployBot(withOptions=True, testFlag=testFlag)
+            botManager.deployBot(withOptions=True, testFlag=testFlag)
+    elif command == "change":
+        options = consoleManager.getOptions(argv)
+        testFlag = True
+        for option in options:
+            if option == 't':
+                testFlag = True
+            if option == 'd':
+                testFlag = False
+        botManager.changeState(testFlag)
 
 
 

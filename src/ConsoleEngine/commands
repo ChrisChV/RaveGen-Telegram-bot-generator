@@ -7,3 +7,6 @@ d create Create a deployable bot
 deploy None Deploy the telegram bot in the current project. If you don't provide options the program verify if a bot exists and it proceeds to deploy, if not, the program creates a test bot and then the progrma deploys it.
 t deploy Create and deploy a test bot
 d deploy Create and dploy a deployable bot 
+change None Change the state of the bot to Test or Deploy. This command change the webhook configured in ravegen.conf, without deploy.
+t change Change to the Test bot state
+d change Change to the Deploy bot state
