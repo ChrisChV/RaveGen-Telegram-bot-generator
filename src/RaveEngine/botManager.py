@@ -5,6 +5,7 @@ import logging
 import Utils.sad as sad
 import Utils.commandManager as commandManager
 import Utils.utils as utils
+import Utils.logManager as logManager
 import configManager as configManager
 
 def generateBot(testFlag = True):
@@ -26,7 +27,7 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
     if(generateFlag == True):
         generateBot(testFlag)
     if(testFlag == True):
-        print("Running Test Bot")
+        logManager.printVerbose("Running Test Bot")
         commandManager.runPythonCommand(sad.OUTPUT_BOT_PATH)
         commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)        
     #TODO deploy bot in heroku
@@ -36,7 +37,7 @@ def changeState(testFlag):
     if(testFlag == True):
         deployBot(withOptions=True)
     else:
-        print("Changing to deploy mode...")
+        logManager.printVerbose("Changing to deploy mode...")
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
         logger = logging.getLogger(__name__)        
         config = configManager.getConfig()
@@ -48,9 +49,9 @@ def changeState(testFlag):
         if(webhookPath[-1] == '/'):
             webhookPath = webhookPath[:-1]
         webhookURL += sad._DF_ + webhookPath
-        print("Changing webhook to: " + webhookURL)
+        logManager.printVerbose("Changing webhook to: " + webhookURL)
         updater.bot.setWebhook(webhookURL)
-        print("DONE")
+        logManager.printVerbose("DONE")
 
 def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     commandManager.runMkdirCommand(sad._OUTPUT_BOT_DIR_)

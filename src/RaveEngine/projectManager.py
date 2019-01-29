@@ -7,6 +7,7 @@ import configManager as configManager
 def createInitProject(fillConfig=True, createBasicModules=False):
     commandManager.runMkdirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
+    commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
     if(fillConfig == True):
         configManager.createInitConfig()
     if(createBasicModules == True):

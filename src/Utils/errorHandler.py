@@ -1,6 +1,7 @@
 import os
 import sys
 import sad
+import logManager
 
 class ErrorHandler:
     _errorList = {}
@@ -22,11 +23,11 @@ class ErrorHandler:
             if(typeOfError == sad._CRITICAL_ERROR_):
                 terminate = True            
             for error in errors:
-                print(self._errorHandlerName + ": " + error)
+                logManager.print_all(self._errorHandlerName + ": " + error)
         
         if terminate == True:
-            print(self._errorHandlerName + ": CRITICAL ERROR")
-            print(self._errorHandlerName + ": Terminate execution")
+            logManager.print_all(self._errorHandlerName + ": CRITICAL ERROR")
+            logManager.print_all(self._errorHandlerName + ": Terminate execution")
             sys.exit()
 
 

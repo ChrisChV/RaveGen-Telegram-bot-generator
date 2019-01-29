@@ -30,6 +30,11 @@ def createInitConfig():
     config.add_section(sad._CONFIG_RAVEGEN_SECTION_)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._CONFIG_HEROKU_OPTION_)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, "TOKEN")
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, "URL")
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION, "PORT")
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "PATH")
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_, "yes")
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_, "yes")
     config.add_section(sad._CONFIG_HEROKU_OPTION_)
     config.set(sad._CONFIG_HEROKU_OPTION_, sad._CONFIG_PROJECT_NAME_OPTION_, "PROJECT NAME")
     configFile = open(sad._CONFIG_FILE_PATH, 'w')
@@ -40,6 +45,11 @@ def get(config, section, option):
     if _option_exists_and_is_NotEmpty(config, section, option) == False:
         return None
     return config.get(section, option)
+
+def getboolean(config, section, option):
+    if _option_exists_and_is_NotEmpty(config, section, option) == False:
+        return None
+    return config.getboolean(section, option)
 
 
 def _option_exists_and_is_NotEmpty(config, section, option):
