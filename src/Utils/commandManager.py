@@ -16,6 +16,9 @@ def runLsCommand(directory, writeFile = None):
 def runPythonCommand(pythonFile, *args):
     _executeCommand(sad._LINUX_PYTHON_COMMAND_, pythonFile, args)
 
+def runHerokuCreateCommand(projectName):
+    _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_CREATE_OPTION_, [projectName])
+
 def _executeCommand(command, fistrArg, args, writeFile = None):
     command = command + fistrArg
     for arg in args:

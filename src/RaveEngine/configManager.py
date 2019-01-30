@@ -19,7 +19,7 @@ def verifyConfig(config):
     _option_exists_and_is_NotEmpty(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
     if _option_exists_and_is_NotEmpty(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_):
         hosting = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_)
-        _option_exists_and_is_NotEmpty(config, hosting, sad._CONFIG_PROJECT_NAME_OPTION_)
+        _verify_hosting_option(hosting)
 
 
     configErrorHandler.handle()
@@ -28,32 +28,54 @@ def verifyConfig(config):
 def createInitConfig():
     config = ConfigParser.ConfigParser()
     config.add_section(sad._CONFIG_RAVEGEN_SECTION_)
-    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._CONFIG_HEROKU_OPTION_)
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._DEPLOY_HEROKU_OPTION)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, "TOKEN")
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, "URL")
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION, "PORT")
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "PATH")
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_, "yes")
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_, "yes")
-    config.add_section(sad._CONFIG_HEROKU_OPTION_)
-    config.set(sad._CONFIG_HEROKU_OPTION_, sad._CONFIG_PROJECT_NAME_OPTION_, "PROJECT NAME")
-    configFile = open(sad._CONFIG_FILE_PATH, 'w')
-    config.write(configFile)
-    configFile.close()
+    config.add_section(sad._DEPLOY_HEROKU_OPTION)
+    config.set(sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, "PROJECT NAME")
+    _save_config(config)
     
 def get(config, section, option):
-    if _option_exists_and_is_NotEmpty(config, section, option) == False:
+    if _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False) == False:
         return None
     return config.get(section, option)
 
 def getboolean(config, section, option):
-    if _option_exists_and_is_NotEmpty(config, section, option) == False:
+    if _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False) == False:
         return None
     return config.getboolean(section, option)
 
+def set(config, section, option, val):
+    if _section_exists(config, section, errorFlag=False) == False:
+        config.add_section(section)
+    config.set(section, option, val)
+    _save_config(config)
 
-def _option_exists_and_is_NotEmpty(config, section, option):
-    if _section_exists(config, section) == False:
+def setSection(config, section):
+    if _section_exists(config, section, errorFlag=False) == True:
+        return None
+    config.add_section(section)
+    _save_config(config)
+
+
+
+
+def _verify_hosting_option(hosting):
+    flag = False
+    if hosting == sad._DEPLOY_HEROKU_OPTION:
+        flag = True
+    
+    if(flag == False):
+        error = "Error in ravegen.conf: " + hosting + " hosting dosen't support"
+        configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
+
+
+def _option_exists_and_is_NotEmpty(config, section, option, errorFlag = True):
+    if _section_exists(config, section, errorFlag=errorFlag) == False:
         return False
     error = None
     if not config.has_option(section, option):
@@ -64,11 +86,12 @@ def _option_exists_and_is_NotEmpty(config, section, option):
     if(error == None):
         return True
     else:
-        configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
+        if(errorFlag == True):
+            configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
         return False
 
 
-def _section_exists(config, section):
+def _section_exists(config, section, errorFlag = True):
     error = None
     if not config.has_section(section):
         error = "Error in raven.conf: [" + section + "] section didn't found"    
@@ -76,5 +99,13 @@ def _section_exists(config, section):
     if(error == None):
         return True
     else:
-        configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
+        if(errorFlag == True):
+            configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
         return False
+
+
+
+def _save_config(config):
+    configFile = open(sad._CONFIG_FILE_PATH, 'w')
+    config.write(configFile)
+    configFile.close()

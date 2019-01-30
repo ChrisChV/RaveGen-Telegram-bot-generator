@@ -4,3 +4,27 @@
 2019-01-29 15:41:13.335678: Console Manager: Args needed
 2019-01-29 15:41:13.335863: Console Manager: CRITICAL ERROR
 2019-01-29 15:41:13.336030: Console Manager: Terminate execution
+2019-01-30 15:31:49.250787: Console Manager: Args needed
+2019-01-30 15:31:49.272069: Console Manager: CRITICAL ERROR
+2019-01-30 15:31:49.272252: Console Manager: Terminate execution
+2019-01-30 15:32:44.061419: Config Manager: Error in raven.conf: [heroku] section didn't found
+2019-01-30 15:32:44.061638: Config Manager: CRITICAL ERROR
+2019-01-30 15:32:44.061810: Config Manager: Terminate execution
+2019-01-30 15:34:04.012377: Config Manager: Error in raven.conf: [heroku] section didn't found
+2019-01-30 15:34:04.012571: Config Manager: CRITICAL ERROR
+2019-01-30 15:34:04.012744: Config Manager: Terminate execution
+2019-01-30 15:35:43.357917: Config Manager: Error in raven.conf: [heroku] section didn't found
+2019-01-30 15:35:43.358108: Config Manager: CRITICAL ERROR
+2019-01-30 15:35:43.358277: Config Manager: Terminate execution
+2019-01-30 15:36:14.254371: Config Manager: Error in raven.conf: [heroku] section didn't found
+2019-01-30 15:36:14.254563: Config Manager: CRITICAL ERROR
+2019-01-30 15:36:14.254731: Config Manager: Terminate execution
+2019-01-30 15:36:21.645971: Config Manager: Error in raven.conf: [heroku] section didn't found
+2019-01-30 15:36:21.646166: Config Manager: CRITICAL ERROR
+2019-01-30 15:36:21.646337: Config Manager: Terminate execution
+2019-01-30 15:36:25.049304: Config Manager: Error in raven.conf: [heroku] section didn't found
+2019-01-30 15:36:25.049522: Config Manager: CRITICAL ERROR
+2019-01-30 15:36:25.049693: Config Manager: Terminate execution
+2019-01-30 15:40:44.614650: Console Manager: Args needed
+2019-01-30 15:40:44.614880: Console Manager: CRITICAL ERROR
+2019-01-30 15:40:44.615082: Console Manager: Terminate execution

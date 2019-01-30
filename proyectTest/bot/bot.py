@@ -7,7 +7,8 @@ from echo import *
 from start import *
 
 if __name__ == "__main__":
-	TOKEN = "717635382:AAE9Qy-9Vd0wAsUAVnII9y9CLE-8E-s9EAA"
+	TOKEN = "TOKEN"
+	PORT = PORT
 	logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 	logger = logging.getLogger(__name__)
 	updater = Updater(TOKEN)
@@ -16,6 +17,6 @@ if __name__ == "__main__":
 	dispatcher.add_handler(echo_handler)
 	start_handler = CommandHandler('start',start)
 	dispatcher.add_handler(start_handler)
-	updater.bot.deleteWebhook()
-	updater.start_polling()
+	updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path="PATH")
+	updater.bot.setWebhook("URL")
 	updater.idle()

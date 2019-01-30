@@ -6,6 +6,7 @@ import Utils.sad as sad
 import Utils.commandManager as commandManager
 import Utils.utils as utils
 import Utils.logManager as logManager
+import DeployEngine.deployManager as deployManager
 import configManager as configManager
 
 def generateBot(testFlag = True):
@@ -30,7 +31,9 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
         logManager.printVerbose("Running Test Bot")
         commandManager.runPythonCommand(sad.OUTPUT_BOT_PATH)
         commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)        
-    #TODO deploy bot in heroku
+    else:
+        deployManager.deploy()
+    
 
 
 def changeState(testFlag):

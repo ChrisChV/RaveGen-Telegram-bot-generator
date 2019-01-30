@@ -33,9 +33,10 @@ _CONFIG_DEPLOY_URL_OPTION = "deploy_url"
 _CONFIG_DEPLOY_PORT_OPRION = "deploy_port"
 _CONFIG_WEBHOOK_PATH_OPTION = "webhook_path"
 _CONFIG_PROJECT_NAME_OPTION_ = "project_name"
-_CONFIG_HEROKU_OPTION_ = "heroku"
 _CONFIG_VERBOSE_OPTION_ = "verbose"
 _CONFIG_LOG_OPTION_ = "log"
+
+_DEPLOY_HEROKU_OPTION = "heroku"
 
 
 _LINUX_MKDIR_COMMAND_ = "mkdir -p "
@@ -45,6 +46,8 @@ _LINUX_RM_COMMAND_DIR = "rm -Rf "
 _LINUX_WRITE_COMMAND_ = " > "
 _LINUX_PYTHON_COMMAND_ = "python "
 _LINUX_ALL_TAG_ = "*"
+_LINUX_HEROKU_COMMAND_ = "heroku "
+_LINUX_HEROKU_CREATE_OPTION_ = "create "
 
 
 _PYC_EXTENTION = ".pyc"
