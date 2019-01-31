@@ -1,13 +1,14 @@
 import os
 import readline
 import Utils.sad as sad
+import Utils.sadD as sadD
 import Utils.errorHandler as errorHandler
 import Utils.logManager as logManager
 
 consoleErrorHandler = errorHandler.ErrorHandler("Console Manager")
 
+
 #TODO ver como hacer esto en la instalacion
-_CONSOLE_ENGINE_COMMANDS_FILE_PATH = "/home/xnpiochv/Documentos/Rave_Gen/src/ConsoleEngine/commands"
 
 def verifyArgs(argv):
     if(len(argv) < 2):
@@ -50,7 +51,7 @@ def printHelp():
         
 
 def getConsoleCommands():
-    commandsFile = open(_CONSOLE_ENGINE_COMMANDS_FILE_PATH, 'r')
+    commandsFile = open(sadD._CONSOLE_ENGINE_COMMANDS_FILE_PATH, 'r')
     commandsInfo = {}
     commands = []
     for line in commandsFile:

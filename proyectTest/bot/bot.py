@@ -20,5 +20,5 @@ if __name__ == "__main__":
 	start_handler = CommandHandler('start',start)
 	dispatcher.add_handler(start_handler)
 	updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path="TEST")
-	updater.bot.setWebhook("https://rave-osioluyo-test-test.herokuapp.com/")
+	updater.bot.setWebhook("https://tt.herokuapp.com/")
 	updater.idle()
