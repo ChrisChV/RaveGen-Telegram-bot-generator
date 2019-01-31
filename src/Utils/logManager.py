@@ -15,6 +15,9 @@ def printLog(_string):
         logFile.write(str(datetime.datetime.now()) + ": " + _string + "\n")
         logFile.close()
 
+def printConsole(_string):
+    print(_string)
+
 def print_all(_string):
     printVerbose(_string)
     printLog(_string)

@@ -2,6 +2,7 @@ import os
 import readline
 import Utils.sad as sad
 import Utils.errorHandler as errorHandler
+import Utils.logManager as logManager
 
 consoleErrorHandler = errorHandler.ErrorHandler("Console Manager")
 
@@ -37,15 +38,15 @@ def verifyArgs(argv):
 
 def printHelp():
     _, commandsInfo = getConsoleCommands()
-    print("Rave Gen - By ChrisChV")
-    print("Program for generate basic telegram bots with python-telegram-bot")
-    print("COMMANDS\n")
+    logManager.printConsole("Rave Gen - By ChrisChV")
+    logManager.printConsole("Program for generate basic telegram bots with python-telegram-bot")
+    logManager.printConsole("COMMANDS\n")
     for command, info in commandsInfo.iteritems():
-        print("\t" + command + ": " + info[sad._CONSOLE_ENGINE_INFO_OPTION_])
+        logManager.printConsole("\t" + command + ": " + info[sad._CONSOLE_ENGINE_INFO_OPTION_])
         if(len(info[sad._CONSOLE_ENGINE_OPTION_TAG_]) > 0):
-            print("\tOPTIONS")
+            logManager.printConsole("\tOPTIONS")
             for option, optionInfo in info[sad._CONSOLE_ENGINE_OPTION_TAG_].iteritems():
-                print("\t\t-" + option + ": " + optionInfo)
+                logManager.printConsole("\t\t-" + option + ": " + optionInfo)
         
 
 def getConsoleCommands():
