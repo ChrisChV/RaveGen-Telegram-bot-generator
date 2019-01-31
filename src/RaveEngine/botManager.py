@@ -13,26 +13,38 @@ def generateBot(testFlag = True):
     config = configManager.getConfig()
     TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
     if(testFlag == True):
-        _generateBot(TOKEN)
+        _generateBot(TOKEN, testFlag=testFlag)
     else:
         webhookURL = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
         port = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION)
+        if port == sad._INIT_CONFIG_DEPLOY_PORT:
+            port = None
         webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION)
-        _generateBot(TOKEN, webhookURL, port, webhookPath)
+        if webhookPath == sad._INIT_CONFIG_WEBHOOK_PATH:
+            webhookPath = None
+        _generateBot(TOKEN, webhookURL, port, webhookPath, testFlag= testFlag)
 
 def deployBot(withOptions = False, testFlag = True, generateFlag = True):
     if(withOptions == False):
         if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._OUTPUT_BOT_DIR_):
             if utils.file_Or_Directory_Exists(sad._OUTPUT_BOT_DIR_, sad._OUTPUT_BOT_NAME_):
-                generateFlag = False                
-    if(generateFlag == True):
-        generateBot(testFlag)
+                generateFlag = False
+                headers = _getHeaders()
+                if headers[sad._HEADER_TOKEN_FLAG] == sad._STR_TRUE_:
+                    testFlag = True
+                else:
+                    testFlag = False
     if(testFlag == True):
+        if(generateFlag == True):
+            generateBot(testFlag)
         logManager.printVerbose("Running Test Bot")
         commandManager.runPythonCommand(sad.OUTPUT_BOT_PATH)
         commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)        
     else:
-        deployManager.deploy()
+        deployManager.configure()
+        if(generateFlag == True):
+            generateBot(testFlag)
+
     
 
 
@@ -56,7 +68,7 @@ def changeState(testFlag):
         updater.bot.setWebhook(webhookURL)
         logManager.printVerbose("DONE")
 
-def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
+def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, testFlag = True):
     commandManager.runMkdirCommand(sad._OUTPUT_BOT_DIR_)
     commandManager.runLsCommand(sad._MODULES_DIR_, writeFile=sad._TEMP_LS_MODULES_FILE_NAME)
     modules = []
@@ -70,6 +82,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     modules = [module.split('.')[0] for module in modules if module.split('.')[1] == sad._MODULES_EXTENTION_]
     commandManager.runRmCommand(sad._TEMP_LS_MODULES_FILE_NAME)
     outputBotFile = open(sad.OUTPUT_BOT_PATH, 'w')
+    _generateHeaders(outputBotFile, testFlag)
     outputBotFile.write("from telegram.ext import Updater, CommandHandler, MessageHandler, Filters \n")
     outputBotFile.write("import logging \n")
     outputBotFile.write("import os \n")
@@ -98,7 +111,6 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
     if(webhookURL != None):
         if(webhookPath == None):
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=TOKEN)\n")
-            webhookURL += sad._DF_ + webhookPath
         else:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=\"" + webhookPath + "\")\n")
         outputBotFile.write("\tupdater.bot.setWebhook(\"" + webhookURL + "\")\n")
@@ -109,3 +121,23 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None):
 
     outputBotFile.write("\tupdater.idle()\n")
     outputBotFile.close()
+
+def _generateHeaders(outputBotFile, testFlag):
+    outputBotFile.write("#HEADERS\n")
+    outputBotFile.write("#" + sad._HEADER_TOKEN_FLAG + " " + str(testFlag) + "\n")
+
+def _getHeaders():
+    outputBotFile = open(sad.OUTPUT_BOT_PATH, 'r')
+    count = 0
+    headers = {}
+    for line in outputBotFile:
+        if(count == 0):
+            count = 1
+            continue
+        if(line[0] != '#'):
+            break
+        line = line[1:]
+        tokens = line.split(" ")        
+        headers[tokens[0]] = tokens[1].rstrip('\n')
+    outputBotFile.close()
+    return headers

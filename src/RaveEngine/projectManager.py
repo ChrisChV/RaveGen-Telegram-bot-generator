@@ -4,7 +4,7 @@ import Utils.sad as sad
 import Utils.commandManager as commandManager
 import configManager as configManager
 
-def createInitProject(fillConfig=True, createBasicModules=False):
+def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
     commandManager.runMkdirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
     commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
@@ -12,6 +12,9 @@ def createInitProject(fillConfig=True, createBasicModules=False):
         configManager.createInitConfig()
     if(createBasicModules == True):
         _createBasicModules()
+    if(TOKEN != None):
+        config = configManager.getConfig()
+        configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, TOKEN)
 
 
 def _createBasicModules():

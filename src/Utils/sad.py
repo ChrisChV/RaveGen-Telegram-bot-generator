@@ -3,6 +3,13 @@ _DF_ = "/"
 _DD_ = ":"
 
 _ACTUAL_PATH = "./"
+_HTTPS_ = "https://"
+
+
+_PYC_EXTENTION = ".pyc"
+_GIT_EXTENTION = ".git"
+
+_STR_TRUE_ = "True"
 
 _OUTPUT_BOT_NAME_ = "bot.py"
 _OUTPUT_BOT_DIR_ = "bot"
@@ -33,10 +40,26 @@ _CONFIG_DEPLOY_URL_OPTION = "deploy_url"
 _CONFIG_DEPLOY_PORT_OPRION = "deploy_port"
 _CONFIG_WEBHOOK_PATH_OPTION = "webhook_path"
 _CONFIG_PROJECT_NAME_OPTION_ = "project_name"
+_CONFIG_GIT_OPTION_ = "git"
 _CONFIG_VERBOSE_OPTION_ = "verbose"
 _CONFIG_LOG_OPTION_ = "log"
 
+_INIT_CONFIG_TOKEN_ = "__TOKEN__"
+_INIT_CONFIG_DEPLOY_URL = "__URL__"
+_INIT_CONFIG_DEPLOY_PORT = "__PORT__"
+_INIT_CONFIG_WEBHOOK_PATH = "__PATH__"
+_INIT_CONFIG_VERBOSE = "yes"
+_INIT_CONFIG_LOG = "yes"
+_INIT_CONFIG_PROJECT_NAME = "__PROJECT__NAME__"
+
+_HEADER_TOKEN_FLAG = "TokenFlag"
+
+
 _DEPLOY_HEROKU_OPTION = "heroku"
+
+
+_HEROKU_URL = ".herokuapp.com/"
+_HEORKU_GIT_URL = "git.heroku.com/"
 
 
 _LINUX_MKDIR_COMMAND_ = "mkdir -p "
@@ -48,9 +71,6 @@ _LINUX_PYTHON_COMMAND_ = "python "
 _LINUX_ALL_TAG_ = "*"
 _LINUX_HEROKU_COMMAND_ = "heroku "
 _LINUX_HEROKU_CREATE_OPTION_ = "create "
-
-
-_PYC_EXTENTION = ".pyc"
 
 
 _CRITICAL_ERROR_ = 1

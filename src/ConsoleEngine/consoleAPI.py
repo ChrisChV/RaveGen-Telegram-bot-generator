@@ -1,6 +1,7 @@
 import consoleManager as consoleManager
 import RaveEngine.projectManager as projectManager
 import RaveEngine.botManager as botManager
+import Utils.inputManager as inputManager
 
 def initProgram(argv):
     consoleManager.verifyArgs(argv)
@@ -11,14 +12,17 @@ def initProgram(argv):
         consoleManager.printHelp()
     elif command == "init":
         options = consoleManager.getOptions(argv)
+        TOKEN = inputManager.getInput("Bot token (given by @BotFather): ")
+        if TOKEN == "":
+            TOKEN = None
         if(len(options) == 0):
-            projectManager.createInitProject()
+            projectManager.createInitProject(TOKEN=TOKEN)
         else:
             createBasicModules = False
             for option in options:
                 if option == 'm':
                     createBasicModules = True
-            projectManager.createInitProject(createBasicModules=createBasicModules)
+            projectManager.createInitProject(createBasicModules=createBasicModules, TOKEN=TOKEN)
     elif command == "create":
         options = consoleManager.getOptions(argv)
         testFlag = True
