@@ -1,4 +1,5 @@
 install:
+	python src/generateAp.py
 	mkdir -p /opt/ravegen
 	cp -R src/* /opt/ravegen
 	rm -f /opt/ravegen/Utils/sadD.py
@@ -8,7 +9,7 @@ install:
 	rm -f /bin/ravegen
 	chmod  +x /opt/ravegen/main.py
 	ln -s /opt/ravegen/main.py /bin/ravegen
-
+	cp rave_compl.bash /etc/bash_completion.d/
 
 clean:
 	rm -Rf src/*.pyc
