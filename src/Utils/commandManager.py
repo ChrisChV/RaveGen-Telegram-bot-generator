@@ -52,6 +52,12 @@ def runHerokuInfoCommand(projectName, writeFile = None):
 def runHerokuDestroyCommand(projectName):
     _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_DESTORY_OPTION_, [projectName, sad._LINUX_HEROKU_DESTROY_CONFIRM_, projectName])
 
+def runHerokuToken(writeFile = None):
+    _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_TOKEN_OPTION_, [], writeFile=writeFile)
+
+def runHerokuLogin():
+    _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_LOGIN_OPTION_, [])
+
 def _executeCommand(command, fistrArg, args, writeFile = None):
     command = command + fistrArg
     for arg in args:

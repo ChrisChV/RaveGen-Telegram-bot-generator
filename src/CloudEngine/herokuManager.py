@@ -9,6 +9,14 @@ import RaveEngine.configManager as configManager
 
 def initConfiguration():
     logManager.printVerbose("Verifying configuration...")
+    logManager.printVerbose("Verifying Heroku login...")
+    while True:
+        if _verifyHerokuLogIn() == False:
+            logManager.printVerbose("Can't find heroku token")
+            logManager.printVerbose("Heorku login...")
+            _herokuLogIn()
+        else:
+            break
     config = configManager.getConfig()
     projectNameFlag = True
     initProjectFlag = True
@@ -123,6 +131,21 @@ def _verifyRemoteHeroku():
     if sad._DEPLOY_HEROKU_OPTION in files:
         return True
     return False
+
+def _verifyHerokuLogIn():
+    commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
+    tempFile = open(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
+    count = 0
+    for line in tempFile:
+        count += 1
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
+    if count > 1:
+        return True
+    return False
+
+def _herokuLogIn():
+    commandManager.runHerokuLogin()
 
 def _getNewHerokuName(config):    
     projectName = inputManager.getInput("Enter new Heroku Project Name: ")
