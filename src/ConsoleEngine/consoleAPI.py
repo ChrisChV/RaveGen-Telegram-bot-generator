@@ -1,6 +1,7 @@
 import consoleManager as consoleManager
 import RaveEngine.projectManager as projectManager
 import RaveEngine.botManager as botManager
+import CloudEngine.cloudManager as cloudManager
 import Utils.inputManager as inputManager
 
 def initProgram(argv):
@@ -53,7 +54,8 @@ def initProgram(argv):
             if option == 'd':
                 testFlag = False
         botManager.changeState(testFlag)
-
+    elif command == "deleteCloudBot":
+        cloudManager.destroy()
 
 
         

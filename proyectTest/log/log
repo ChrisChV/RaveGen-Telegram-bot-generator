@@ -46,3 +46,12 @@
 2019-01-31 15:37:29.528188: Console Manager: Args needed
 2019-01-31 15:37:29.528412: Console Manager: CRITICAL ERROR
 2019-01-31 15:37:29.528618: Console Manager: Terminate execution
+2019-02-01 10:12:14.302657: Console Manager: Command destroyCloudApp dosen't exists
+2019-02-01 10:12:14.327760: Console Manager: CRITICAL ERROR
+2019-02-01 10:12:14.328047: Console Manager: Terminate execution
+2019-02-01 10:18:31.934838: Console Manager: Command deleteAppCloud dosen't exists
+2019-02-01 10:18:31.935043: Console Manager: CRITICAL ERROR
+2019-02-01 10:18:31.935222: Console Manager: Terminate execution
+2019-02-01 10:26:25.949664: Console Manager: Command deleteCloud dosen't exists
+2019-02-01 10:26:25.949959: Console Manager: CRITICAL ERROR
+2019-02-01 10:26:25.950233: Console Manager: Terminate execution

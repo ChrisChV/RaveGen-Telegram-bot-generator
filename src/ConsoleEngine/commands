@@ -10,3 +10,4 @@ d deploy Create and deploy a deployable bot
 change None Change the state of the bot to Test or Deploy. This command change the webhook configured in ravegen.conf, without deploy.
 t change Change to the Test bot state
 d change Change to the Deploy bot state
+deleteCloudBot None Delete the bot from de cloud

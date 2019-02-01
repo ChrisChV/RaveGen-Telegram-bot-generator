@@ -9,7 +9,7 @@ from echo import *
 from start import *
 
 if __name__ == "__main__":
-	TOKEN = "tt"
+	TOKEN = "123"
 	PORT = os.environ.get('PORT')
 	logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 	logger = logging.getLogger(__name__)
@@ -19,6 +19,6 @@ if __name__ == "__main__":
 	dispatcher.add_handler(echo_handler)
 	start_handler = CommandHandler('start',start)
 	dispatcher.add_handler(start_handler)
-	updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path="tt")
-	updater.bot.setWebhook("https://tt.herokuapp.com/")
+	updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path="123")
+	updater.bot.setWebhook("https://rave-osioluyo-test.herokuapp.com/")
 	updater.idle()

@@ -19,10 +19,17 @@ def runPythonCommand(pythonFile, *args):
 def runHerokuCreateCommand(projectName):
     _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_CREATE_OPTION_, [projectName])
 
+def runHerokuInfoCommand(projectName, writeFile = None):
+    _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEORKU_INFO_OPTION_, [projectName], writeFile=writeFile)
+
+def runHerokuDestroyCommand(projectName):
+    _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_DESTORY_OPTION_, [projectName, sad._LINUX_HEROKU_DESTROY_CONFIRM_, projectName])
+
 def _executeCommand(command, fistrArg, args, writeFile = None):
     command = command + fistrArg
     for arg in args:
         command += " " + arg
     if(writeFile != None):
+        command += sad._LINUX_WRITE_ERROR_COMMAND_ + writeFile 
         command += sad._LINUX_WRITE_COMMAND_ + writeFile
     os.system(command)
