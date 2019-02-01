@@ -8,6 +8,9 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
     commandManager.runMkdirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
     commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
+    reqFile = open(sad._CONFIG_REQ_FILE_PAHT_, 'w')
+    reqFile.write("python-telegram-bot\n")
+    reqFile.close()
     if(fillConfig == True):
         configManager.createInitConfig()
     if(createBasicModules == True):

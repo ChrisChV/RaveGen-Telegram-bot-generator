@@ -9,6 +9,9 @@ _HTTPS_ = "https://"
 _PYC_EXTENTION = ".pyc"
 _GIT_EXTENTION = ".git"
 
+_GIT_DIR_ = ".git"
+_GIT_MASTER = "master"
+
 _STR_TRUE_ = "True"
 
 _OUTPUT_BOT_NAME_ = "bot.py"
@@ -20,6 +23,8 @@ _LOG_FILE_NAME_ = "log"
 _LOG_FILE_PATH_ = _LOG_DIR_NAME_ + _DF_ + _LOG_FILE_NAME_
 _CONFIG_FILE_NAME_ = "ravegen.conf"
 _CONFIG_DIR_NAME_ = "config"
+_CONFIG_REQ_FILE_NAME_ = "requirements"
+_CONFIG_REQ_FILE_PAHT_ = _CONFIG_DIR_NAME_ + _DF_ + _CONFIG_REQ_FILE_NAME_
 _CONFIG_FILE_PATH = _CONFIG_DIR_NAME_ + _DF_ + _CONFIG_FILE_NAME_
 OUTPUT_BOT_PATH = _OUTPUT_BOT_DIR_ +  _DF_ + _OUTPUT_BOT_NAME_
 
@@ -32,6 +37,7 @@ _CONSOLE_ENGINE_OPTION_TAG_ = "Options"
 _TEMP_LS_MODULES_FILE_NAME = ".tempModuels"
 _TEMP_LS_VERIFY_FILE_NAME = ".tempVerifyFiles"
 _TEMP_HEROKU_INFO_FILE_NAME = ".tempHerokuInfo"
+_TEMP_GIT_REMOTE_FILE_NAME = ".tempGitRemoteInfo"
 
 
 _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
@@ -61,12 +67,23 @@ _DEPLOY_HEROKU_OPTION = "heroku"
 
 _HEROKU_URL = ".herokuapp.com/"
 _HEORKU_GIT_URL = "git.heroku.com/"
+_HEROKU_PROCFILE_NAME = "Procfile"
+_HEROKU_REQ_FILE_NAME = "requirements.txt"
 
 
 _LINUX_MKDIR_COMMAND_ = "mkdir -p "
-_LINUX_LS_COMMAND_ = "ls "
+_LINUX_LS_COMMAND_ = "ls -a "
 _LINUX_RM_COMMAND_ = "rm -f "
 _LINUX_RM_COMMAND_DIR = "rm -Rf "
+_LINUX_CP_COMMAND_ = "cp "
+_LINUX_CP_DIR_COMMAND_ = "cp -R "
+_LINUX_GIT_COMAND_ = "git "
+_LINUX_GIT_INIT_COMMAND_ = "init "
+_LINUX_GIT_ADD_OPTION_ = "add "
+_LINUX_GIT_ALL_OPTION_ = "--all"
+_LINUX_GIT_REMOTE_OPTION_ = "remote "
+_LINUX_GIT_COMMIT_OPTION_ = "commit -m '"
+_LINUX_GIT_PUSH_OPTION_ = "push "
 _LINUX_WRITE_COMMAND_ = " > "
 _LINUX_WRITE_ERROR_COMMAND_ = " 2> "
 _LINUX_PYTHON_COMMAND_ = "python "

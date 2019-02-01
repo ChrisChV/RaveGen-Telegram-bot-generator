@@ -1,4 +1,5 @@
 import os
+import datetime
 import commandManager as commandManager
 import sad as sad
 
@@ -15,3 +16,5 @@ def file_Or_Directory_Exists(parent, file_directory):
     else:
         return False
         
+def getTime():
+    return str(datetime.datetime.now())

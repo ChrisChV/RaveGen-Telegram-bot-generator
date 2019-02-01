@@ -44,6 +44,7 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
         cloudManager.configure()
         if(generateFlag == True):
             generateBot(testFlag)
+        cloudManager.deploy()
 
     
 
@@ -111,8 +112,10 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     if(webhookURL != None):
         if(webhookPath == None):
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=TOKEN)\n")
+            webhookURL += TOKEN   
         else:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=\"" + webhookPath + "\")\n")
+            webhookURL += webhookPath    
         outputBotFile.write("\tupdater.bot.setWebhook(\"" + webhookURL + "\")\n")
     else:
         outputBotFile.write("\tupdater.bot.deleteWebhook()\n")

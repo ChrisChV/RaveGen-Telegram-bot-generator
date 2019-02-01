@@ -1,7 +1,7 @@
 import os
 import io
-import datetime
 import ConfigParser
+import utils as utils
 import sad as sad
 
 
@@ -12,7 +12,7 @@ def printVerbose(_string):
 def printLog(_string):
     if _log():
         logFile = open(sad._LOG_FILE_PATH_, 'a+')
-        logFile.write(str(datetime.datetime.now()) + ": " + _string + "\n")
+        logFile.write(utils.getTime() + ": " + _string + "\n")
         logFile.close()
 
 def printConsole(_string):

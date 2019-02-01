@@ -3,6 +3,7 @@ import Utils.sad as sad
 import Utils.inputManager as inputManager
 import Utils.commandManager as commandManager
 import Utils.logManager as logManager
+import Utils.utils as utils
 import RaveEngine.configManager as configManager
 
 
@@ -11,6 +12,8 @@ def initConfiguration():
     config = configManager.getConfig()
     projectNameFlag = True
     initProjectFlag = True
+    gitInitFlag = True
+    gitHerokuFlag = True
     projectName = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_)
     logManager.printVerbose("Verifiying project name...")
     if projectName != None and projectName != sad._INIT_CONFIG_PROJECT_NAME:
@@ -20,10 +23,26 @@ def initConfiguration():
     if _verifyProject(projectName) == True:
         logManager.printVerbose("The project has already been created in heroku")
         initProjectFlag = False
-    #TODO verify initProjectFlag
+    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._GIT_DIR_) == True:
+        logManager.printVerbose("Git has already been created")
+        gitInitFlag = False
+    if _verifyRemoteHeroku() == True:
+        logManager.printVerbose("Git has already been configured")
+        gitHerokuFlag = False
     
-    _initConfiguration(projectNameFlag, initProjectFlag)
-    logManager.printVerbose("All Configuration... OK")
+    _initConfiguration(projectNameFlag, initProjectFlag, gitInitFlag, gitHerokuFlag)
+    logManager.printVerbose("All Configurations... OK")
+
+def deploy():
+    _crateSkeleton()
+    commandManager.runGitAddAll()
+    logManager.printVerbose("Commiting changes...")
+    commandManager.runGitCommitCommand(utils.getTime() + ": Deploy bot in heroku")
+    logManager.printVerbose("Deploying bot in Heroku...")
+    commandManager.runGitPushCommand(sad._DEPLOY_HEROKU_OPTION, sad._GIT_MASTER)
+    _deleteSkeleton()
+    logManager.printVerbose("Deploying bot in Heroku...OK")
+
 
 def deleteCloudApp():
     config = configManager.getConfig()
@@ -35,7 +54,7 @@ def deleteCloudApp():
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "")
         configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, "")
 
-def _initConfiguration(projectNameFlag = True, initProjectFlag = True):
+def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = True):
     config = configManager.getConfig()
     if projectNameFlag == True:
         logManager.printVerbose("Project name dosen't found")
@@ -60,8 +79,24 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True):
                 break
             else:
                 erroFlag = True
+    if gitInitFlag == True:
+        logManager.printVerbose("Creating git...")
+        commandManager.runGitInitCommand()
+        gitHerokuFlag = True
+    if gitHerokuFlag == True:
+        logManager.printVerbose("Configuring git...")
+        gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
+        commandManager.runGitAddRemoteCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
 
-        
+
+def _crateSkeleton():
+    procFile = open(sad._HEROKU_PROCFILE_NAME, 'w')
+    procFile.write("web: " + sad._LINUX_PYTHON_COMMAND_ + sad.OUTPUT_BOT_PATH)
+    procFile.close()
+    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)    
+
+def _deleteSkeleton():
+    commandManager.runRmCommand(sad._HEROKU_PROCFILE_NAME, sad._HEROKU_REQ_FILE_NAME)
 
 def _verifyProject(projectName):
     if projectName == None:
@@ -77,18 +112,19 @@ def _verifyProject(projectName):
         return True
     return False
 
+def _verifyRemoteHeroku():
+    commandManager.runGitRemoteCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
+    files = []
+    tempFile = open(sad._TEMP_GIT_REMOTE_FILE_NAME, 'r')
+    for line in tempFile:
+        files.append(line.rstrip('\n'))
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
+    if sad._DEPLOY_HEROKU_OPTION in files:
+        return True
+    return False
+
 def _getNewHerokuName(config):    
     projectName = inputManager.getInput("Enter new Heroku Project Name: ")
     configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, projectName)
         
-    
-    
-
-
-
-
-    
-        
-    
-        
-
