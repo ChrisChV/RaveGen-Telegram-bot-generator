@@ -1,0 +1,3 @@
+dnf install python-pip
+dnf install python3
+dnf install snap
