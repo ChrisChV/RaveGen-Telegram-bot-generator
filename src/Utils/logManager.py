@@ -1,5 +1,6 @@
 import os
 import io
+import sys
 import ConfigParser
 import utils as utils
 import sad as sad
@@ -23,6 +24,12 @@ def print_all(_string):
     printLog(_string)
 
 def _verbose():
+    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_) == False:
+        return True
+        
+    elif utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_) == False:
+        return True
+
     configFile = open(sad._CONFIG_FILE_PATH, 'r')
     configStream = configFile.read()
     config = ConfigParser.RawConfigParser(allow_no_value=False)
@@ -36,6 +43,12 @@ def _verbose():
     return config.getboolean(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_)
 
 def _log():
+    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_) == False:
+        return False
+        
+    elif utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_) == False:
+        return False
+
     configFile = open(sad._CONFIG_FILE_PATH, 'r')
     configStream = configFile.read()
     config = ConfigParser.RawConfigParser(allow_no_value=False)

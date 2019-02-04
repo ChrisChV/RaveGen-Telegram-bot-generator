@@ -1,11 +1,21 @@
 import ConfigParser
 import io
 import Utils.sad as sad
+import Utils.utils as utils
 import Utils.errorHandler as errorHandler
 
 configErrorHandler = errorHandler.ErrorHandler("Config Manager")
 
 def getConfig():
+    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_) == False:
+        configErrorHandler.addError("The project hasen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
+        
+    elif utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_) == False:
+        configErrorHandler.addError("The project hasen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
+    
+    configErrorHandler.handle()
+        
+    
     configFile = open(sad._CONFIG_FILE_PATH, 'r')
     configStream = configFile.read()
     config = ConfigParser.RawConfigParser(allow_no_value=False)

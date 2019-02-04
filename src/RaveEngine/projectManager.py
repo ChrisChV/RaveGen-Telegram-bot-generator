@@ -23,10 +23,23 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
 def _createBasicModules():
     moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "start.py", 'w')
     moduleFile.write("def start(bot,update):\n")
-    moduleFile.write("\tupdate.effective_message.reply_text(\"I'm a bot, please talk to me!\")")
+    moduleFile.write("\tupdate.effective_message.reply_text(\"I'm a bot, please talk to me!\")\n")
     moduleFile.close()
-
-
-
-
-
+    moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "echo.py", 'w')
+    moduleFile.write("#@Text\n")
+    moduleFile.write("def echo(bot, update):\n")
+    moduleFile.write("\tupdate.effective_message.reply_text(update.effective_message.text)\n")
+    moduleFile.close()
+    moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "caps.py", 'w')
+    moduleFile.write("#@Command\n")
+    moduleFile.write("#@Args\n")
+    moduleFile.write("def caps(bot, update, args):\n")
+    moduleFile.write("\ttext_caps = ' '.join(args).upper()\n")
+    moduleFile.write("\tupdate.effective_message.reply_text(text_caps)\n")
+    moduleFile.close()
+    moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "error.py", 'w')
+    moduleFile.write("#@Error\n")
+    moduleFile.write("def error(bot, update, error):\n")
+    moduleFile.write("\tlog = \"Update \" + str(update) + \" caused error \" + str(error)\n")
+    moduleFile.write("\tprint(log)\n")
+    moduleFile.close()

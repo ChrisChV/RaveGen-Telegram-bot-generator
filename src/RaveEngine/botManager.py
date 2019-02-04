@@ -105,9 +105,8 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("\tlogger = logging.getLogger(__name__)\n")
     outputBotFile.write("\tupdater = Updater(TOKEN)\n")
     outputBotFile.write("\tdispatcher = updater.dispatcher\n")
-    for module in modules:
-        outputBotFile.write("\t" + module + "_handler = CommandHandler('" + module + "'," + module + ")\n")
-        outputBotFile.write("\tdispatcher.add_handler(" + module + "_handler)\n")
+
+    _writeModule(outputBotFile, modules)
     
     if(webhookURL != None):
         if(webhookPath == None):
@@ -124,6 +123,48 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
 
     outputBotFile.write("\tupdater.idle()\n")
     outputBotFile.close()
+
+def _writeModule(outputBotFile, modules):
+    for module in modules:
+        createHandler = "\t" + module + "_handler = CommandHandler('" + module + "'," + module + ")\n"
+        addHandler = "\tdispatcher.add_handler(" + module + "_handler)\n"
+        tempFile = open(sad._MODULES_DIR_ + sad._DF_ + module + "." + sad._MODULES_EXTENTION_)
+        while True:
+            flag, line = _arroba_gen_next_line(tempFile)
+            if(flag == 0):
+                continue
+            if(flag == -1):
+                break
+            if(line == "command"):
+                _ , option = _arroba_gen_next_line(tempFile)
+                if(option == None):
+                    break
+                if(option == "args"):
+                    createHandler = "\t" + module + "_handler = CommandHandler('" + module + "'," + module + ", pass_args=True)\n"
+            elif(line == "text"):
+                createHandler = "\t" + module + "_handler = MessageHandler(Filters.text," + module + ")\n"
+            elif(line == "error"):
+                createHandler = "\t" + module + "_error_handler = " + module + "\n"
+                addHandler = "\tdispatcher.add_error_handler(" + module + "_error_handler)\n"
+        tempFile.close()
+        outputBotFile.write(createHandler)
+        outputBotFile.write(addHandler)
+
+def _arroba_gen_next_line(tempFile):
+    line = tempFile.readline()
+    if line:
+        line = line.strip(' ')
+        line = line.rstrip('\n')
+        if(line[0] == '#'):
+            if(line[1] != '@'):
+                return 0, None
+        else:
+            return -1, None
+        line = line[2:]
+        line = line.lower()
+        return 1, line
+    else:
+        return -1, None
 
 def _generateHeaders(outputBotFile, testFlag):
     outputBotFile.write("#HEADERS\n")
