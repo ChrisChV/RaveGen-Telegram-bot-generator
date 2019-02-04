@@ -1,17 +1,17 @@
 install:
-	pip install python-telegram-bot
-	snap install heroku --classic
-	python src/generateAp.py
-	mkdir -p /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen
-	cp -R src/* /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen
-	rm -f /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen/Utils/sadD.py
-	touch /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen/Utils/sadD.py
-	echo "_CONSOLE_ENGINE_COMMANDS_FILE_PATH = \"/opt/ravegen/ConsoleEngine/commands\"" > /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen/Utils/sadD.py
-	python -m compileall /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen
-	rm -f /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/bin/ravegen
-	chmod  +x /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen/main.py
-	ln -s /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/opt/ravegen/main.py /home/xnpiochv/rpmbuild/BUILDROOT/ravegen-0.1.0-0.x86_64/bin/ravegen
-	cp rave_compl.bash /etc/bash_completion.d/
+	#pip install python-telegram-bot
+	#snap install heroku --classic
+	mkdir -p /opt/ravegen
+	cp -R src/* /opt/ravegen
+	rm -f /opt/ravegen/Utils/sadD.py
+	touch /opt/ravegen/Utils/sadD.py
+	echo "_CONSOLE_ENGINE_COMMANDS_FILE_PATH = \"/opt/ravegen/ConsoleEngine/commands\"" > /opt/ravegen/Utils/sadD.py
+	python -m compileall /opt/ravegen
+	python /opt/ravegen/generateAp.py
+	rm -f /bin/ravegen
+	chmod  +x /opt/ravegen/main.py
+	ln -s /opt/ravegen/main.py /bin/ravegen
+	cp /opt/ravegen/rave_compl.bash /etc/bash_completion.d/
 
 clean:
 	rm -Rf src/*.pyc
