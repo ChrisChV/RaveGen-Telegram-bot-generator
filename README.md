@@ -22,7 +22,7 @@ $ sudo dpkg -i ravegen-{version}.deb
 - Rpm Package:
 
 ```shell
-$ sudo dpkg install ravegen-{version}.rpm
+$ sudo dnf install ravegen-{version}.rpm
 ```
 **OR** clone this repository and run `sudo make install`
 
@@ -48,7 +48,7 @@ $ ravegen init -m
 Run this command and follow the indications:
 
 ```shell
-$ ravegen deploy
+$ ravegen deploy -d
 ```
 ## Eureka!
 
