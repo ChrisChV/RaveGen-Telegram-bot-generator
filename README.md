@@ -52,7 +52,7 @@ $ ravegen deploy
 ```
 ## Eureka!
 
-Now find your bot on Telegram and try to tell it someting.
+Now find your bot on Telegram and try to tell it something.
 
 # Advanced usage
 
