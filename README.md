@@ -8,8 +8,8 @@ Program for generate, create and deploy telegram bots using [python-telegram-bot
 
 Download the package:
 
-- Deb Package
-- Rpm Package
+- Deb Package (Wait! Compiling...)
+- Rpm Package (Wait! Compiling...)
 
 Install the package:
 
@@ -24,6 +24,7 @@ $ sudo dpkg -i ravegen-{version}.deb
 ```shell
 $ sudo dpkg install ravegen-{version}.rpm
 ```
+**OR** clone this repository and run `sudo make install`
 
 # Create and deploy a bot in three steps!
 
