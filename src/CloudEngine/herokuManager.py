@@ -65,11 +65,11 @@ def deleteCloudApp():
 def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = True):
     config = configManager.getConfig()
     if projectNameFlag == True:
-        logManager.printVerbose("Project name dosen't found")
+        logManager.printVerbose("Project name doesn't found")
         _getNewHerokuName(config)
         initProjectFlag = True
     if initProjectFlag == True:
-        logManager.printVerbose("Project hasen't been craeted in heroku")
+        logManager.printVerbose("Project hasn't been craeted in heroku")
         erroFlag = False
         while True:
             if erroFlag == True:

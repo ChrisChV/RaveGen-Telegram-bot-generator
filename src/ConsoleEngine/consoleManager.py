@@ -20,12 +20,12 @@ def verifyArgs(argv):
         command = argv[i]
         if(ansFatherCommand == None):
             if _is_Father(command) == False:
-                consoleErrorHandler.addError("Command " + command + " dosen't exists", sad._CRITICAL_ERROR_)
+                consoleErrorHandler.addError("Command " + command + " doesn't exists", sad._CRITICAL_ERROR_)
             else:
                 if command in commands:
                     ansFatherCommand = command
                 else:
-                    consoleErrorHandler.addError("Command " + command + " dosen't exists", sad._CRITICAL_ERROR_)
+                    consoleErrorHandler.addError("Command " + command + " doesn't exists", sad._CRITICAL_ERROR_)
         else:
             if _is_Father(command) == True:
                 consoleErrorHandler.addError("Command " + ansFatherCommand + " and command " + command + " can't be together", sad._CRITICAL_ERROR_)
@@ -33,7 +33,7 @@ def verifyArgs(argv):
                 options = _splitOptions(command)
                 for option in options:
                     if not option in commandsInfo[ansFatherCommand][sad._CONSOLE_ENGINE_OPTION_TAG_]:
-                        consoleErrorHandler.addError("Command " + ansFatherCommand + " dosen't have option " + option, sad._CRITICAL_ERROR_)
+                        consoleErrorHandler.addError("Command " + ansFatherCommand + " doesn't have option " + option, sad._CRITICAL_ERROR_)
                     
     consoleErrorHandler.handle()
 

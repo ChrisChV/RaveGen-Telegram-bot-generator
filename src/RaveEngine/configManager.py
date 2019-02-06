@@ -8,10 +8,10 @@ configErrorHandler = errorHandler.ErrorHandler("Config Manager")
 
 def getConfig():
     if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_) == False:
-        configErrorHandler.addError("The project hasen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
+        configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
         
     elif utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_) == False:
-        configErrorHandler.addError("The project hasen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
+        configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
     
     configErrorHandler.handle()
         
@@ -80,7 +80,7 @@ def _verify_hosting_option(hosting):
         flag = True
     
     if(flag == False):
-        error = "Error in ravegen.conf: " + hosting + " hosting dosen't support"
+        error = "Error in ravegen.conf: " + hosting + " hosting doesn't support"
         configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
 
 
