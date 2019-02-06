@@ -31,9 +31,8 @@ $ sudo dnf install ravegen-{version}.rpm
 
 ## Step 1
 
-Get the Token from [@BotFather](https://telegram.me/BotFather) 
+Get the Token from [@BotFather](https://telegram.me/BotFather). If you need help, you can read the [Tutorial for Create a Telegram Bot in BotFather](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/wiki/Tutorial:-Create-a-Telegram-Bot-in-BotFather)
 
-![botfather step](images/botf.png)
 
 ## Step 2
 
@@ -56,16 +55,12 @@ Now find your bot on Telegram and try to tell it something.
 
 # Advanced usage
 
-When you run `ravegen init -m`, you create an initial Rave project. The directories are the follow:
-- **config:** This directory stores the configuration of Ravgen and requirements of the bot that you going to create.
-- **module:** This directory stores the modules of the bot. Each module is a Handler function.
-- **bot:** This directory is created when you run `ravegen create` or `revegen deploy`. It stores the bot.
-- **log:** Here is the log file when logs and erros of Ravegen.
+If you need help about the commands run:
 
-For more information about command run:
-
-```shell
+```
 $ ravegen help
 ```
 
-
+Or if you want to know more see:
+- [RaveGen: Commands](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/wiki/RaveGen:-Commands)
+- [RaveGen: Directory Skeleton](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/wiki/RaveGen:-Directory-Skeleton)
