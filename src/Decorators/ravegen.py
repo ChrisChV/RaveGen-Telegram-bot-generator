@@ -27,7 +27,7 @@ class RaveGen:
             reply = self.handler(message=message)
             print(reply)
             print("BBBBBBBB")
-        _newMessageHandler = MessageHandler.MessageHandler(_m_handler, filter)
+        _newMessageHandler = MessageHandler.MessageHandler(_m_handler, filter, funcName=self.handler.funcName)
         return _newMessageHandler
 
     
