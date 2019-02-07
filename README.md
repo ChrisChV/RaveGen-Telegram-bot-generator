@@ -23,8 +23,8 @@ $ sudo snap install heroku --classic
 
 Download the package:
 
-- Deb Package (Wait! Compiling...)
-- Rpm Package (Wait! Compiling...)
+- [Deb Package](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/releases/download/V0.1.0/ravegen-0.1.0-1_amd64.deb)
+- [Rpm Package](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/releases/download/V0.1.0/ravegen-0.1.0-1.noarch.rpm)
 
 Install the package:
 
