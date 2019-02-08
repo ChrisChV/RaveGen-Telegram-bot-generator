@@ -1,3 +1,4 @@
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters 
 import functools
 
 class FunctionManager:
@@ -20,7 +21,10 @@ class FunctionManager:
         for key, func in self.messages.iteritems():
             func(message=func.filter)
 
-
+    def generateHandlers(self, dispatcher):
+        for key, message in self.messages.iteritems():
+            if(message.filter == "text"):
+                dispatcher.add_handler(MessageHandler(Filters.text, message))
 
 functionManager = FunctionManager()
 
