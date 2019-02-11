@@ -1,2 +1,4 @@
-from ravegen import *
-from text import *
+from RaveGen import *
+from Text import *
+from CommandHandler import *
+

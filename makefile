@@ -12,6 +12,7 @@ install:
 	chmod  +x /opt/ravegen/main.py
 	ln -s /opt/ravegen/main.py /bin/ravegen
 	cp /opt/ravegen/rave_compl.bash /etc/bash_completion.d/
+	rm -Rf /lib/python2.7/site-packages/ravegen
 	cp -R /opt/ravegen/Decorators /lib/python2.7/site-packages/ravegen
 
 clean:

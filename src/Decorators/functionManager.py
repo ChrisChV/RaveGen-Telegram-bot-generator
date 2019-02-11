@@ -1,5 +1,6 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters 
 import functools
+import sadDec
 
 class FunctionManager:
     def __init__(self):
@@ -22,8 +23,16 @@ class FunctionManager:
             func(message=func.filter)
 
     def generateHandlers(self, dispatcher):
+        self.generateCommandHandlers(dispatcher)
+        self.generateMsgHandlers(dispatcher)
+
+    def generateCommandHandlers(self, distpatcher):
+        for key, command in self.commands.iteritems():
+            distpatcher.add_handler(CommandHandler(command.funcName, command, pass_args = command.passArgs))
+
+    def generateMsgHandlers(self, dispatcher):
         for key, message in self.messages.iteritems():
-            if(message.filter == "text"):
+            if(message.filter == sadDec._MESSAGE_HANDLER_TEXT_):
                 dispatcher.add_handler(MessageHandler(Filters.text, message))
 
 functionManager = FunctionManager()

@@ -6,4 +6,5 @@ class Handler(object):
         self.func = func
         self.handlerType = handlerType
     
-    
+    def __call__(self, *arg, **karg):
+        return self.func(*arg, **karg)    
