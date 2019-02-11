@@ -2,6 +2,7 @@ import functools
 import Handler
 import MessageHandler
 import CommandHandler
+import Error
 import functionManager
 import sadDec
 
@@ -19,6 +20,8 @@ class RaveGen:
         if(self.handler.handlerType == sadDec._HANDLER_TYPE_MESSAGE_):
             functionManager.functionManager.addMessage(self.m_handler(filter=self.handler.filter))
 
+        if(self.handler.handlerType == sadDec._HANDLER_TYPE_ERROR_):
+            functionManager.functionManager.addError(self.e_handler())
 
     def m_handler(self, *arg, **karg):
         filter = karg["filter"]
@@ -31,15 +34,19 @@ class RaveGen:
         return _newMessageHandler
 
     def c_handler(self, *arg, **karg):
-        self.test = {}
         def _c_handler(bot, update, args = None):
             message = ''
             if(args != None):
                 message = ' '.join(args)
             reply = self.handler(message=message)
-            print(reply)
             update.effective_message.reply_text(reply)
         
         _newCommandHandler = CommandHandler.Command(_c_handler, funcName=self.handler.funcName, passArgs=True)
         return _newCommandHandler
             
+    def e_handler(self, *arg, **karg):
+        def _e_handler(bot, update, error):
+            reply = self.handler(message=str(error))
+            print(reply)
+        _newErrorHandler = Error.Error(_e_handler, funcName=self.handler.funcName)
+        return _newErrorHandler

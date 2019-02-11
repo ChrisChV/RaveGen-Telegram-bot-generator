@@ -25,6 +25,7 @@ class FunctionManager:
     def generateHandlers(self, dispatcher):
         self.generateCommandHandlers(dispatcher)
         self.generateMsgHandlers(dispatcher)
+        self.generateErrorHandlers(dispatcher)
 
     def generateCommandHandlers(self, distpatcher):
         for key, command in self.commands.iteritems():
@@ -34,6 +35,10 @@ class FunctionManager:
         for key, message in self.messages.iteritems():
             if(message.filter == sadDec._MESSAGE_HANDLER_TEXT_):
                 dispatcher.add_handler(MessageHandler(Filters.text, message))
+
+    def generateErrorHandlers(self, dispatcher):
+        for key, error in self.errors.iteritems():
+            dispatcher.add_error_handler(error)
 
 functionManager = FunctionManager()
 
