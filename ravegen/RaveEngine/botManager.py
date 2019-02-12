@@ -89,7 +89,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("import logging \n")
     outputBotFile.write("import os \n")
     outputBotFile.write("import sys \n")
-    outputBotFile.write("import ravegen.functionManager as functionManager \n")
+    outputBotFile.write("import ravegen.Decorators.functionManager as functionManager \n")
     outputBotFile.write("sys.path.insert(0, '" + sad._MODULES_DIR_ + "')\n")
     for module in modules:
         outputBotFile.write("from " + module + " import *\n")
