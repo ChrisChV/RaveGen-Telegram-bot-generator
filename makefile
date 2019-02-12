@@ -16,9 +16,12 @@ install:
 	cp -R /opt/ravegen /lib/python2.7/site-packages/
 
 clean:
-	rm -Rf src/*.pyc
-	rm -Rf src/ConsoleEngine/*.pyc
-	rm -Rf src/DeployEngine/*.pyc
-	rm -Rf src/RaveEngine/*.pyc
-	rm -Rf src/Utils/*.pyc
+	rm -Rf ravegen/*.pyc
+	rm -Rf ravegen/ConsoleEngine/*.pyc
+	rm -Rf ravegen/DeployEngine/*.pyc
+	rm -Rf ravegen/RaveEngine/*.pyc
+	rm -Rf ravegen/Utils/*.pyc
+	rm -Rf build/
+	rm -Rf dist/
+	rm -Rf ravegen_dev.egg-info
 	

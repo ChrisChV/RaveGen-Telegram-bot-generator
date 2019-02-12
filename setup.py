@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ravegen-dev",
-    version="0.1.0",
+    version="0.1.1",
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",
     description="Program for generate basic telegram bots with python-telegram-bot and deploy it on Heroku ",
