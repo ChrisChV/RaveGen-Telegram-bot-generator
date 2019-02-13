@@ -100,11 +100,12 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
 def _crateSkeleton():
     procFile = open(sad._HEROKU_PROCFILE_NAME, 'w')
     procFile.write("web: " + sad._LINUX_PYTHON_COMMAND_ + sad.OUTPUT_BOT_PATH)
-    procFile.close()
+    procFile.close()    
     commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)    
+    commandManager.runCpCommand(sad._CONFIG_RUNTIME_FILE_PATH_, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _deleteSkeleton():
-    commandManager.runRmCommand(sad._HEROKU_PROCFILE_NAME, sad._HEROKU_REQ_FILE_NAME)
+    commandManager.runRmCommand(sad._HEROKU_PROCFILE_NAME, sad._HEROKU_REQ_FILE_NAME, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _verifyProject(projectName):
     if projectName == None:
