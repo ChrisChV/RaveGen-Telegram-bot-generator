@@ -3,8 +3,8 @@ import Utils.sad as sad
 
 
 def generateAutoCompletition():
-    outFile = open(sad._INSTALL_PATH + sad._DF_ + sad._CONSOLE_ENGINE_AUTOCOMPLETITION_FILE_NAME, 'w')
-    commands, commandsInfo = consoleManager.getConsoleCommands()
+    outFile = open(sad._CONSOLE_ENGINE_AUTOCOMPLETITION_FILE_NAME, 'w')
+    commands, commandsInfo = consoleManager.getConsoleCommands(installFlag=False)
     outFile.write("#/usr/bin/env bash\n")
     outFile.write("Commands=\"")
     for command in commands:

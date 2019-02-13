@@ -3,6 +3,7 @@ _DF_ = "/"
 _DD_ = ":"
 
 _ACTUAL_PATH = "./"
+_RAVEGEN_SRC_PATH_ = "ravegen"
 _HTTPS_ = "https://"
 
 
@@ -15,7 +16,7 @@ _GIT_MASTER = "master"
 _STR_TRUE_ = "True"
 
 
-_INSTALL_PATH = "/opt/ravegen/"
+_INSTALL_PATH = "/lib/python2.7/site-packages/ravegen/"
 
 
 _OUTPUT_BOT_NAME_ = "bot.py"
@@ -34,12 +35,12 @@ OUTPUT_BOT_PATH = _OUTPUT_BOT_DIR_ +  _DF_ + _OUTPUT_BOT_NAME_
 
 
 
-
 #CONSOLE ENGINE CONSTANTS
 _CONSOLE_ENGINE_INFO_OPTION_ = "Info"
 _CONSOLE_ENGINE_OPTION_TAG_ = "Options"
 _CONSOLE_ENGINE_AUTOCOMPLETITION_FILE_NAME = "rave_compl.bash"
-
+_CONSOLE_ENGINE_COMMANDS_FILE_INSTALL_PATH = _INSTALL_PATH + "commands"
+_CONSOLE_ENGINE_COMMANDS_FILE_DEV_PATH = _RAVEGEN_SRC_PATH_ + _DF_ + "commands" 
 
 _TEMP_LS_MODULES_FILE_NAME = ".tempModuels"
 _TEMP_LS_VERIFY_FILE_NAME = ".tempVerifyFiles"

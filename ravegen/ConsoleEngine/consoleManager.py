@@ -1,7 +1,6 @@
 import os
 import readline
 import Utils.sad as sad
-import Utils.sadD as sadD
 import Utils.errorHandler as errorHandler
 import Utils.logManager as logManager
 
@@ -50,8 +49,11 @@ def printHelp():
                 logManager.printConsole("\t\t-" + option + ": " + optionInfo)
         
 
-def getConsoleCommands():
-    commandsFile = open(sadD._CONSOLE_ENGINE_COMMANDS_FILE_PATH, 'r')
+def getConsoleCommands(installFlag = True):
+    if(installFlag == True):
+        commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_INSTALL_PATH, 'r')
+    else:
+        commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_DEV_PATH, 'r')
     commandsInfo = {}
     commands = []
     for line in commandsFile:

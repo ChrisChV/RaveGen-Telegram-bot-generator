@@ -1,19 +1,25 @@
 install:
 	#pip install python-telegram-bot
 	#snap install heroku --classic
-	mkdir -p /opt/ravegen
-	cp -R src/* /opt/ravegen
-	rm -f /opt/ravegen/Utils/sadD.py
-	touch /opt/ravegen/Utils/sadD.py
-	echo "_CONSOLE_ENGINE_COMMANDS_FILE_PATH = \"/opt/ravegen/ConsoleEngine/commands\"" > /opt/ravegen/Utils/sadD.py
-	python -m compileall /opt/ravegen
-	python /opt/ravegen/generateAp.py
+	python ravegen/generateAp.py
+	cp rave_compl.bash ravegen/
+	mkdir -p /lib/python2.7/site-packages/ravegen
+	cp -R ravegen/* /lib/python2.7/site-packages/ravegen
+	python -m compileall /lib/python2.7/site-packages/ravegen
 	rm -f /bin/ravegen
-	chmod  +x /opt/ravegen/main.py
-	ln -s /opt/ravegen/main.py /bin/ravegen
-	cp /opt/ravegen/rave_compl.bash /etc/bash_completion.d/
-	rm -Rf /lib/python2.7/site-packages/ravegen
-	cp -R /opt/ravegen /lib/python2.7/site-packages/
+	chmod  +x /lib/python2.7/site-packages/ravegen/ravegen
+	ln -s /lib/python2.7/site-packages/ravegen/ravegen /bin/ravegen
+	cp /lib/python2.7/site-packages/ravegen/rave_compl.bash /etc/bash_completion.d/
+
+build:
+	python -m compileall ravegen/
+	python ravegen/generateAp.py
+	cp rave_compl.bash ravegen/
+	cp LICENSE ravegen/
+	python setup.py bdist_wheel
+
+upload:
+	python -m twine upload dist/*
 
 clean:
 	rm -Rf ravegen/*.pyc
@@ -24,4 +30,7 @@ clean:
 	rm -Rf build/
 	rm -Rf dist/
 	rm -Rf ravegen_dev.egg-info
+	rm -f rave_compl.bash
+	rm -f ravegen/rave_compl.bash
+	rm -f ravegen/LICENSE
 	
