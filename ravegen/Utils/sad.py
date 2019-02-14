@@ -49,6 +49,7 @@ _TEMP_LS_VERIFY_FILE_NAME = ".tempVerifyFiles"
 _TEMP_HEROKU_INFO_FILE_NAME = ".tempHerokuInfo"
 _TEMP_GIT_REMOTE_FILE_NAME = ".tempGitRemoteInfo"
 _TEMP_HEROKU_TOKEN_FILE_NAME = ".tempHerokuToken"
+_TEMP_SNAP_LIST_FILE_NAME = ".tempSnapList"
 
 
 _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
@@ -75,14 +76,17 @@ _HEADER_TOKEN_FLAG = "TokenFlag"
 
 _DEPLOY_HEROKU_OPTION = "heroku"
 
-
+_HEORKU_SNAP_PACKAGE = "snapd"
+_HEROKU_HEROKU_CLI_VERSION_ = "--classic"
+_HEROKU_SNAP_PATH = "/bin/snap"
 _HEROKU_URL = ".herokuapp.com/"
 _HEORKU_GIT_URL = "git.heroku.com/"
 _HEROKU_PROCFILE_NAME = "Procfile"
 _HEROKU_REQ_FILE_NAME = "requirements.txt"
 _HEROKU_RUNTIME_FILE_NAME = "runtime.txt"
 
-
+_LINUX_SUDO_COMMAND_ = "sudo "
+_LINUX_PACKAGE_MANAGER_INSTALL_OPTION = "install "
 _LINUX_MKDIR_COMMAND_ = "mkdir -p "
 _LINUX_LS_COMMAND_ = "ls -a "
 _LINUX_RM_COMMAND_ = "rm -f "
@@ -109,7 +113,17 @@ _LINUX_HEROKU_DESTORY_OPTION_ = "destroy "
 _LINUX_HEROKU_DESTROY_CONFIRM_ = " --confirm "
 _LINUX_HEROKU_TOKEN_OPTION_ = "auth:token "
 _LINUX_HEROKU_LOGIN_OPTION_ = "login "
+_LINUX_SNAP_COMMAND_ = "snap "
+_LINUX_SNAP_LIST_OPTION_ = "list "
+_LINUX_SNAP_INSTALL_OPTION_ = "install "
 
+_FEDORA_DIST_NAME_ = "fedora"
+_FEDORA_PACKAGE_MANADER_COMMAND_ = "dnf "
+
+_UBUNTU_DIST_NAME_ = "ubuntu"
+_UBUNTU_PACKAGE_MANAGER_COMMAND_ = "apt-get "
+
+_SUPPORT_DIST_ = [_FEDORA_DIST_NAME_, _UBUNTU_DIST_NAME_]
 
 _CRITICAL_ERROR_ = 1
 _NORMAL_ERROR_ = 2

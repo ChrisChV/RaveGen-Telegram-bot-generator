@@ -1,14 +1,19 @@
 import io
+import time
 import Utils.sad as sad
 import Utils.inputManager as inputManager
 import Utils.commandManager as commandManager
 import Utils.logManager as logManager
 import Utils.utils as utils
+import Utils.errorHandler as errorHandler
 import RaveEngine.configManager as configManager
 
+herokuErrorHandler = errorHandler.ErrorHandler("Heroku Manager")
 
 def initConfiguration():
     logManager.printVerbose("Verifying configuration...")
+    logManager.printVerbose("Verifying Heroku installation...")
+    _verifyHerokuInstallation()
     logManager.printVerbose("Verifying Heroku login...")
     while True:
         if _verifyHerokuLogIn() == False:
@@ -146,7 +151,53 @@ def _verifyRemoteHeroku(gitUrl):
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
     return -1
+
+def _verifyHerokuInstallation():
+    commandManager.runLsCommand(sad._HEROKU_SNAP_PATH, writeFile=sad._TEMP_LS_VERIFY_FILE_NAME)
+    tempFile = open(sad._TEMP_LS_VERIFY_FILE_NAME, 'r')
+    line = tempFile.readline()
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
+    tokens = line.split(' ')
+    tokens[0] = tokens[0].rstrip('\n')
+    if(tokens[0] != sad._HEROKU_SNAP_PATH):
+        logManager.printVerbose("Snap is not installed")
+        if(utils.hasSupport()):
+            answer = inputManager.getYesNoAnswer("Do you want to install snapd (y/n):")
+            if answer:
+                commandManager.runPackageManagerInstall(sad._HEORKU_SNAP_PACKAGE)
+                logManager.printVerbose("Waiting for snapd...")
+                time.sleep(30)
+            else:
+                herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)    
+        else:
+            herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
     
+    herokuErrorHandler.handle()
+
+    commandManager.runSnapListCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
+    tempFile = open(sad._TEMP_SNAP_LIST_FILE_NAME, 'r')
+    flag = False
+    for line in tempFile:
+        tokens = line.split('\t')
+        if(tokens[0] == sad._DEPLOY_HEROKU_OPTION):
+            flag = True
+            break
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
+    if flag == False:
+        logManager.printVerbose("heroku-cli is not installed")
+        answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli (y/n):")
+        if answer:
+            commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
+        else:
+            herokuErrorHandler.addError("heroku-cli is not installerd")
+    
+    herokuErrorHandler.handle()
+
+        
+    
+
 def _verifyHerokuLogIn():
     commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
