@@ -41,7 +41,7 @@ class RaveGen:
             reply = self.handler(message=message)
             update.effective_message.reply_text(reply)
         
-        _newCommandHandler = CommandHandler.Command(_c_handler, funcName=self.handler.funcName, passArgs=True)
+        _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True)
         return _newCommandHandler
             
     def e_handler(self, *arg, **karg):

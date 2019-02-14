@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ravegen-dev",
-    version="0.1.19",
+    version="0.1.20",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",

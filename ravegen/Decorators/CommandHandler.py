@@ -3,10 +3,18 @@ import functools
 import functionManager
 import sadDec
 
-class Command(Handler):
+class _Command(Handler):
     def __init__(self, func, funcName = None, passArgs = False):
         functools.update_wrapper(self, func)
-        super(Command, self).__init__(func, sadDec._HANDLER_TYPE_COMMAND_, funcName=funcName)
+        super(_Command, self).__init__(func, sadDec._HANDLER_TYPE_COMMAND_, funcName=funcName)
         self.passArgs = passArgs
         functionManager.functionManager.addCommand(self)
-        
+
+
+def Command(func = None, passArgs = False):
+    if func != None:
+        return _Command(func)
+    else:
+        def wrapper(func):
+            return _Command(func, passArgs=passArgs)
+        return wrapper

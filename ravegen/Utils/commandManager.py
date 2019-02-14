@@ -25,8 +25,11 @@ def runGitInitCommand():
 def runGitAddRemoteCommand(branch, url):
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_ , [sad._LINUX_GIT_ADD_OPTION_, branch, url])
 
+def runGitSetRemoteUrlCommand(branch, url):
+    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_, [sad._LINUX_GIT_REMOTE_SET_URL_OPTION, branch, url])
+
 def runGitRemoteCommand(writeFile = None):
-    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_, [], writeFile=writeFile)
+    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_, [sad._LINUX_GIT_REMOTE_VERBOSE_OPTION], writeFile=writeFile)
 
 def runGitAdd(directory_file, *args):
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_ADD_OPTION_, [directory_file] + args)

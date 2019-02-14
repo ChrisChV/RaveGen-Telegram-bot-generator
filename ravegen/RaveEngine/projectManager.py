@@ -44,7 +44,7 @@ def _createBasicModules():
     moduleFile.write("@Command\n")
     moduleFile.write("def caps(message):\n")
     moduleFile.write("\tif message == '':\n")
-    moduleFile.write("\t\treturn 'Falta el argumento'\n")
+    moduleFile.write("\t\treturn 'The argument is missing'\n")
     moduleFile.write("\treturn message.upper()\n")
     moduleFile.close()
     moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "error.py", 'w')

@@ -34,9 +34,10 @@ def initConfiguration():
     if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._GIT_DIR_) == True:
         logManager.printVerbose("Git has already been created")
         gitInitFlag = False
-    if _verifyRemoteHeroku() == True:
+    gitHerokuFlag =  _verifyRemoteHeroku(configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_))
+    if gitHerokuFlag > 0:
         logManager.printVerbose("Git has already been configured")
-        gitHerokuFlag = False
+        
     
     _initConfiguration(projectNameFlag, initProjectFlag, gitInitFlag, gitHerokuFlag)
     logManager.printVerbose("All Configurations... OK")
@@ -62,8 +63,12 @@ def deleteCloudApp():
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "")
         configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, "")
 
-def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = True):
+def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = -1):
     config = configManager.getConfig()
+    if gitInitFlag == True:
+        logManager.printVerbose("Creating git...")
+        commandManager.runGitInitCommand()
+        gitHerokuFlag = -1
     if projectNameFlag == True:
         logManager.printVerbose("Project name doesn't found")
         _getNewHerokuName(config)
@@ -84,17 +89,20 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, deployUrl)
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, token)
                 configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, gitUrl)
+                gitHerokuFlag =  _verifyRemoteHeroku(gitUrl)
                 break
             else:
                 erroFlag = True
-    if gitInitFlag == True:
-        logManager.printVerbose("Creating git...")
-        commandManager.runGitInitCommand()
-        gitHerokuFlag = True
-    if gitHerokuFlag == True:
-        logManager.printVerbose("Configuring git...")
+    if gitHerokuFlag == -1:
+        logManager.printVerbose("Adding git remote heroku...")
         gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
         commandManager.runGitAddRemoteCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
+    if gitHerokuFlag == 0:
+        logManager.printVerbose("Setting git remote heroku...")
+        gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
+        commandManager.runGitSetRemoteUrlCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
+        
+        
 
 
 def _crateSkeleton():
@@ -112,7 +120,6 @@ def _verifyProject(projectName):
         projectName = "None"
     commandManager.runHerokuInfoCommand(projectName, sad._TEMP_HEROKU_INFO_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_INFO_FILE_NAME, 'r')
-    count = 0
     line = tempFile.readline()
     tokens = line.split(' ')
     tempFile.close()
@@ -121,18 +128,25 @@ def _verifyProject(projectName):
         return True
     return False
 
-def _verifyRemoteHeroku():
+def _verifyRemoteHeroku(gitUrl):
+    if(gitUrl == None):
+        return -1
     commandManager.runGitRemoteCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
-    files = []
     tempFile = open(sad._TEMP_GIT_REMOTE_FILE_NAME, 'r')
     for line in tempFile:
-        files.append(line.rstrip('\n'))
+        tokens = line.split('\t')
+        tokens[1] = tokens[1].split(' ')[0]
+        if(tokens[0] == sad._DEPLOY_HEROKU_OPTION):
+            tempFile.close()
+            commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
+            if(tokens[1] == gitUrl):
+                return 1
+            else:
+                return 0
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
-    if sad._DEPLOY_HEROKU_OPTION in files:
-        return True
-    return False
-
+    return -1
+    
 def _verifyHerokuLogIn():
     commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
