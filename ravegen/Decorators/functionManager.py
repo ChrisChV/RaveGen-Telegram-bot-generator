@@ -26,6 +26,7 @@ class FunctionManager:
         self.generateCommandHandlers(dispatcher)
         self.generateMsgHandlers(dispatcher)
         self.generateErrorHandlers(dispatcher)
+        self.generateHelpCommand(dispatcher)
 
     def generateCommandHandlers(self, distpatcher):
         for key, command in self.commands.iteritems():
@@ -39,6 +40,20 @@ class FunctionManager:
     def generateErrorHandlers(self, dispatcher):
         for key, error in self.errors.iteritems():
             dispatcher.add_error_handler(error)
+    
+    def generateHelpCommand(self, dispatcher):
+        if not sadDec._BOT_HELP_COMMAND_ in self.commands:
+            def help(bot, update):
+                replyText = bot.first_name + "\n"
+                replyText += "Commands:\n"
+                for key, func in self.commands.iteritems():
+                    replyText += "/" + key + ": " + func.description + "\n" 
+                for key, func in self.messages.iteritems():
+                    if(func.filter == sadDec._MESSAGE_HANDLER_TEXT_):
+                        replyText += "For text messages: " + func.description
+                update.effective_message.reply_text(replyText)
+            dispatcher.add_handler(CommandHandler(sadDec._BOT_HELP_COMMAND_, help))
+        
 
 functionManager = FunctionManager()
 

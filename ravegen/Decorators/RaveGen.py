@@ -30,7 +30,7 @@ class RaveGen:
             reply = self.handler(message=message)       
             update.effective_message.reply_text(reply)
 
-        _newMessageHandler = MessageHandler.MessageHandler(_m_handler, filter, funcName=self.handler.funcName)
+        _newMessageHandler = MessageHandler.MessageHandler(_m_handler, filter, funcName=self.handler.funcName, description=self.handler.description)
         return _newMessageHandler
 
     def c_handler(self, *arg, **karg):
@@ -41,7 +41,7 @@ class RaveGen:
             reply = self.handler(message=message)
             update.effective_message.reply_text(reply)
         
-        _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True)
+        _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True, description=self.handler.description)
         return _newCommandHandler
             
     def e_handler(self, *arg, **karg):
