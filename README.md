@@ -7,12 +7,6 @@ Program for generate, create and deploy telegram bots using [python-telegram-bot
 
 ### Requiremenst
 
-- [python-telegram-bot:](https://github.com/python-telegram-bot/python-telegram-bot)
-
-```shell
-$ pip install python-telegram-bot --upgrade
-```
-
 - Heroku Cli:
 
 ```shell
@@ -21,24 +15,12 @@ $ sudo snap install heroku --classic
 
 ### RaveGen installation
 
-Download the package:
-
-- [Deb Package](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/releases/download/V0.1.0/ravegen-0.1.0-1_amd64.deb)
-- [Rpm Package](https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/releases/download/V0.1.0/ravegen-0.1.0-1.noarch.rpm)
-
-Install the package:
-
-- Deb package:
+You can install RaveGen with:
 
 ```shell
-$ sudo dpkg -i ravegen-{version}.deb
+$ sudo pip install ravegen --upgrade
 ```
 
-- Rpm Package:
-
-```shell
-$ sudo dnf install ravegen-{version}.rpm
-```
 **OR** clone this repository and run `sudo make install`
 
 ## Create and deploy a bot in three steps!
