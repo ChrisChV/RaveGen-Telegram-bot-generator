@@ -1,4 +1,5 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters 
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import telegram
 import functools
 import sadDec
 
@@ -45,13 +46,13 @@ class FunctionManager:
         if not sadDec._BOT_HELP_COMMAND_ in self.commands:
             def help(bot, update):
                 replyText = bot.first_name + "\n"
-                replyText += "Commands:\n"
+                replyText += "*Commands:*\n"
                 for key, func in self.commands.iteritems():
                     replyText += "/" + key + ": " + func.description + "\n" 
                 for key, func in self.messages.iteritems():
                     if(func.filter == sadDec._MESSAGE_HANDLER_TEXT_):
-                        replyText += "For text messages: " + func.description
-                update.effective_message.reply_text(replyText)
+                        replyText += "*For text messages:* " + func.description
+                update.effective_message.reply_text(replyText, parse_mode=telegram.ParseMode.MARKDOWN)
             dispatcher.add_handler(CommandHandler(sadDec._BOT_HELP_COMMAND_, help))
         
 

@@ -179,7 +179,7 @@ def _verifyHerokuInstallation():
     tempFile = open(sad._TEMP_SNAP_LIST_FILE_NAME, 'r')
     flag = False
     for line in tempFile:
-        tokens = line.split('\t')
+        tokens = line.split(' ')
         if(tokens[0] == sad._DEPLOY_HEROKU_OPTION):
             flag = True
             break
@@ -191,7 +191,7 @@ def _verifyHerokuInstallation():
         if answer:
             commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
         else:
-            herokuErrorHandler.addError("heroku-cli is not installerd")
+            herokuErrorHandler.addError("heroku-cli is not installerd", sad._CRITICAL_ERROR_)
     
     herokuErrorHandler.handle()
 

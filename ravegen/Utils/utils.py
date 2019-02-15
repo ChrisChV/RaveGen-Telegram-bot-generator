@@ -1,6 +1,8 @@
 import os
+import sys
 import datetime
 import platform
+import signal
 import commandManager as commandManager
 import sad as sad
 
@@ -28,3 +30,6 @@ def hasSupport():
     if dist in sad._SUPPORT_DIST_:
         return True
     return False
+
+def sigintHandler(sig, frame):
+    sys.exit()

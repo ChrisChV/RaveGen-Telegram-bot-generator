@@ -1,12 +1,14 @@
+import signal
 import consoleManager as consoleManager
 import RaveEngine.projectManager as projectManager
 import RaveEngine.botManager as botManager
 import CloudEngine.cloudManager as cloudManager
 import Utils.inputManager as inputManager
+import Utils.utils as utils
 
 def initProgram(argv):
+    signal.signal(signal.SIGINT, utils.sigintHandler)
     consoleManager.verifyArgs(argv)
-    
     command = argv[1]
 
     if command == "help":

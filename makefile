@@ -27,6 +27,7 @@ clean:
 	rm -Rf ravegen/DeployEngine/*.pyc
 	rm -Rf ravegen/RaveEngine/*.pyc
 	rm -Rf ravegen/Utils/*.pyc
+	rm -Rf ravegen/Decorators/*.pyc
 	rm -Rf build/
 	rm -Rf dist/
 	rm -Rf ravegen_dev.egg-info
