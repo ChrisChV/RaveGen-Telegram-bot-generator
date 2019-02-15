@@ -5,7 +5,7 @@ Program for generate, create and deploy telegram bots using [python-telegram-bot
 
 ## Installing
 
-### Requiremenst
+### Requirements
 
 - [python-telegram-bot:](https://github.com/python-telegram-bot/python-telegram-bot)
 
