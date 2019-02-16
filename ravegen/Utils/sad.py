@@ -16,7 +16,7 @@ _GIT_MASTER = "master"
 _STR_TRUE_ = "True"
 
 
-_INSTALL_PATH = "/lib/python2.7/site-packages/ravegen/"
+_INSTALL_PATH = "/usr/local/lib/python2.7/dist-packages/ravegen/"
 
 
 _OUTPUT_BOT_NAME_ = "bot.py"
@@ -78,7 +78,7 @@ _DEPLOY_HEROKU_OPTION = "heroku"
 
 _HEORKU_SNAP_PACKAGE = "snapd"
 _HEROKU_HEROKU_CLI_VERSION_ = "--classic"
-_HEROKU_SNAP_PATH = "/bin/snap"
+_HEROKU_SNAP_PATH = "/usr/bin/snap"
 _HEROKU_URL = ".herokuapp.com/"
 _HEORKU_GIT_URL = "git.heroku.com/"
 _HEROKU_PROCFILE_NAME = "Procfile"
