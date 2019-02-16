@@ -18,8 +18,6 @@ build:
 	cp LICENSE ravegen/
 	python setup.py bdist_wheel
 
-upload:
-	python -m twine upload dist/*
 
 clean:
 	rm -Rf ravegen/*.pyc
@@ -31,6 +29,7 @@ clean:
 	rm -Rf build/
 	rm -Rf dist/
 	rm -Rf ravegen_dev.egg-info
+	rm -Rf ravegen.egg-info
 	rm -f rave_compl.bash
 	rm -f ravegen/rave_compl.bash
 	rm -f ravegen/LICENSE

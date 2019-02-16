@@ -9,7 +9,7 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
     commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
     reqFile = open(sad._CONFIG_REQ_FILE_PAHT_, 'w')
-    reqFile.write("ravegen-dev\n")
+    reqFile.write("ravegen\n")
     reqFile.close()
     runtimeFile = open(sad._CONFIG_RUNTIME_FILE_PATH_, 'w')
     runtimeFile.write("python-2.7.15\n")
