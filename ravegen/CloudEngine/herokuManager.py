@@ -1,14 +1,19 @@
 import io
+import time
 import Utils.sad as sad
 import Utils.inputManager as inputManager
 import Utils.commandManager as commandManager
 import Utils.logManager as logManager
 import Utils.utils as utils
+import Utils.errorHandler as errorHandler
 import RaveEngine.configManager as configManager
 
+herokuErrorHandler = errorHandler.ErrorHandler("Heroku Manager")
 
 def initConfiguration():
     logManager.printVerbose("Verifying configuration...")
+    logManager.printVerbose("Verifying Heroku installation...")
+    _verifyHerokuInstallation()
     logManager.printVerbose("Verifying Heroku login...")
     while True:
         if _verifyHerokuLogIn() == False:
@@ -34,9 +39,10 @@ def initConfiguration():
     if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._GIT_DIR_) == True:
         logManager.printVerbose("Git has already been created")
         gitInitFlag = False
-    if _verifyRemoteHeroku() == True:
+    gitHerokuFlag =  _verifyRemoteHeroku(configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_))
+    if gitHerokuFlag > 0:
         logManager.printVerbose("Git has already been configured")
-        gitHerokuFlag = False
+        
     
     _initConfiguration(projectNameFlag, initProjectFlag, gitInitFlag, gitHerokuFlag)
     logManager.printVerbose("All Configurations... OK")
@@ -62,8 +68,12 @@ def deleteCloudApp():
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "")
         configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, "")
 
-def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = True):
+def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = -1):
     config = configManager.getConfig()
+    if gitInitFlag == True:
+        logManager.printVerbose("Creating git...")
+        commandManager.runGitInitCommand()
+        gitHerokuFlag = -1
     if projectNameFlag == True:
         logManager.printVerbose("Project name doesn't found")
         _getNewHerokuName(config)
@@ -84,34 +94,37 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, deployUrl)
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, token)
                 configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, gitUrl)
+                gitHerokuFlag =  _verifyRemoteHeroku(gitUrl)
                 break
             else:
                 erroFlag = True
-    if gitInitFlag == True:
-        logManager.printVerbose("Creating git...")
-        commandManager.runGitInitCommand()
-        gitHerokuFlag = True
-    if gitHerokuFlag == True:
-        logManager.printVerbose("Configuring git...")
+    if gitHerokuFlag == -1:
+        logManager.printVerbose("Adding git remote heroku...")
         gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
         commandManager.runGitAddRemoteCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
+    if gitHerokuFlag == 0:
+        logManager.printVerbose("Setting git remote heroku...")
+        gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
+        commandManager.runGitSetRemoteUrlCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
+        
+        
 
 
 def _crateSkeleton():
     procFile = open(sad._HEROKU_PROCFILE_NAME, 'w')
     procFile.write("web: " + sad._LINUX_PYTHON_COMMAND_ + sad.OUTPUT_BOT_PATH)
-    procFile.close()
+    procFile.close()    
     commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)    
+    commandManager.runCpCommand(sad._CONFIG_RUNTIME_FILE_PATH_, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _deleteSkeleton():
-    commandManager.runRmCommand(sad._HEROKU_PROCFILE_NAME, sad._HEROKU_REQ_FILE_NAME)
+    commandManager.runRmCommand(sad._HEROKU_PROCFILE_NAME, sad._HEROKU_REQ_FILE_NAME, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _verifyProject(projectName):
     if projectName == None:
         projectName = "None"
     commandManager.runHerokuInfoCommand(projectName, sad._TEMP_HEROKU_INFO_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_INFO_FILE_NAME, 'r')
-    count = 0
     line = tempFile.readline()
     tokens = line.split(' ')
     tempFile.close()
@@ -120,17 +133,70 @@ def _verifyProject(projectName):
         return True
     return False
 
-def _verifyRemoteHeroku():
+def _verifyRemoteHeroku(gitUrl):
+    if(gitUrl == None):
+        return -1
     commandManager.runGitRemoteCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
-    files = []
     tempFile = open(sad._TEMP_GIT_REMOTE_FILE_NAME, 'r')
     for line in tempFile:
-        files.append(line.rstrip('\n'))
+        tokens = line.split('\t')
+        tokens[1] = tokens[1].split(' ')[0]
+        if(tokens[0] == sad._DEPLOY_HEROKU_OPTION):
+            tempFile.close()
+            commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
+            if(tokens[1] == gitUrl):
+                return 1
+            else:
+                return 0
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
-    if sad._DEPLOY_HEROKU_OPTION in files:
-        return True
-    return False
+    return -1
+
+def _verifyHerokuInstallation():
+    commandManager.runLsCommand(sad._HEROKU_SNAP_PATH, writeFile=sad._TEMP_LS_VERIFY_FILE_NAME)
+    tempFile = open(sad._TEMP_LS_VERIFY_FILE_NAME, 'r')
+    line = tempFile.readline()
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
+    tokens = line.split(' ')
+    tokens[0] = tokens[0].rstrip('\n')
+    if(tokens[0] != sad._HEROKU_SNAP_PATH):
+        logManager.printVerbose("Snap is not installed")
+        if(utils.hasSupport()):
+            answer = inputManager.getYesNoAnswer("Do you want to install snapd (y/n):")
+            if answer:
+                commandManager.runPackageManagerInstall(sad._HEORKU_SNAP_PACKAGE)
+                logManager.printVerbose("Waiting for snapd...")
+                time.sleep(30)
+            else:
+                herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)    
+        else:
+            herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
+    
+    herokuErrorHandler.handle()
+
+    commandManager.runSnapListCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
+    tempFile = open(sad._TEMP_SNAP_LIST_FILE_NAME, 'r')
+    flag = False
+    for line in tempFile:
+        tokens = line.split(' ')
+        if(tokens[0] == sad._DEPLOY_HEROKU_OPTION):
+            flag = True
+            break
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
+    if flag == False:
+        logManager.printVerbose("heroku-cli is not installed")
+        answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli (y/n):")
+        if answer:
+            commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
+        else:
+            herokuErrorHandler.addError("heroku-cli is not installerd", sad._CRITICAL_ERROR_)
+    
+    herokuErrorHandler.handle()
+
+        
+    
 
 def _verifyHerokuLogIn():
     commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)

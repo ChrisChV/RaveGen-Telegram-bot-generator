@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+import sys
+import os
+
+
+args = ""
+for i in range(1,len(sys.argv)):
+    args += " " + sys.argv[i]
+
+command = "python /usr/local/lib/python2.7/dist-packages/ravegen/main.py " + args
+
+os.system(command)

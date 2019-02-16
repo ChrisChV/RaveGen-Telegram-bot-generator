@@ -80,7 +80,8 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
 
     tempLsFile.close()
 
-    modules = [module.split('.')[0] for module in modules if module.split('.')[1] == sad._MODULES_EXTENTION_]
+    modules = [module.split('.')[0] for module in modules if len(module.split('.')) == 2 and module.split('.')[1] == sad._MODULES_EXTENTION_]
+
     commandManager.runRmCommand(sad._TEMP_LS_MODULES_FILE_NAME)
     outputBotFile = open(sad.OUTPUT_BOT_PATH, 'w')
     _generateHeaders(outputBotFile, testFlag)
@@ -88,6 +89,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("import logging \n")
     outputBotFile.write("import os \n")
     outputBotFile.write("import sys \n")
+    outputBotFile.write("import ravegen.Decorators.functionManager as functionManager \n")
     outputBotFile.write("sys.path.insert(0, '" + sad._MODULES_DIR_ + "')\n")
     for module in modules:
         outputBotFile.write("from " + module + " import *\n")
@@ -106,7 +108,9 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("\tupdater = Updater(TOKEN)\n")
     outputBotFile.write("\tdispatcher = updater.dispatcher\n")
 
-    _writeModule(outputBotFile, modules)
+    #_writeModule(outputBotFile, modules)
+
+    outputBotFile.write("\tfunctionManager.functionManager.generateHandlers(dispatcher)\n")
     
     if(webhookURL != None):
         if(webhookPath == None):
@@ -149,6 +153,9 @@ def _writeModule(outputBotFile, modules):
         tempFile.close()
         outputBotFile.write(createHandler)
         outputBotFile.write(addHandler)
+
+
+
 
 def _arroba_gen_next_line(tempFile):
     line = tempFile.readline()

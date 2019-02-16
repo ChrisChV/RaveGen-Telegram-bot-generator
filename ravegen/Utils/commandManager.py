@@ -1,5 +1,26 @@
 import os
 import sad
+import utils
+
+def _executeCommand(command, fistrArg, args, writeFile = None):
+    command = command + fistrArg
+    for arg in args:
+        command += " " + arg
+    if(writeFile != None):
+        command += sad._LINUX_WRITE_ERROR_COMMAND_ + writeFile 
+        command += sad._LINUX_WRITE_COMMAND_ + writeFile
+    os.system(command)
+
+
+
+
+
+def runPackageManagerInstall(package, *args):
+    dist = utils.getDist()
+    if dist == sad._FEDORA_DIST_NAME_:
+        _executeCommand(sad._LINUX_SUDO_COMMAND_, sad._FEDORA_PACKAGE_MANADER_COMMAND_, [sad._LINUX_PACKAGE_MANAGER_INSTALL_OPTION, package] + list(args))
+    if dist == sad._UBUNTU_DIST_NAME_:
+        _executeCommand(sad._LINUX_SUDO_COMMAND_, sad._UBUNTU_PACKAGE_MANAGER_COMMAND_, [sad._LINUX_PACKAGE_MANAGER_INSTALL_OPTION, package] + list(args))
 
 def runMkdirCommand(directory, *args):
     _executeCommand(sad._LINUX_MKDIR_COMMAND_, directory, args)
@@ -25,8 +46,11 @@ def runGitInitCommand():
 def runGitAddRemoteCommand(branch, url):
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_ , [sad._LINUX_GIT_ADD_OPTION_, branch, url])
 
+def runGitSetRemoteUrlCommand(branch, url):
+    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_, [sad._LINUX_GIT_REMOTE_SET_URL_OPTION, branch, url])
+
 def runGitRemoteCommand(writeFile = None):
-    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_, [], writeFile=writeFile)
+    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_REMOTE_OPTION_, [sad._LINUX_GIT_REMOTE_VERBOSE_OPTION], writeFile=writeFile)
 
 def runGitAdd(directory_file, *args):
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_ADD_OPTION_, [directory_file] + args)
@@ -58,11 +82,8 @@ def runHerokuToken(writeFile = None):
 def runHerokuLogin():
     _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_LOGIN_OPTION_, [])
 
-def _executeCommand(command, fistrArg, args, writeFile = None):
-    command = command + fistrArg
-    for arg in args:
-        command += " " + arg
-    if(writeFile != None):
-        command += sad._LINUX_WRITE_ERROR_COMMAND_ + writeFile 
-        command += sad._LINUX_WRITE_COMMAND_ + writeFile
-    os.system(command)
+def runSnapListCommand(writeFile = None):
+    _executeCommand(sad._LINUX_SNAP_COMMAND_, sad._LINUX_SNAP_LIST_OPTION_, [], writeFile=writeFile)
+
+def runSnapInstallCommand(package, version):
+    _executeCommand(sad._LINUX_SUDO_COMMAND_, sad._LINUX_SNAP_COMMAND_,  [sad._LINUX_SNAP_INSTALL_OPTION_, package, version])
