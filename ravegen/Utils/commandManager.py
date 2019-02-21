@@ -67,6 +67,12 @@ def runGitPushCommand(branchSource, branchDest):
 def runPythonCommand(pythonFile, *args):
     _executeCommand(sad._LINUX_PYTHON_COMMAND_, pythonFile, args)
 
+def runPythonSiteCommand(writeFile):
+    _executeCommand(sad._LINUX_PYTHON_COMMAND_, sad._LINUX_PYTHON_M_OPTION_, [sad._LINUX_PYTHON_SITE_OPTION_, sad._LINUX_PYTHON_USER_SITE_OPTION_], writeFile=writeFile)
+
+def runPipShowRavegen(writeFile):
+    _executeCommand(sad._LINUX_PIP_COMMAND_, sad._LINUX_PIP_SHOW_OPTION_, [sad._RAVEGEN_SRC_PATH_], writeFile=writeFile)
+
 def runHerokuCreateCommand(projectName):
     _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_CREATE_OPTION_, [projectName])
 

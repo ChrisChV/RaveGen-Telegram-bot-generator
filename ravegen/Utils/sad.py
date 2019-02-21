@@ -16,7 +16,7 @@ _GIT_MASTER = "master"
 _STR_TRUE_ = "True"
 
 
-_INSTALL_PATH = "/usr/local/lib/python2.7/dist-packages/ravegen/"
+#_INSTALL_PATH = "/usr/local/lib/python2.7/dist-packages/ravegen/"
 
 
 _OUTPUT_BOT_NAME_ = "bot.py"
@@ -41,7 +41,7 @@ OUTPUT_BOT_PATH = _OUTPUT_BOT_DIR_ +  _DF_ + _OUTPUT_BOT_NAME_
 _CONSOLE_ENGINE_INFO_OPTION_ = "Info"
 _CONSOLE_ENGINE_OPTION_TAG_ = "Options"
 _CONSOLE_ENGINE_AUTOCOMPLETITION_FILE_NAME = "rave_compl.bash"
-_CONSOLE_ENGINE_COMMANDS_FILE_INSTALL_PATH = _INSTALL_PATH + "commands"
+_CONSOLE_ENGINE_COMMANDS_FILE_NAME = "commands"
 _CONSOLE_ENGINE_COMMANDS_FILE_DEV_PATH = _RAVEGEN_SRC_PATH_ + _DF_ + "commands" 
 
 _TEMP_LS_MODULES_FILE_NAME = ".tempModuels"
@@ -50,6 +50,7 @@ _TEMP_HEROKU_INFO_FILE_NAME = ".tempHerokuInfo"
 _TEMP_GIT_REMOTE_FILE_NAME = ".tempGitRemoteInfo"
 _TEMP_HEROKU_TOKEN_FILE_NAME = ".tempHerokuToken"
 _TEMP_SNAP_LIST_FILE_NAME = ".tempSnapList"
+_TEMP_PYTHON_PATH_FILE_NAME = ".tempPythonPath"
 
 
 _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
@@ -105,6 +106,11 @@ _LINUX_GIT_PUSH_OPTION_ = "push "
 _LINUX_WRITE_COMMAND_ = " > "
 _LINUX_WRITE_ERROR_COMMAND_ = " 2> "
 _LINUX_PYTHON_COMMAND_ = "python "
+_LINUX_PYTHON_M_OPTION_ = "-m "
+_LINUX_PYTHON_SITE_OPTION_ = "site "
+_LINUX_PYTHON_USER_SITE_OPTION_ = "--user-site "
+_LINUX_PIP_COMMAND_ = "pip "
+_LINUX_PIP_SHOW_OPTION_ = "show "
 _LINUX_ALL_TAG_ = "*"
 _LINUX_HEROKU_COMMAND_ = "heroku "
 _LINUX_HEROKU_CREATE_OPTION_ = "create "
@@ -127,5 +133,3 @@ _SUPPORT_DIST_ = [_FEDORA_DIST_NAME_, _UBUNTU_DIST_NAME_]
 
 _CRITICAL_ERROR_ = 1
 _NORMAL_ERROR_ = 2
-
-

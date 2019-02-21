@@ -3,6 +3,7 @@ import readline
 import Utils.sad as sad
 import Utils.errorHandler as errorHandler
 import Utils.logManager as logManager
+import Utils.utils as utils
 
 consoleErrorHandler = errorHandler.ErrorHandler("Console Manager")
 
@@ -51,7 +52,7 @@ def printHelp():
 
 def getConsoleCommands(installFlag = True):
     if(installFlag == True):
-        commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_INSTALL_PATH, 'r')
+        commandsFile = open(utils.getInstalationPath() + sad._DF_ + sad._RAVEGEN_SRC_PATH_  + sad._DF_ + sad._CONSOLE_ENGINE_COMMANDS_FILE_NAME, 'r')
     else:
         commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_DEV_PATH, 'r')
     commandsInfo = {}
