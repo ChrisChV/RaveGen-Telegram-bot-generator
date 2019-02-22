@@ -1,15 +1,17 @@
+InstallationPath = /lib/python2.7/site-packages
+
 install:
 	#pip install python-telegram-bot
 	#snap install heroku --classic
 	python ravegen/generateAp.py
 	cp rave_compl.bash ravegen/
-	mkdir -p /lib/python2.7/site-packages/ravegen
-	cp -R ravegen/* /lib/python2.7/site-packages/ravegen
-	python -m compileall /lib/python2.7/site-packages/ravegen
+	mkdir -p $(InstallationPath)/ravegen
+	cp -R ravegen/* $(InstallationPath)/ravegen
+	python -m compileall $(InstallationPath)/ravegen
 	rm -f /bin/ravegen
-	chmod  +x /lib/python2.7/site-packages/ravegen/ravegen
-	ln -s /lib/python2.7/site-packages/ravegen/ravegen /bin/ravegen
-	cp /lib/python2.7/site-packages/ravegen/rave_compl.bash /etc/bash_completion.d/
+	chmod  +x $(InstallationPath)/ravegen/ravegen
+	ln -s $(InstallationPath)/ravegen/ravegen /bin/ravegen
+	cp $(InstallationPath)/ravegen/rave_compl.bash /etc/bash_completion.d/
 
 build:
 	python -m compileall ravegen/
@@ -18,6 +20,9 @@ build:
 	cp LICENSE ravegen/
 	python setup.py bdist_wheel
 
+
+upload:
+	python -m twine upload dist/*
 
 clean:
 	rm -Rf ravegen/*.pyc

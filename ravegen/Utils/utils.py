@@ -33,3 +33,21 @@ def hasSupport():
 
 def sigintHandler(sig, frame):
     sys.exit()
+
+
+def getInstalationPath():
+    commandManager.runPipShowRavegen(sad._TEMP_PYTHON_PATH_FILE_NAME)
+    tempFile = open(sad._TEMP_PYTHON_PATH_FILE_NAME, 'r')
+    res = None
+    for line in tempFile:
+        tokens = line.split(" ")
+        tokens[-1] = tokens[-1].rstrip('\n')
+        if(tokens[0] == "Location:"):
+            res = tokens[1]
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_PYTHON_PATH_FILE_NAME)
+    return res
+
+
+
+
