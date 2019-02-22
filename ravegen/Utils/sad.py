@@ -4,6 +4,7 @@ _DD_ = ":"
 
 _ACTUAL_PATH = "./"
 _RAVEGEN_SRC_PATH_ = "ravegen"
+_RAVEGEN_DEV_NAME_ = "ravegen-dev"
 _HTTPS_ = "https://"
 
 
