@@ -10,8 +10,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ravegen-dev",
-    version="0.2.3",
+    name="ravegen",
+    version="0.2.1",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",
@@ -23,7 +23,7 @@ setuptools.setup(
     ],
     package_data={'ravegen': ["LICENSE", "rave_compl.bash", "ravegen/commands"]},
     include_package_data=True,
-    url="https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/tree/developing",
+    url="https://github.com/ChrisChV/RaveGen-Telegram-bot-generator",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 2.7",

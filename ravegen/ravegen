@@ -7,7 +7,7 @@ args = ""
 for i in range(1,len(sys.argv)):
     args += " " + sys.argv[i]
 
-command = "pip show ravegen-dev > .tempPythonFile"
+command = "pip show ravegen > .tempPythonFile"
 os.system(command)
 tempFile = open(".tempPythonFile", 'r')
 pythonPath = None

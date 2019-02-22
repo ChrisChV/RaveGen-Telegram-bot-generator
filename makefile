@@ -21,9 +21,6 @@ build:
 	python setup.py bdist_wheel
 
 
-upload:
-	python -m twine upload dist/*
-
 clean:
 	rm -Rf ravegen/*.pyc
 	rm -Rf ravegen/ConsoleEngine/*.pyc
