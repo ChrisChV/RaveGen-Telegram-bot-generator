@@ -27,6 +27,7 @@ _MODULES_EXTENTION_ = "py"
 _LOG_DIR_NAME_ = "log"
 _LOG_FILE_NAME_ = "log"
 _LOG_FILE_PATH_ = _LOG_DIR_NAME_ + _DF_ + _LOG_FILE_NAME_
+_VERSION_FILE_NAME = "version"
 _CONFIG_FILE_NAME_ = "ravegen.conf"
 _CONFIG_DIR_NAME_ = "config"
 _CONFIG_REQ_FILE_NAME_ = "requirements"

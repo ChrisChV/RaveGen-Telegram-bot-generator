@@ -11,3 +11,4 @@ change None Set the Webhook url. By default, deletes the Webhook and deploys the
 t change Deletes the Webhook and deploys the bot locally.
 d change Set the Webhook with the url from the configuration file, without deploy.
 deleteCloudBot None Delete the bot from de cloud
+version None Display ravegen version
