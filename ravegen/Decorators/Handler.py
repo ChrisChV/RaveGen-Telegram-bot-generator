@@ -1,5 +1,5 @@
 class Handler(object):
-    def __init__(self, func, handlerType, funcName = None, description = ""):
+    def __init__(self, func, handlerType, funcName = None, description = None):
         if(funcName == None):
             funcName = func.__name__
         self.funcName = funcName 

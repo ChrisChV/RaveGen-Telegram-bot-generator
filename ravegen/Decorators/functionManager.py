@@ -48,12 +48,27 @@ class FunctionManager:
                 replyText = bot.first_name + "\n"
                 replyText += "*Commands:*\n"
                 for key, func in self.commands.iteritems():
-                    replyText += "/" + key + ": " + func.description + "\n" 
+                    key = self.formatFunctionName(key)
+                    if(func.description):
+                        replyText += "/" + key + ": " + func.description + "\n" 
+                    else:
+                        replyText += "/" + key + "\n"
                 for key, func in self.messages.iteritems():
                     if(func.filter == sadDec._MESSAGE_HANDLER_TEXT_):
                         replyText += "*For text messages:* " + func.description
                 update.effective_message.reply_text(replyText, parse_mode=telegram.ParseMode.MARKDOWN)
             dispatcher.add_handler(CommandHandler(sadDec._BOT_HELP_COMMAND_, help))
+    
+    def formatFunctionName(self, key):
+        newKey = ""
+        for c in key:
+            if(c == '_'):
+                newKey += "\\"
+            newKey += c
+        return newKey
+
+            
+
         
 
 functionManager = FunctionManager()
