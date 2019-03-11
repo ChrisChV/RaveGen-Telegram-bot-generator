@@ -21,6 +21,7 @@ _GIT_MASTER = "master"
 
 _STR_TRUE_ = "True"
 
+_INIT_PY = "__init__.py"
 
 #_INSTALL_PATH = "/usr/local/lib/python2.7/dist-packages/ravegen/"
 
