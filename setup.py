@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ravegen-dev",
-    version="0.2.3",
+    version="0.2.6",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",
@@ -21,13 +21,13 @@ setuptools.setup(
     install_requires=[
         'python-telegram-bot',
     ],
-    package_data={'ravegen': ["LICENSE", "rave_compl.bash", "ravegen/commands"]},
+    package_data={'ravegen': ["LICENSE", "rave_compl.bash", "ravegen/commands", "ravegen/version"]},
     include_package_data=True,
     url="https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/tree/developing",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 2.7",
-        "License :: OSI Approved :: MIT License",
+        'License :: OSI Approved :: MIT License',
         "Operating System :: OS Independent",
     ],
 )

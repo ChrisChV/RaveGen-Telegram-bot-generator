@@ -7,6 +7,11 @@ _RAVEGEN_SRC_PATH_ = "ravegen"
 _RAVEGEN_DEV_NAME_ = "ravegen-dev"
 _HTTPS_ = "https://"
 
+_HOME_RAVE_PATH_ = "~/.ravegen"
+_HOME_RAVE_INSTALLATION_PATH_FILE_NAME = "installationPath"
+_HOME_RAVE_INSTALLATION_PATH_FILE = _HOME_RAVE_PATH_ + _DF_ + _HOME_RAVE_INSTALLATION_PATH_FILE_NAME
+
+
 
 _PYC_EXTENTION = ".pyc"
 _GIT_EXTENTION = ".git"
@@ -96,6 +101,7 @@ _LINUX_RM_COMMAND_ = "rm -f "
 _LINUX_RM_COMMAND_DIR = "rm -Rf "
 _LINUX_CP_COMMAND_ = "cp "
 _LINUX_CP_DIR_COMMAND_ = "cp -R "
+_LINUX_ECHO_COMMAND_ = "echo "
 _LINUX_GIT_COMAND_ = "git "
 _LINUX_GIT_INIT_COMMAND_ = "init "
 _LINUX_GIT_ADD_OPTION_ = "add "

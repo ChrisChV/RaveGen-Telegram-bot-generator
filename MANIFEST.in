@@ -1,3 +1,4 @@
 include ravegen/LICENSE
 include ravegen/rave_compl.bash
 include ravegen/commands
+include ravegen/version

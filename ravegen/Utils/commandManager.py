@@ -40,6 +40,9 @@ def runCpCommand(firstFile, dest, *args):
 def runCpDirCommand(firstDirectory, dest, *args):
     _executeCommand(sad._LINUX_CP_DIR_COMMAND_, firstDirectory, list(args) + [dest])
 
+def runEchoCommand(text, dest):
+    _executeCommand(sad._LINUX_ECHO_COMMAND_, "'" + text + "'", [], writeFile=dest)
+
 def runGitInitCommand():
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_INIT_COMMAND_, [])
 
