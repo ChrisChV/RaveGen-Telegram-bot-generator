@@ -16,7 +16,7 @@ def initConfiguration():
     _verifyHerokuInstallation()
     logManager.printVerbose("Verifying Heroku login...")
     while True:
-        if _verifyHerokuLogIn() == False:
+        if not _verifyHerokuLogIn():
             logManager.printVerbose("Can't find heroku token")
             logManager.printVerbose("Heorku login...")
             _herokuLogIn()
@@ -33,10 +33,10 @@ def initConfiguration():
         logManager.printVerbose("Project name found: " + projectName)
         projectNameFlag = False
     logManager.printVerbose("Verifiying project in heroku...")
-    if _verifyProject(projectName) == True:
+    if _verifyProject(projectName):
         logManager.printVerbose("The project has already been created in heroku")
         initProjectFlag = False
-    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._GIT_DIR_) == True:
+    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._GIT_DIR_):
         logManager.printVerbose("Git has already been created")
         gitInitFlag = False
     gitHerokuFlag =  _verifyRemoteHeroku(configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_))
@@ -70,19 +70,19 @@ def deleteCloudApp():
 
 def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = -1):
     config = configManager.getConfig()
-    if gitInitFlag == True:
+    if gitInitFlag:
         logManager.printVerbose("Creating git...")
         commandManager.runGitInitCommand()
         gitHerokuFlag = -1
-    if projectNameFlag == True:
+    if projectNameFlag:
         logManager.printVerbose("Project name doesn't found")
         _getNewHerokuName(config)
         initProjectFlag = True
-    if initProjectFlag == True:
+    if initProjectFlag:
         logManager.printVerbose("Project hasn't been craeted in heroku")
         erroFlag = False
         while True:
-            if erroFlag == True:
+            if erroFlag:
                 logManager.printVerbose("The project can't created in heroku. Read the erros above and chose a new heroku project name")
                 _getNewHerokuName(config)
             projectName = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_)
@@ -90,7 +90,7 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
             deployUrl = sad._HTTPS_ + projectName + sad._HEROKU_URL
             gitUrl = sad._HTTPS_ + sad._HEORKU_GIT_URL + projectName + sad._GIT_EXTENTION
             commandManager.runHerokuCreateCommand(projectName)
-            if _verifyProject(projectName) == True:
+            if _verifyProject(projectName):
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, deployUrl)
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, token)
                 configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, gitUrl)
@@ -121,7 +121,7 @@ def _deleteSkeleton():
     commandManager.runRmCommand(sad._HEROKU_PROCFILE_NAME, sad._HEROKU_REQ_FILE_NAME, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _verifyProject(projectName):
-    if projectName == None:
+    if projectName is None:
         projectName = "None"
     commandManager.runHerokuInfoCommand(projectName, sad._TEMP_HEROKU_INFO_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_INFO_FILE_NAME, 'r')
@@ -134,7 +134,7 @@ def _verifyProject(projectName):
     return False
 
 def _verifyRemoteHeroku(gitUrl):
-    if(gitUrl == None):
+    if gitUrl is None:
         return -1
     commandManager.runGitRemoteCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
     tempFile = open(sad._TEMP_GIT_REMOTE_FILE_NAME, 'r')
@@ -146,8 +146,7 @@ def _verifyRemoteHeroku(gitUrl):
             commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
             if(tokens[1] == gitUrl):
                 return 1
-            else:
-                return 0
+            return 0
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_GIT_REMOTE_FILE_NAME)
     return -1
@@ -185,7 +184,7 @@ def _verifyHerokuInstallation():
             break
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
-    if flag == False:
+    if not flag:
         logManager.printVerbose("heroku-cli is not installed")
         answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli (y/n):")
         if answer:
