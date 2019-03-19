@@ -1,6 +1,6 @@
 import os
 import sys
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters 
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import Utils.sad as sad
 import Utils.commandManager as commandManager
@@ -101,7 +101,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("\tTOKEN = \"" + TOKEN + "\"\n")
     if(webhookURL != None):
         if port is None:
-            outputBotFile.write("\tPORT = os.environ.get('PORT')\n")    
+            outputBotFile.write("\tPORT = os.environ.get('PORT')\n")
         else:
             outputBotFile.write("\tPORT = " + str(port) + "\n")
 
@@ -121,7 +121,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
             webhookURL += TOKEN   
         else:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=\"" + webhookPath + "\")\n")
-            webhookURL += webhookPath    
+            webhookURL += webhookPath
         outputBotFile.write("\tupdater.bot.setWebhook(\"" + webhookURL + "\")\n")
     else:
         outputBotFile.write("\tupdater.bot.deleteWebhook()\n")

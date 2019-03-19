@@ -91,7 +91,7 @@ def _is_Father(command):
     if(command[0] == '-'):
         return False
     return True
-    
+
 def _splitOptions(command):
     options = []
     for i in range(1,len(command)):

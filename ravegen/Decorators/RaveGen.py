@@ -27,7 +27,7 @@ class RaveGen:
         _filter = karg["filter"]
         def _m_handler(bot, update):
             message = update.effective_message.text
-            reply = self.handler(message=message)       
+            reply = self.handler(message=message)
             update.effective_message.reply_text(reply)
 
         _newMessageHandler = MessageHandler.MessageHandler(_m_handler, _filter, funcName=self.handler.funcName, description=self.handler.description)
@@ -43,7 +43,7 @@ class RaveGen:
         
         _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True, description=self.handler.description)
         return _newCommandHandler
-            
+
     def e_handler(self, *arg, **karg):
         def _e_handler(bot, update, error):
             reply = self.handler(message=str(error))

@@ -78,7 +78,7 @@ def _verify_hosting_option(hosting):
     flag = False
     if hosting == sad._DEPLOY_HEROKU_OPTION:
         flag = True
-    
+
     if not flag:
         error = "Error in ravegen.conf: " + hosting + " hosting doesn't support"
         configErrorHandler.addError(error, sad._CRITICAL_ERROR_)

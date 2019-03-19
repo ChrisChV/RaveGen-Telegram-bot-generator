@@ -17,7 +17,6 @@ def deploy():
     if(hosting == sad._DEPLOY_HEROKU_OPTION):
         herokuManager.deploy()
     
-
 def destroy():
     config = configManager.getConfig()
     hosting = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_)

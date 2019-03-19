@@ -1,4 +1,3 @@
-import io
 import time
 import Utils.sad as sad
 import Utils.inputManager as inputManager
@@ -201,7 +200,7 @@ def _verifyHerokuLogIn():
     commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     count = 0
-    for line in tempFile:
+    for _ in tempFile:
         count += 1
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_HEROKU_TOKEN_FILE_NAME)

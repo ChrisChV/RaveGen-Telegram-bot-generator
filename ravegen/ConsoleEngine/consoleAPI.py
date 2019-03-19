@@ -40,7 +40,7 @@ def initProgram(argv):
     elif command == "deploy":
         options = consoleManager.getOptions(argv)
         if not options:
-            botManager.deployBot() 
+            botManager.deployBot()
         else:
             testFlag = True
             for option in options:
