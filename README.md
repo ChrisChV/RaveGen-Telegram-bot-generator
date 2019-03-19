@@ -1,3 +1,4 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/chrischv/ravegen-telegram-bot-generator/badge)](https://www.codefactor.io/repository/github/chrischv/ravegen-telegram-bot-generator)
 # RaveGen: Telegram bot generator
 
 Program for generate, create and deploy telegram bots using [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) for connect with [Telegram Bot API](https://core.telegram.org/bots/api) and Heroku for deploy the bot.
