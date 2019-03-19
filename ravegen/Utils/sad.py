@@ -7,6 +7,11 @@ _RAVEGEN_SRC_PATH_ = "ravegen"
 _RAVEGEN_DEV_NAME_ = "ravegen-dev"
 _HTTPS_ = "https://"
 
+_HOME_RAVE_PATH_ = "~/.ravegen"
+_HOME_RAVE_INSTALLATION_PATH_FILE_NAME = "installationPath"
+_HOME_RAVE_INSTALLATION_PATH_FILE = _HOME_RAVE_PATH_ + _DF_ + _HOME_RAVE_INSTALLATION_PATH_FILE_NAME
+
+
 
 _PYC_EXTENTION = ".pyc"
 _GIT_EXTENTION = ".git"
@@ -16,6 +21,7 @@ _GIT_MASTER = "master"
 
 _STR_TRUE_ = "True"
 
+_INIT_PY = "__init__.py"
 
 #_INSTALL_PATH = "/usr/local/lib/python2.7/dist-packages/ravegen/"
 
@@ -27,6 +33,7 @@ _MODULES_EXTENTION_ = "py"
 _LOG_DIR_NAME_ = "log"
 _LOG_FILE_NAME_ = "log"
 _LOG_FILE_PATH_ = _LOG_DIR_NAME_ + _DF_ + _LOG_FILE_NAME_
+_VERSION_FILE_NAME = "version"
 _CONFIG_FILE_NAME_ = "ravegen.conf"
 _CONFIG_DIR_NAME_ = "config"
 _CONFIG_REQ_FILE_NAME_ = "requirements"
@@ -95,6 +102,8 @@ _LINUX_RM_COMMAND_ = "rm -f "
 _LINUX_RM_COMMAND_DIR = "rm -Rf "
 _LINUX_CP_COMMAND_ = "cp "
 _LINUX_CP_DIR_COMMAND_ = "cp -R "
+_LINUX_ECHO_COMMAND_ = "echo "
+_LINUX_TOUCH_COMMAND_ = "touch "
 _LINUX_GIT_COMAND_ = "git "
 _LINUX_GIT_INIT_COMMAND_ = "init "
 _LINUX_GIT_ADD_OPTION_ = "add "

@@ -79,8 +79,15 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
         modules.append(line.rstrip('\n'))
 
     tempLsFile.close()
+    
+    
 
     modules = [module.split('.')[0] for module in modules if len(module.split('.')) == 2 and module.split('.')[1] == sad._MODULES_EXTENTION_]
+
+    initFile = open(sad._MODULES_DIR_ + sad._DF_ + sad._INIT_PY, 'w')
+    for module in modules:
+        initFile.write("from " + module + " import *\n")
+    initFile.close()
 
     commandManager.runRmCommand(sad._TEMP_LS_MODULES_FILE_NAME)
     outputBotFile = open(sad.OUTPUT_BOT_PATH, 'w')
@@ -90,9 +97,8 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("import os \n")
     outputBotFile.write("import sys \n")
     outputBotFile.write("import ravegen.Decorators.functionManager as functionManager \n")
-    outputBotFile.write("sys.path.insert(0, '" + sad._MODULES_DIR_ + "')\n")
-    for module in modules:
-        outputBotFile.write("from " + module + " import *\n")
+    outputBotFile.write("sys.path.insert(0, '.')\n")
+    outputBotFile.write("import modules\n")
     outputBotFile.write('\n')
     outputBotFile.write("if __name__ == \"__main__\":\n")
     outputBotFile.write("\tTOKEN = \"" + TOKEN + "\"\n")

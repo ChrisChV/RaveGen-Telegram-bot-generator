@@ -11,7 +11,7 @@ class _Command(Handler):
         functionManager.functionManager.addCommand(self)
 
 
-def Command(func = None, passArgs = False, description=""):
+def Command(func = None, passArgs = False, description=None):
     if func != None:
         return _Command(func)
     else:

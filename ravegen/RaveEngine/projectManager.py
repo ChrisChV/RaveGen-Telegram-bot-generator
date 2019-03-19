@@ -8,6 +8,7 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
     commandManager.runMkdirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
     commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
+    commandManager.runTouchCommand(sad._LOG_FILE_PATH_)
     reqFile = open(sad._CONFIG_REQ_FILE_PAHT_, 'w')
     reqFile.write("ravegen\n")
     reqFile.close()

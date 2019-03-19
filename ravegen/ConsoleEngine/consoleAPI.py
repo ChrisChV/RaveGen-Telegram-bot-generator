@@ -5,6 +5,8 @@ import RaveEngine.botManager as botManager
 import CloudEngine.cloudManager as cloudManager
 import Utils.inputManager as inputManager
 import Utils.utils as utils
+import Utils.sad as sad
+import Utils.logManager as logManager
 
 def initProgram(argv):
     signal.signal(signal.SIGINT, utils.sigintHandler)
@@ -58,6 +60,13 @@ def initProgram(argv):
         botManager.changeState(testFlag)
     elif command == "deleteCloudBot":
         cloudManager.destroy()
+    elif command == "version":
+        versionFile = open(utils.getInstalationPath() + sad._DF_ + sad._RAVEGEN_SRC_PATH_ + sad._DF_ + sad._VERSION_FILE_NAME, 'r')
+        line = versionFile.readline()
+        version = line.split("=")[-1]
+        logManager.printConsole(version)
+        
+
 
 
         

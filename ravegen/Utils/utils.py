@@ -36,6 +36,11 @@ def sigintHandler(sig, frame):
 
 
 def getInstalationPath():
+    if(os.path.isfile(os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE))):
+        installationFile = open(os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE), 'r')
+        line = installationFile.readline().rstrip('\n')
+        installationFile.close()
+        return line
     commandManager.runPipShowRavegen(sad._TEMP_PYTHON_PATH_FILE_NAME)
     tempFile = open(sad._TEMP_PYTHON_PATH_FILE_NAME, 'r')
     res = None
@@ -46,6 +51,8 @@ def getInstalationPath():
             res = tokens[1]
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_PYTHON_PATH_FILE_NAME)
+    commandManager.runMkdirCommand(os.path.expanduser(sad._HOME_RAVE_PATH_))
+    commandManager.runEchoCommand(res, os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE))
     return res
 
 
