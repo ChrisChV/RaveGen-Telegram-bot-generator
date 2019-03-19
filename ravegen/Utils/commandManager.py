@@ -10,7 +10,8 @@ def _executeCommand(command, fistrArg, args, writeFile = None):
     if(writeFile != None):
         command += sad._LINUX_WRITE_ERROR_COMMAND_ + writeFile 
         command += sad._LINUX_WRITE_COMMAND_ + writeFile
-    subprocess.call(command, shell=False)
+    subprocess.call(command, shell=True)
+    
 
 
 
@@ -25,7 +26,7 @@ def runMkdirCommand(directory, *args):
     _executeCommand(sad._LINUX_MKDIR_COMMAND_, directory, args)
 
 def runRmCommand(firstFile, *args):
-    _executeCommand(sad._LINUX_RM_COMMAND_, file, args)
+    _executeCommand(sad._LINUX_RM_COMMAND_, firstFile, args)
 
 def runRmDirCommand(directory, *args):
     _executeCommand(sad._LINUX_RM_COMMAND_DIR, directory, args)
