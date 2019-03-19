@@ -50,3 +50,4 @@ class RaveGen:
             print(reply)
         _newErrorHandler = Error.Error(_e_handler, funcName=self.handler.funcName)
         return _newErrorHandler
+        

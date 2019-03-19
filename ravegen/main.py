@@ -4,16 +4,3 @@ import ConsoleEngine.consoleAPI as consoleAPI
 import Utils.utils as utils
 
 consoleAPI.initProgram(sys.argv)
-
-
-
-
-
-
-
-
-
-
-
-
-
