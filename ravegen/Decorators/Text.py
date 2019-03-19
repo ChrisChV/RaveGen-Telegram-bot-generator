@@ -14,5 +14,3 @@ def Text(func = None, description=""):
     def wrapper(func):
         return _Text(func, description=description)
     return wrapper
-
-    

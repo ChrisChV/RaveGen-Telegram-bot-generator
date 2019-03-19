@@ -24,13 +24,13 @@ class RaveGen:
             functionManager.functionManager.addError(self.e_handler())
 
     def m_handler(self, *arg, **karg):
-        filter = karg["filter"]
+        _filter = karg["filter"]
         def _m_handler(bot, update):
             message = update.effective_message.text
             reply = self.handler(message=message)       
             update.effective_message.reply_text(reply)
 
-        _newMessageHandler = MessageHandler.MessageHandler(_m_handler, filter, funcName=self.handler.funcName, description=self.handler.description)
+        _newMessageHandler = MessageHandler.MessageHandler(_m_handler, _filter, funcName=self.handler.funcName, description=self.handler.description)
         return _newMessageHandler
 
     def c_handler(self, *arg, **karg):
@@ -50,4 +50,3 @@ class RaveGen:
             print(reply)
         _newErrorHandler = Error.Error(_e_handler, funcName=self.handler.funcName)
         return _newErrorHandler
-        
