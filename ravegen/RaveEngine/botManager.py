@@ -100,7 +100,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
         else:
             outputBotFile.write("\tPORT = " + str(port) + "\n")
 
-    
+
     outputBotFile.write("\tlogging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)\n")
     outputBotFile.write("\tlogger = logging.getLogger(__name__)\n")
     outputBotFile.write("\tupdater = Updater(TOKEN)\n")

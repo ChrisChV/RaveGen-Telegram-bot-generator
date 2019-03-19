@@ -190,7 +190,7 @@ def _verifyHerokuInstallation():
             commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
         else:
             herokuErrorHandler.addError("heroku-cli is not installerd", sad._CRITICAL_ERROR_)
-    
+
     herokuErrorHandler.handle()
 
 def _verifyHerokuLogIn():
@@ -208,6 +208,6 @@ def _verifyHerokuLogIn():
 def _herokuLogIn():
     commandManager.runHerokuLogin()
 
-def _getNewHerokuName(config):    
+def _getNewHerokuName(config):
     projectName = inputManager.getInput("Enter new Heroku Project Name: ")
     configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, projectName)

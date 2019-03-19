@@ -9,13 +9,11 @@ configErrorHandler = errorHandler.ErrorHandler("Config Manager")
 def getConfig():
     if not utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_):
         configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
-        
+
     elif not utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_):
         configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
-    
+
     configErrorHandler.handle()
-        
-    
     configFile = open(sad._CONFIG_FILE_PATH, 'r')
     configStream = configFile.read()
     config = ConfigParser.RawConfigParser(allow_no_value=False)

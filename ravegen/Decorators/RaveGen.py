@@ -10,7 +10,7 @@ class RaveGen:
         functools.update_wrapper(self, handler)
         self.handler = handler
         self.getNewHandler()
-        
+
 
     def getNewHandler(self):
         if(self.handler.handlerType == sadDec._HANDLER_TYPE_COMMAND_):

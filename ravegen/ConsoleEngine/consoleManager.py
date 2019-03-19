@@ -30,7 +30,7 @@ def verifyArgs(argv):
                 for option in options:
                     if not option in commandsInfo[ansFatherCommand][sad._CONSOLE_ENGINE_OPTION_TAG_]:
                         consoleErrorHandler.addError("Command " + ansFatherCommand + " doesn't have option " + option, sad._CRITICAL_ERROR_)
-                    
+
     consoleErrorHandler.handle()
 
 def printHelp():

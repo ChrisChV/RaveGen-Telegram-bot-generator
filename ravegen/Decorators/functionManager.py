@@ -57,7 +57,7 @@ class FunctionManager:
                         replyText += "*For text messages:* " + func.description
                 update.effective_message.reply_text(replyText, parse_mode=telegram.ParseMode.MARKDOWN)
             dispatcher.add_handler(CommandHandler(sadDec._BOT_HELP_COMMAND_, help))
-    
+
     def formatFunctionName(self, key):
         newKey = ""
         for c in key:
