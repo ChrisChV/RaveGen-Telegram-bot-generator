@@ -1,6 +1,7 @@
 import os
 import sad
 import utils
+import subprocess
 
 def _executeCommand(command, fistrArg, args, writeFile = None):
     command = command + fistrArg
@@ -9,9 +10,7 @@ def _executeCommand(command, fistrArg, args, writeFile = None):
     if(writeFile != None):
         command += sad._LINUX_WRITE_ERROR_COMMAND_ + writeFile 
         command += sad._LINUX_WRITE_COMMAND_ + writeFile
-    os.system(command)
-
-
+    subprocess.call(command, shell=False)
 
 
 
@@ -25,7 +24,7 @@ def runPackageManagerInstall(package, *args):
 def runMkdirCommand(directory, *args):
     _executeCommand(sad._LINUX_MKDIR_COMMAND_, directory, args)
 
-def runRmCommand(file, *args):
+def runRmCommand(firstFile, *args):
     _executeCommand(sad._LINUX_RM_COMMAND_, file, args)
 
 def runRmDirCommand(directory, *args):
