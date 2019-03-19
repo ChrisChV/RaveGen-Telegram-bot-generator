@@ -10,8 +10,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ravegen-dev",
-    version="0.2.6",
+    name="ravegen",
+    version="0.2.2",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",
