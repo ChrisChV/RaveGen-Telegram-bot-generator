@@ -6,8 +6,7 @@ import os
 args = ""
 for i in range(1,len(sys.argv)):
     args += " " + sys.argv[i]
-
-
+    
 pythonPath = None
 if(os.path.isfile(os.path.expanduser("~/.ravegen/installationPath"))):
     installationFile = open(os.path.expanduser("~/.ravegen/installationPath"), 'r')

@@ -23,7 +23,7 @@ setuptools.setup(
     ],
     package_data={'ravegen': ["LICENSE", "rave_compl.bash", "ravegen/commands", "ravegen/version"]},
     include_package_data=True,
-    url="https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/tree/developing",
+    url="https://github.com/ChrisChV/RaveGen-Telegram-bot-generator",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 2.7",
