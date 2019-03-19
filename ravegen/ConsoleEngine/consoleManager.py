@@ -47,7 +47,7 @@ def printHelp():
                 logManager.printConsole("\t\t-" + option + ": " + optionInfo)
         
 def getConsoleCommands(installFlag = True):
-    if(installFlag == True):
+    if installFlag:
         commandsFile = open(utils.getInstalationPath() + sad._DF_ + sad._RAVEGEN_SRC_PATH_  + sad._DF_ + sad._CONSOLE_ENGINE_COMMANDS_FILE_NAME, 'r')
     else:
         commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_DEV_PATH, 'r')

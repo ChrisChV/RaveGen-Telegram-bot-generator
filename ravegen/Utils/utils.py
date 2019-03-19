@@ -14,10 +14,7 @@ def file_Or_Directory_Exists(parent, file_directory):
         files.append(line.rstrip('\n'))
     verifyFile.close()
     commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
-    if file_directory in files:
-        return True
-    else:
-        return False
+    return file_directory in files
         
 def getTime():
     return str(datetime.datetime.now())
@@ -54,7 +51,3 @@ def getInstalationPath():
     commandManager.runMkdirCommand(os.path.expanduser(sad._HOME_RAVE_PATH_))
     commandManager.runEchoCommand(res, os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE))
     return res
-
-
-
-

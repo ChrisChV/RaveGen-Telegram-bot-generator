@@ -7,10 +7,10 @@ import Utils.errorHandler as errorHandler
 configErrorHandler = errorHandler.ErrorHandler("Config Manager")
 
 def getConfig():
-    if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_) == False:
+    if not utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_):
         configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
         
-    elif utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_) == False:
+    elif not utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_):
         configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
     
     configErrorHandler.handle()
@@ -50,23 +50,23 @@ def createInitConfig():
     _save_config(config)
     
 def get(config, section, option):
-    if _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False) == False:
+    if not _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False):
         return None
     return config.get(section, option)
 
 def getboolean(config, section, option):
-    if _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False) == False:
+    if not _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False):
         return None
     return config.getboolean(section, option)
 
 def set(config, section, option, val):
-    if _section_exists(config, section, errorFlag=False) == False:
+    if not _section_exists(config, section, errorFlag=False):
         config.add_section(section)
     config.set(section, option, val)
     _save_config(config)
 
 def setSection(config, section):
-    if _section_exists(config, section, errorFlag=False) == True:
+    if _section_exists(config, section, errorFlag=False):
         return None
     config.add_section(section)
     _save_config(config)
@@ -79,13 +79,13 @@ def _verify_hosting_option(hosting):
     if hosting == sad._DEPLOY_HEROKU_OPTION:
         flag = True
     
-    if(flag == False):
+    if not flag:
         error = "Error in ravegen.conf: " + hosting + " hosting doesn't support"
         configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
 
 
 def _option_exists_and_is_NotEmpty(config, section, option, errorFlag = True):
-    if _section_exists(config, section, errorFlag=errorFlag) == False:
+    if not _section_exists(config, section, errorFlag=errorFlag):
         return False
     error = None
     if not config.has_option(section, option):
@@ -93,10 +93,10 @@ def _option_exists_and_is_NotEmpty(config, section, option, errorFlag = True):
     elif config.get(section,option) == '':
         error = "Error in ravegen.conf: " + option + " option can't be empty"
 
-    if(error == None):
+    if error is None:
         return True
     else:
-        if(errorFlag == True):
+        if errorFlag:
             configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
         return False
 
@@ -106,10 +106,10 @@ def _section_exists(config, section, errorFlag = True):
     if not config.has_section(section):
         error = "Error in raven.conf: [" + section + "] section didn't found"    
 
-    if(error == None):
+    if error is None:
         return True
     else:
-        if(errorFlag == True):
+        if errorFlag:
             configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
         return False
 

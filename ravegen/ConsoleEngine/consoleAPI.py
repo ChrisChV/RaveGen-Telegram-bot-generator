@@ -20,7 +20,7 @@ def initProgram(argv):
         TOKEN = inputManager.getInput("Bot token (given by @BotFather): ")
         if TOKEN == "":
             TOKEN = None
-        if(len(options) == 0):
+        if options:
             projectManager.createInitProject(TOKEN=TOKEN)
         else:
             createBasicModules = False
@@ -39,7 +39,7 @@ def initProgram(argv):
         botManager.generateBot(testFlag)
     elif command == "deploy":
         options = consoleManager.getOptions(argv)
-        if(len(options) == 0):
+        if options:
             botManager.deployBot() 
         else:
             testFlag = True
@@ -66,18 +66,3 @@ def initProgram(argv):
         version = line.split("=")[-1]
         logManager.printConsole(version)
         
-
-
-
-        
-        
-
-
-    
-
-
-
-
-
-
-
