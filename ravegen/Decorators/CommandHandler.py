@@ -14,7 +14,6 @@ class _Command(Handler):
 def Command(func = None, passArgs = False, description=None):
     if func != None:
         return _Command(func)
-    else:
-        def wrapper(func):
-            return _Command(func, passArgs=passArgs, description=description)
-        return wrapper
+    def wrapper(func):
+        return _Command(func, passArgs=passArgs, description=description)
+    return wrapper
