@@ -1,9 +1,7 @@
 import setuptools
 import os
-import shutil
 from setuptools.command.install import install
 from setuptools.command.develop import develop
-from setuptools.command.egg_info import egg_info
 
 
 with open("README.md", "r") as fh:
@@ -11,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ravegen-dev",
-    version="0.2.6",
+    version="0.2.7",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",

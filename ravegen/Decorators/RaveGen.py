@@ -1,5 +1,4 @@
 import functools
-import Handler
 import MessageHandler
 import CommandHandler
 import Error

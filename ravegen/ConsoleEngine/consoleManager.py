@@ -1,4 +1,3 @@
-import os
 import readline
 import Utils.sad as sad
 import Utils.errorHandler as errorHandler

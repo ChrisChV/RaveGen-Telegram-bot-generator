@@ -1,4 +1,3 @@
-import os
 
 _YES_ANSWERS_ = ["y","yes"]
 _NO_ANSWERS_ = ["n", "no"]
@@ -14,4 +13,3 @@ def getYesNoAnswer(_string):
             return True
         if val in _NO_ANSWERS_:
             return False
-            

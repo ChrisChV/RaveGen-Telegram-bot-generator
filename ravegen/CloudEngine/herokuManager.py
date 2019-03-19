@@ -78,7 +78,7 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
         _getNewHerokuName(config)
         initProjectFlag = True
     if initProjectFlag:
-        logManager.printVerbose("Project hasn't been craeted in heroku")
+        logManager.printVerbose("Project hasn't been created in heroku")
         erroFlag = False
         while True:
             if erroFlag:

@@ -1,5 +1,4 @@
 import os
-import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import Utils.sad as sad

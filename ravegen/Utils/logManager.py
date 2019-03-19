@@ -1,6 +1,4 @@
-import os
 import io
-import sys
 import ConfigParser
 import utils as utils
 import sad as sad
