@@ -43,7 +43,7 @@ class FunctionManager:
             dispatcher.add_error_handler(error)
     
     def generateHelpCommand(self, dispatcher):
-        if not sadDec._BOT_HELP_COMMAND_ in self.commands:
+        if sadDec._BOT_HELP_COMMAND_ not in self.commands:
             def help(bot, update):
                 replyText = bot.first_name + "\n"
                 replyText += "*Commands:*\n"

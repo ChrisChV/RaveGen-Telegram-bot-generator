@@ -11,9 +11,6 @@ class _Text(MessageHandler):
 def Text(func = None, description=""):
     if func != None:
         return _Text(func)
-    else:
-        def wrapper(func):
-            return _Text(func, description=description)
-        return wrapper
-    
-    
+    def wrapper(func):
+        return _Text(func, description=description)
+    return wrapper

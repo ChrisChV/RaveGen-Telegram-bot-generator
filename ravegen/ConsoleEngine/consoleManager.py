@@ -7,9 +7,6 @@ import Utils.utils as utils
 
 consoleErrorHandler = errorHandler.ErrorHandler("Console Manager")
 
-
-#TODO ver como hacer esto en la instalacion
-
 def verifyArgs(argv):
     if(len(argv) < 2):
         consoleErrorHandler.addError("Args needed", sad._CRITICAL_ERROR_)
@@ -18,8 +15,8 @@ def verifyArgs(argv):
     ansFatherCommand = None
     for i in range(1, len(argv)):
         command = argv[i]
-        if(ansFatherCommand == None):
-            if _is_Father(command) == False:
+        if ansFatherCommand is None:
+            if not _is_Father(command):
                 consoleErrorHandler.addError("Command " + command + " doesn't exists", sad._CRITICAL_ERROR_)
             else:
                 if command in commands:
@@ -27,7 +24,7 @@ def verifyArgs(argv):
                 else:
                     consoleErrorHandler.addError("Command " + command + " doesn't exists", sad._CRITICAL_ERROR_)
         else:
-            if _is_Father(command) == True:
+            if _is_Father(command):
                 consoleErrorHandler.addError("Command " + ansFatherCommand + " and command " + command + " can't be together", sad._CRITICAL_ERROR_)
             else:
                 options = _splitOptions(command)
@@ -44,14 +41,13 @@ def printHelp():
     logManager.printConsole("COMMANDS\n")
     for command, info in commandsInfo.iteritems():
         logManager.printConsole("\t" + command + ": " + info[sad._CONSOLE_ENGINE_INFO_OPTION_])
-        if(len(info[sad._CONSOLE_ENGINE_OPTION_TAG_]) > 0):
+        if info[sad._CONSOLE_ENGINE_OPTION_TAG_]:
             logManager.printConsole("\tOPTIONS")
             for option, optionInfo in info[sad._CONSOLE_ENGINE_OPTION_TAG_].iteritems():
                 logManager.printConsole("\t\t-" + option + ": " + optionInfo)
         
-
 def getConsoleCommands(installFlag = True):
-    if(installFlag == True):
+    if installFlag:
         commandsFile = open(utils.getInstalationPath() + sad._DF_ + sad._RAVEGEN_SRC_PATH_  + sad._DF_ + sad._CONSOLE_ENGINE_COMMANDS_FILE_NAME, 'r')
     else:
         commandsFile = open(sad._CONSOLE_ENGINE_COMMANDS_FILE_DEV_PATH, 'r')
@@ -80,9 +76,6 @@ def getOptions(argv):
         options += _splitOptions(option)
     return options
 
-
-    
-
 def _setAutocompleter():
     readline.parse_and_bind("tab: complete")
     readline.set_completer(_completer)
@@ -92,20 +85,15 @@ def _completer(text, state):
     options = [i for i in commands if i.startswith(text)]
     if state < len(options):
         return options[state]
-    else:
-        return None
+    return None
 
 def _is_Father(command):
     if(command[0] == '-'):
         return False
-    else:
-        return True
+    return True
     
-
 def _splitOptions(command):
     options = []
     for i in range(1,len(command)):
         options.append(command[i])
     return options
-
-

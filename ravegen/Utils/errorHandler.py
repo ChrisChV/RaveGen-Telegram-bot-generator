@@ -12,7 +12,7 @@ class ErrorHandler:
         self._errorHandlerName = name
 
     def addError(self, error, errorType = sad._NORMAL_ERROR_):
-        if not errorType in self._errorList:
+        if errorType not in self._errorList:
             self._errorList[errorType] = []
         self._errorList[errorType].append(error)
 
@@ -27,13 +27,7 @@ class ErrorHandler:
             for error in errors:                
                 logManager.print_all(self._errorHandlerName + ": " + error)
         
-        if terminate == True:
+        if terminate:
             logManager.print_all(self._errorHandlerName + ": CRITICAL ERROR")
             logManager.print_all(self._errorHandlerName + ": Terminate execution")
             sys.exit()
-
-
-        
-
-
-    

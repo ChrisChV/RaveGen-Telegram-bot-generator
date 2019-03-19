@@ -12,7 +12,7 @@ import configManager as configManager
 def generateBot(testFlag = True):
     config = configManager.getConfig()
     TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
-    if(testFlag == True):
+    if testFlag:
         _generateBot(TOKEN, testFlag=testFlag)
     else:
         webhookURL = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
@@ -25,24 +25,21 @@ def generateBot(testFlag = True):
         _generateBot(TOKEN, webhookURL, port, webhookPath, testFlag= testFlag)
 
 def deployBot(withOptions = False, testFlag = True, generateFlag = True):
-    if(withOptions == False):
+    if not withOptions:
         if utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._OUTPUT_BOT_DIR_):
             if utils.file_Or_Directory_Exists(sad._OUTPUT_BOT_DIR_, sad._OUTPUT_BOT_NAME_):
                 generateFlag = False
                 headers = _getHeaders()
-                if headers[sad._HEADER_TOKEN_FLAG] == sad._STR_TRUE_:
-                    testFlag = True
-                else:
-                    testFlag = False
-    if(testFlag == True):
-        if(generateFlag == True):
+                testFlag = headers[sad._HEADER_TOKEN_FLAG] == sad._STR_TRUE_
+    if testFlag:
+        if generateFlag:
             generateBot(testFlag)
         logManager.printVerbose("Running Test Bot")
         commandManager.runPythonCommand(sad.OUTPUT_BOT_PATH)
         commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)        
     else:
         cloudManager.configure()
-        if(generateFlag == True):
+        if generateFlag:
             generateBot(testFlag)
         cloudManager.deploy()
 
@@ -50,7 +47,7 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
 
 
 def changeState(testFlag):
-    if(testFlag == True):
+    if testFlag:
         deployBot(withOptions=True)
     else:
         logManager.printVerbose("Changing to deploy mode...")
@@ -103,7 +100,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("if __name__ == \"__main__\":\n")
     outputBotFile.write("\tTOKEN = \"" + TOKEN + "\"\n")
     if(webhookURL != None):
-        if(port == None):
+        if port is None:
             outputBotFile.write("\tPORT = os.environ.get('PORT')\n")    
         else:
             outputBotFile.write("\tPORT = " + str(port) + "\n")
@@ -119,7 +116,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("\tfunctionManager.functionManager.generateHandlers(dispatcher)\n")
     
     if(webhookURL != None):
-        if(webhookPath == None):
+        if webhookPath is None:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=TOKEN)\n")
             webhookURL += TOKEN   
         else:
@@ -147,7 +144,7 @@ def _writeModule(outputBotFile, modules):
                 break
             if(line == "command"):
                 _ , option = _arroba_gen_next_line(tempFile)
-                if(option == None):
+                if option is None:
                     break
                 if(option == "args"):
                     createHandler = "\t" + module + "_handler = CommandHandler('" + module + "'," + module + ", pass_args=True)\n"

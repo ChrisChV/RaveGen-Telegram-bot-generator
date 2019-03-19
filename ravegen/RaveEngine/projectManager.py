@@ -15,9 +15,9 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
     runtimeFile = open(sad._CONFIG_RUNTIME_FILE_PATH_, 'w')
     runtimeFile.write("python-2.7.15\n")
     runtimeFile.close()
-    if(fillConfig == True):
+    if fillConfig:
         configManager.createInitConfig()
-    if(createBasicModules == True):
+    if createBasicModules:
         _createBasicModules()
     if(TOKEN != None):
         config = configManager.getConfig()

@@ -17,7 +17,7 @@ def generateAutoCompletition():
     outFile.write("fi\n")
     outFile.write("if [ \"${#COMP_WORDS[@]}\" != \"2\" ]; then\n")
     for command, info in commandsInfo.iteritems():
-        if(len(info["Options"]) != 0):
+        if info["Options"]:
             outFile.write("if [ \"${COMP_WORDS[1]}\" == \"" + command + "\" ]; then\n")
             options = ""
             for option, info in info["Options"].iteritems():
