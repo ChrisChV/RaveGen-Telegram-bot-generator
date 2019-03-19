@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d29961acaea84b9baa6ad32f8e66b09c)](https://app.codacy.com/app/ChrisChV/RaveGen-Telegram-bot-generator?utm_source=github.com&utm_medium=referral&utm_content=ChrisChV/RaveGen-Telegram-bot-generator&utm_campaign=Badge_Grade_Dashboard)
 [![CodeFactor](https://www.codefactor.io/repository/github/chrischv/ravegen-telegram-bot-generator/badge)](https://www.codefactor.io/repository/github/chrischv/ravegen-telegram-bot-generator)
 # RaveGen: Telegram bot generator
 
