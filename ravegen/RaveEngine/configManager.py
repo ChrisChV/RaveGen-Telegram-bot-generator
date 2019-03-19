@@ -48,7 +48,7 @@ def createInitConfig():
     config.add_section(sad._DEPLOY_HEROKU_OPTION)
     config.set(sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, sad._INIT_CONFIG_PROJECT_NAME)
     _save_config(config)
-    
+
 def get(config, section, option):
     if not _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False):
         return None
@@ -70,9 +70,6 @@ def setSection(config, section):
         return None
     config.add_section(section)
     _save_config(config)
-
-
-
 
 def _verify_hosting_option(hosting):
     flag = False
@@ -104,7 +101,7 @@ def _option_exists_and_is_NotEmpty(config, section, option, errorFlag = True):
 def _section_exists(config, section, errorFlag = True):
     error = None
     if not config.has_section(section):
-        error = "Error in raven.conf: [" + section + "] section didn't found"    
+        error = "Error in raven.conf: [" + section + "] section didn't found"
 
     if error is None:
         return True

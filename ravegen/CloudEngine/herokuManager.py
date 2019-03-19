@@ -112,8 +112,8 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
 def _crateSkeleton():
     procFile = open(sad._HEROKU_PROCFILE_NAME, 'w')
     procFile.write("web: " + sad._LINUX_PYTHON_COMMAND_ + sad.OUTPUT_BOT_PATH)
-    procFile.close()    
-    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)    
+    procFile.close()
+    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)
     commandManager.runCpCommand(sad._CONFIG_RUNTIME_FILE_PATH_, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _deleteSkeleton():
@@ -167,7 +167,7 @@ def _verifyHerokuInstallation():
                 logManager.printVerbose("Waiting for snapd...")
                 time.sleep(30)
             else:
-                herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)    
+                herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
         else:
             herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
     
@@ -193,9 +193,6 @@ def _verifyHerokuInstallation():
     
     herokuErrorHandler.handle()
 
-        
-    
-
 def _verifyHerokuLogIn():
     commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
@@ -214,4 +211,3 @@ def _herokuLogIn():
 def _getNewHerokuName(config):    
     projectName = inputManager.getInput("Enter new Heroku Project Name: ")
     configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, projectName)
-        

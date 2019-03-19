@@ -1,5 +1,4 @@
-import os
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler
 import logging
 import Utils.sad as sad
 import Utils.commandManager as commandManager
@@ -35,15 +34,12 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
             generateBot(testFlag)
         logManager.printVerbose("Running Test Bot")
         commandManager.runPythonCommand(sad.OUTPUT_BOT_PATH)
-        commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)        
+        commandManager.runRmCommand(sad._MODULES_DIR_ + sad._DF_ + sad._LINUX_ALL_TAG_ + sad._PYC_EXTENTION)
     else:
         cloudManager.configure()
         if generateFlag:
             generateBot(testFlag)
         cloudManager.deploy()
-
-    
-
 
 def changeState(testFlag):
     if testFlag:
@@ -51,7 +47,7 @@ def changeState(testFlag):
     else:
         logManager.printVerbose("Changing to deploy mode...")
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-        logger = logging.getLogger(__name__)        
+        logger = logging.getLogger(__name__)
         config = configManager.getConfig()
         updater = Updater(config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_))
         webhookURL = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
@@ -113,11 +109,11 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     #_writeModule(outputBotFile, modules)
 
     outputBotFile.write("\tfunctionManager.functionManager.generateHandlers(dispatcher)\n")
-    
+
     if(webhookURL != None):
         if webhookPath is None:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=TOKEN)\n")
-            webhookURL += TOKEN   
+            webhookURL += TOKEN
         else:
             outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=\"" + webhookPath + "\")\n")
             webhookURL += webhookPath
@@ -190,7 +186,7 @@ def _getHeaders():
         if(line[0] != '#'):
             break
         line = line[1:]
-        tokens = line.split(" ")        
+        tokens = line.split(" ")
         headers[tokens[0]] = tokens[1].rstrip('\n')
     outputBotFile.close()
     return headers

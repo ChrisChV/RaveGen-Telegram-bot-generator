@@ -49,7 +49,7 @@ class FunctionManager:
                 for key, func in self.commands.iteritems():
                     key = self.formatFunctionName(key)
                     if(func.description):
-                        replyText += "/" + key + ": " + func.description + "\n" 
+                        replyText += "/" + key + ": " + func.description + "\n"
                     else:
                         replyText += "/" + key + "\n"
                 for key, func in self.messages.iteritems():
@@ -66,10 +66,4 @@ class FunctionManager:
             newKey += c
         return newKey
 
-            
-
-        
-
 functionManager = FunctionManager()
-
-        

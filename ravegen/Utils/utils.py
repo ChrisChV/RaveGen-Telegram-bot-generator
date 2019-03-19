@@ -14,7 +14,7 @@ def file_Or_Directory_Exists(parent, file_directory):
     verifyFile.close()
     commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
     return file_directory in files
-        
+
 def getTime():
     return str(datetime.datetime.now())
 

@@ -56,6 +56,5 @@ def _log():
         return True
     if not config.has_option(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_):
         return True
-    
     return config.getboolean(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_)
     
