@@ -1,10 +1,4 @@
 import setuptools
-import os
-import shutil
-from setuptools.command.install import install
-from setuptools.command.develop import develop
-from setuptools.command.egg_info import egg_info
-
 
 with open("README.md", "r") as fh:
     long_description = fh.read()

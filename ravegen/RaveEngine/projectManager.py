@@ -1,5 +1,3 @@
-import os
-import sys
 import Utils.sad as sad
 import Utils.commandManager as commandManager
 import configManager as configManager

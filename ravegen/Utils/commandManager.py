@@ -1,4 +1,3 @@
-import os
 import sad
 import utils
 import subprocess
@@ -14,7 +13,7 @@ def _executeCommand(command, fistrArg, args, writeFile = None):
         subprocess.call(runCommand, shell=False, stdout=writeFileObj, stderr=writeFileObj)
         writeFileObj.close()
 
-        
+
 
 def runPackageManagerInstall(package, *args):
     dist = utils.getDist()

@@ -1,4 +1,3 @@
-import io
 import time
 import Utils.sad as sad
 import Utils.inputManager as inputManager
@@ -79,7 +78,7 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
         _getNewHerokuName(config)
         initProjectFlag = True
     if initProjectFlag:
-        logManager.printVerbose("Project hasn't been craeted in heroku")
+        logManager.printVerbose("Project hasn't been created in heroku")
         erroFlag = False
         while True:
             if erroFlag:
@@ -113,8 +112,8 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
 def _crateSkeleton():
     procFile = open(sad._HEROKU_PROCFILE_NAME, 'w')
     procFile.write("web: " + sad._LINUX_PYTHON_COMMAND_ + sad.OUTPUT_BOT_PATH)
-    procFile.close()    
-    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)    
+    procFile.close()
+    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._HEROKU_REQ_FILE_NAME)
     commandManager.runCpCommand(sad._CONFIG_RUNTIME_FILE_PATH_, sad._HEROKU_RUNTIME_FILE_NAME)
 
 def _deleteSkeleton():
@@ -168,7 +167,7 @@ def _verifyHerokuInstallation():
                 logManager.printVerbose("Waiting for snapd...")
                 time.sleep(30)
             else:
-                herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)    
+                herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
         else:
             herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
     
@@ -191,17 +190,14 @@ def _verifyHerokuInstallation():
             commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
         else:
             herokuErrorHandler.addError("heroku-cli is not installerd", sad._CRITICAL_ERROR_)
-    
-    herokuErrorHandler.handle()
 
-        
-    
+    herokuErrorHandler.handle()
 
 def _verifyHerokuLogIn():
     commandManager.runHerokuToken(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     tempFile = open(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
     count = 0
-    for line in tempFile:
+    for _ in tempFile:
         count += 1
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_HEROKU_TOKEN_FILE_NAME)
@@ -212,7 +208,6 @@ def _verifyHerokuLogIn():
 def _herokuLogIn():
     commandManager.runHerokuLogin()
 
-def _getNewHerokuName(config):    
+def _getNewHerokuName(config):
     projectName = inputManager.getInput("Enter new Heroku Project Name: ")
     configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, projectName)
-        

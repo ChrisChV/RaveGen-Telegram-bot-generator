@@ -1,5 +1,4 @@
 import functools
-import Handler
 import MessageHandler
 import CommandHandler
 import Error
@@ -11,7 +10,7 @@ class RaveGen:
         functools.update_wrapper(self, handler)
         self.handler = handler
         self.getNewHandler()
-        
+
 
     def getNewHandler(self):
         if(self.handler.handlerType == sadDec._HANDLER_TYPE_COMMAND_):
@@ -27,7 +26,7 @@ class RaveGen:
         _filter = karg["filter"]
         def _m_handler(bot, update):
             message = update.effective_message.text
-            reply = self.handler(message=message)       
+            reply = self.handler(message=message)
             update.effective_message.reply_text(reply)
 
         _newMessageHandler = MessageHandler.MessageHandler(_m_handler, _filter, funcName=self.handler.funcName, description=self.handler.description)
@@ -40,10 +39,10 @@ class RaveGen:
                 message = ' '.join(args)
             reply = self.handler(message=message)
             update.effective_message.reply_text(reply)
-        
+
         _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True, description=self.handler.description)
         return _newCommandHandler
-            
+
     def e_handler(self, *arg, **karg):
         def _e_handler(bot, update, error):
             reply = self.handler(message=str(error))

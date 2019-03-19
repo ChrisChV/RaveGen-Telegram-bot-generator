@@ -9,13 +9,11 @@ configErrorHandler = errorHandler.ErrorHandler("Config Manager")
 def getConfig():
     if not utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_):
         configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
-        
+
     elif not utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_):
         configErrorHandler.addError("The project haen't been initialized correctly. Run -> ravegen init", sad._CRITICAL_ERROR_)
-    
+
     configErrorHandler.handle()
-        
-    
     configFile = open(sad._CONFIG_FILE_PATH, 'r')
     configStream = configFile.read()
     config = ConfigParser.RawConfigParser(allow_no_value=False)
@@ -48,7 +46,7 @@ def createInitConfig():
     config.add_section(sad._DEPLOY_HEROKU_OPTION)
     config.set(sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, sad._INIT_CONFIG_PROJECT_NAME)
     _save_config(config)
-    
+
 def get(config, section, option):
     if not _option_exists_and_is_NotEmpty(config, section, option, errorFlag=False):
         return None
@@ -71,14 +69,11 @@ def setSection(config, section):
     config.add_section(section)
     _save_config(config)
 
-
-
-
 def _verify_hosting_option(hosting):
     flag = False
     if hosting == sad._DEPLOY_HEROKU_OPTION:
         flag = True
-    
+
     if not flag:
         error = "Error in ravegen.conf: " + hosting + " hosting doesn't support"
         configErrorHandler.addError(error, sad._CRITICAL_ERROR_)
@@ -104,7 +99,7 @@ def _option_exists_and_is_NotEmpty(config, section, option, errorFlag = True):
 def _section_exists(config, section, errorFlag = True):
     error = None
     if not config.has_section(section):
-        error = "Error in raven.conf: [" + section + "] section didn't found"    
+        error = "Error in raven.conf: [" + section + "] section didn't found"
 
     if error is None:
         return True

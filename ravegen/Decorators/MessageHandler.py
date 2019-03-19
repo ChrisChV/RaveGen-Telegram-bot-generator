@@ -7,8 +7,3 @@ class MessageHandler(Handler):
         super(MessageHandler, self).__init__(func, sadDec._HANDLER_TYPE_MESSAGE_, funcName, *arg, **karg)
         self.filter = filter
         functionManager.functionManager.addMessage(self)
-    
-
-
-
-    

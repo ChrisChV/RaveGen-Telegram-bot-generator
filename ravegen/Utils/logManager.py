@@ -1,6 +1,4 @@
-import os
 import io
-import sys
 import ConfigParser
 import utils as utils
 import sad as sad
@@ -26,7 +24,7 @@ def print_all(_string):
 def _verbose():
     if not utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_):
         return True
-        
+
     elif not utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_):
         return True
 
@@ -39,13 +37,13 @@ def _verbose():
         return True
     if not config.has_option(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_):
         return True
-    
+
     return config.getboolean(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_)
 
 def _log():
     if not utils.file_Or_Directory_Exists(sad._ACTUAL_PATH, sad._CONFIG_DIR_NAME_):
         return False
-        
+
     elif not utils.file_Or_Directory_Exists(sad._CONFIG_DIR_NAME_, sad._CONFIG_FILE_NAME_):
         return False
 
@@ -58,6 +56,5 @@ def _log():
         return True
     if not config.has_option(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_):
         return True
-    
     return config.getboolean(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_)
     

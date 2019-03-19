@@ -1,4 +1,3 @@
-import os
 import readline
 import Utils.sad as sad
 import Utils.errorHandler as errorHandler
@@ -31,7 +30,7 @@ def verifyArgs(argv):
                 for option in options:
                     if not option in commandsInfo[ansFatherCommand][sad._CONSOLE_ENGINE_OPTION_TAG_]:
                         consoleErrorHandler.addError("Command " + ansFatherCommand + " doesn't have option " + option, sad._CRITICAL_ERROR_)
-                    
+
     consoleErrorHandler.handle()
 
 def printHelp():
@@ -45,7 +44,7 @@ def printHelp():
             logManager.printConsole("\tOPTIONS")
             for option, optionInfo in info[sad._CONSOLE_ENGINE_OPTION_TAG_].iteritems():
                 logManager.printConsole("\t\t-" + option + ": " + optionInfo)
-        
+
 def getConsoleCommands(installFlag = True):
     if installFlag:
         commandsFile = open(utils.getInstalationPath() + sad._DF_ + sad._RAVEGEN_SRC_PATH_  + sad._DF_ + sad._CONSOLE_ENGINE_COMMANDS_FILE_NAME, 'r')
@@ -91,7 +90,7 @@ def _is_Father(command):
     if(command[0] == '-'):
         return False
     return True
-    
+
 def _splitOptions(command):
     options = []
     for i in range(1,len(command)):

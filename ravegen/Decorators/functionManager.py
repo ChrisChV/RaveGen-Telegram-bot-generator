@@ -1,6 +1,5 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import CommandHandler, MessageHandler, Filters
 import telegram
-import functools
 import sadDec
 
 class FunctionManager:
@@ -20,7 +19,7 @@ class FunctionManager:
         self.errors[errorHandler.funcName] = errorHandler
 
     def test_run(self):
-        for key, func in self.messages.iteritems():
+        for _, func in self.messages.iteritems():
             func(message=func.filter)
 
     def generateHandlers(self, dispatcher):
@@ -30,16 +29,16 @@ class FunctionManager:
         self.generateHelpCommand(dispatcher)
 
     def generateCommandHandlers(self, distpatcher):
-        for key, command in self.commands.iteritems():
+        for _, command in self.commands.iteritems():
             distpatcher.add_handler(CommandHandler(command.funcName, command, pass_args = command.passArgs))
 
     def generateMsgHandlers(self, dispatcher):
-        for key, message in self.messages.iteritems():
+        for _, message in self.messages.iteritems():
             if(message.filter == sadDec._MESSAGE_HANDLER_TEXT_):
                 dispatcher.add_handler(MessageHandler(Filters.text, message))
 
     def generateErrorHandlers(self, dispatcher):
-        for key, error in self.errors.iteritems():
+        for _, error in self.errors.iteritems():
             dispatcher.add_error_handler(error)
     
     def generateHelpCommand(self, dispatcher):
@@ -50,7 +49,7 @@ class FunctionManager:
                 for key, func in self.commands.iteritems():
                     key = self.formatFunctionName(key)
                     if(func.description):
-                        replyText += "/" + key + ": " + func.description + "\n" 
+                        replyText += "/" + key + ": " + func.description + "\n"
                     else:
                         replyText += "/" + key + "\n"
                 for key, func in self.messages.iteritems():
@@ -58,7 +57,7 @@ class FunctionManager:
                         replyText += "*For text messages:* " + func.description
                 update.effective_message.reply_text(replyText, parse_mode=telegram.ParseMode.MARKDOWN)
             dispatcher.add_handler(CommandHandler(sadDec._BOT_HELP_COMMAND_, help))
-    
+
     def formatFunctionName(self, key):
         newKey = ""
         for c in key:
@@ -67,10 +66,4 @@ class FunctionManager:
             newKey += c
         return newKey
 
-            
-
-        
-
 functionManager = FunctionManager()
-
-        

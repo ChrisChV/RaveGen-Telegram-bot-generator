@@ -1,11 +1,10 @@
-import os
 
 _YES_ANSWERS_ = ["y","yes"]
 _NO_ANSWERS_ = ["n", "no"]
 
 def getInput(_string):
     val = raw_input(_string)
-    return val    
+    return val
 
 def getYesNoAnswer(_string):
     while True:
@@ -14,4 +13,3 @@ def getYesNoAnswer(_string):
             return True
         if val in _NO_ANSWERS_:
             return False
-            
