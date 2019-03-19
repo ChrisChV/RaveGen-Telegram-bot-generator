@@ -59,10 +59,10 @@ def getboolean(config, section, option):
         return None
     return config.getboolean(section, option)
 
-def set(config, section, option, val):
+def set(config, section, option, value):
     if not _section_exists(config, section, errorFlag=False):
         config.add_section(section)
-    config.set(section, option, val)
+    config.set(section, option, value)
     _save_config(config)
 
 def setSection(config, section):
