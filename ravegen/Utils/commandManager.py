@@ -4,16 +4,17 @@ import utils
 import subprocess
 
 def _executeCommand(command, fistrArg, args, writeFile = None):
-    command = command + fistrArg
-    for arg in args:
-        command += " " + arg
-    if(writeFile != None):
-        command += sad._LINUX_WRITE_ERROR_COMMAND_ + writeFile 
-        command += sad._LINUX_WRITE_COMMAND_ + writeFile
-    subprocess.call(command, shell=True)
-    
+    runCommand = command.split(" ") + [fistrArg] + list(args)
+    runCommand.remove('')
+    runCommand = [i.strip(' ') for i in runCommand]
+    if writeFile is None:
+        subprocess.call(runCommand, shell=False)
+    else:
+        writeFileObj = open(writeFile, "w+")
+        subprocess.call(runCommand, shell=False, stdout=writeFileObj, stderr=writeFileObj)
+        writeFileObj.close()
 
-
+        
 
 def runPackageManagerInstall(package, *args):
     dist = utils.getDist()
@@ -65,7 +66,8 @@ def runGitAddAll():
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_ADD_OPTION_, [sad._LINUX_ALL_TAG_])
 
 def runGitCommitCommand(message):
-    _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_COMMIT_OPTION_, [message, "'"])
+    commitOption = sad._LINUX_GIT_COMMIT_OPTION_.split(" ")
+    _executeCommand(sad._LINUX_GIT_COMAND_, commitOption[0], commitOption[1:] + [message])
 
 def runGitPushCommand(branchSource, branchDest):
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_PUSH_OPTION_, [branchSource, branchDest])

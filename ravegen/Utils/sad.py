@@ -1,8 +1,9 @@
+import os
 
 _DF_ = "/"
 _DD_ = ":"
 
-_ACTUAL_PATH = "./"
+_ACTUAL_PATH = os.getcwd()
 _RAVEGEN_SRC_PATH_ = "ravegen"
 _RAVEGEN_DEV_NAME_ = "ravegen-dev"
 _HTTPS_ = "https://"
@@ -111,7 +112,7 @@ _LINUX_GIT_ALL_OPTION_ = "--all "
 _LINUX_GIT_REMOTE_OPTION_ = "remote "
 _LINUX_GIT_REMOTE_SET_URL_OPTION = "set-url "
 _LINUX_GIT_REMOTE_VERBOSE_OPTION = "-v "
-_LINUX_GIT_COMMIT_OPTION_ = "commit -m '"
+_LINUX_GIT_COMMIT_OPTION_ = "commit -m"
 _LINUX_GIT_PUSH_OPTION_ = "push "
 _LINUX_WRITE_COMMAND_ = " > "
 _LINUX_WRITE_ERROR_COMMAND_ = " 2> "
