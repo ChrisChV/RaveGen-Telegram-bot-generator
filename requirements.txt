@@ -1,3 +1,4 @@
 pytest
 flaky
 python-telegram-bot
+codecov
