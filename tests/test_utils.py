@@ -1,4 +1,6 @@
 import pytest
+import sys
+sys.path.insert(0, '.')
 import ravegen.Utils.utils as utils
 import ravegen.Utils.commandManager as commandManager
 import ravegen.Utils.sad as sad
