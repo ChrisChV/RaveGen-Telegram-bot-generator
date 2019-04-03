@@ -1,9 +1,7 @@
-import pytest
 import sys
 sys.path.insert(0, '.')
 import ravegen.Utils.utils as utils
 import ravegen.Utils.commandManager as commandManager
-import ravegen.Utils.sad as sad
 from flaky import flaky
 
 
@@ -16,9 +14,4 @@ def test_file_Or_Directory_Exists():
     assert utils.file_Or_Directory_Exists('./', test_File_Name)
     commandManager.runRmCommand(".testFile")
     assert not utils.file_Or_Directory_Exists('./', test_File_Name)
-
-
-
-
-
 
