@@ -23,6 +23,3 @@ def test_getConfig():
 def test_verifyConfig():
     config = configManager.getConfig()
     configManager.verifyConfig(config)
-    
-
-

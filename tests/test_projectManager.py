@@ -36,5 +36,4 @@ def test_createBasicModules():
     assert os.path.exists(sad._MODULES_DIR_ + sad._DF_ + "start.py")
     assert os.path.exists(sad._MODULES_DIR_ + sad._DF_ + "echo.py")
     assert os.path.exists(sad._MODULES_DIR_ + sad._DF_ + "caps.py")
-    assert os.path.exists(sad._MODULES_DIR_ + sad._DF_ + "error.py")    
-
+    assert os.path.exists(sad._MODULES_DIR_ + sad._DF_ + "error.py")

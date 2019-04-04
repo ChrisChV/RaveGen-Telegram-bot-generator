@@ -24,4 +24,3 @@ def test_getYesNoAnswer(_string, expected):
 def test_getInput(_val):
     inputManager.raw_input = wrap_raw_input
     assert inputManager.getInput(_val) == _val
-
