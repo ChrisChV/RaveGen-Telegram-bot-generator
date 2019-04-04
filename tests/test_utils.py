@@ -1,9 +1,6 @@
-import sys
-sys.path.insert(0, '.')
-import ravegen.Utils.utils as utils
-import ravegen.Utils.commandManager as commandManager
+import Utils.utils as utils
+import Utils.commandManager as commandManager
 from flaky import flaky
-
 
 @flaky(3,1)
 def test_file_Or_Directory_Exists():
