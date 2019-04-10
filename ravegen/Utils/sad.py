@@ -21,6 +21,7 @@ _GIT_DIR_ = ".git"
 _GIT_MASTER = "master"
 
 _STR_TRUE_ = "True"
+_STR_FALSE_ = "False"
 
 _INIT_PY = "__init__.py"
 
