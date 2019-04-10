@@ -1,6 +1,5 @@
 import pytest
 import os
-import RaveEngine.configManager as configManager
 import RaveEngine.projectManager as projectManager
 import RaveEngine.botManager as botManager
 import Utils.commandManager as commandManager
