@@ -8,7 +8,7 @@ import Utils.sad as sad
 
 @pytest.fixture(autouse=True)
 def setup():
-    projectManager.createInitProject()
+    projectManager.createInitProject(createBasicModules=True)
     yield
     commandManager.runRmDirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runRmDirCommand(sad._LOG_DIR_NAME_)

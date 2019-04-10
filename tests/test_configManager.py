@@ -14,7 +14,6 @@ def setup():
     commandManager.runRmDirCommand(sad._LOG_DIR_NAME_)
     commandManager.runRmDirCommand(sad._MODULES_DIR_)
 
-
 def data_get():
     trueData = [(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._DEPLOY_HEROKU_OPTION)]
     falseData_1 = [(sad._CONFIG_RAVEGEN_SECTION_, "TEST", None)]
@@ -41,11 +40,33 @@ def data_setSection():
 def test_getConfig():
     config = configManager.getConfig()
     assert isinstance(config, ConfigParser.RawConfigParser)
+    commandManager.runRmCommand(sad._CONFIG_FILE_PATH)
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        config = configManager.getConfig()
+    assert pytest_wrapped_e.type == SystemExit
+    commandManager.runRmCommand(sad._CONFIG_DIR_NAME_)
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        config = configManager.getConfig()
+    assert pytest_wrapped_e.type == SystemExit
 
 @flaky(3,1)
 def test_verifyConfig():
     config = configManager.getConfig()
     configManager.verifyConfig(config)
+    configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, "TEST")
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        configManager.verifyConfig(config)
+    assert pytest_wrapped_e.type == SystemExit
+    configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._DEPLOY_HEROKU_OPTION)
+    configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, "")
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        configManager.verifyConfig(config)
+    assert pytest_wrapped_e.type == SystemExit
+    commandManager.runRmCommand(sad._CONFIG_FILE_PATH)    
+    commandManager.runTouchCommand(sad._CONFIG_FILE_PATH)
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        config = configManager.getConfig()
+    assert pytest_wrapped_e.type == SystemExit
 
 @flaky(3,1)
 @pytest.mark.parametrize('section, option, expected', data_get())
