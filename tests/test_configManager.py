@@ -62,7 +62,7 @@ def test_verifyConfig():
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         configManager.verifyConfig(config)
     assert pytest_wrapped_e.type == SystemExit
-    commandManager.runRmCommand(sad._CONFIG_FILE_PATH)    
+    commandManager.runRmCommand(sad._CONFIG_FILE_PATH)
     commandManager.runTouchCommand(sad._CONFIG_FILE_PATH)
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         config = configManager.getConfig()
