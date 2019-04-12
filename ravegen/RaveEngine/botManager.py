@@ -4,12 +4,19 @@ import Utils.sad as sad
 import Utils.commandManager as commandManager
 import Utils.utils as utils
 import Utils.logManager as logManager
+import Utils.inputManager as inputManager
 import CloudEngine.cloudManager as cloudManager
 import configManager as configManager
 
+
 def generateBot(testFlag = True):
     config = configManager.getConfig()
-    TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
+    if testFlag:
+        TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION)
+        if TOKEN == sad._INIT_CONFIG_TOKEN_TEST:
+            TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
+    else:
+        TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
     if testFlag:
         _generateBot(TOKEN, testFlag=testFlag)
     else:
@@ -43,7 +50,9 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
 
 def changeState(testFlag):
     if testFlag:
-        deployBot(withOptions=True)
+        deployFlag = inputManager.getYesNoAnswer("This option are going to undeploy the bot in the Cloud. Are you sure of that? (y/n): ")
+        if deployFlag:
+            deployBot(withOptions=True)
     else:
         logManager.printVerbose("Changing to deploy mode...")
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)

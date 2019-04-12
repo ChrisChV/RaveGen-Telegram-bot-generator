@@ -2,7 +2,7 @@ import Utils.sad as sad
 import Utils.commandManager as commandManager
 import configManager as configManager
 
-def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
+def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None, TOKEN_TEST=None):
     commandManager.runMkdirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
     commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
@@ -17,10 +17,12 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None):
         configManager.createInitConfig()
     if createBasicModules:
         _createBasicModules()
-    if(TOKEN != None):
+    if TOKEN != None:
         config = configManager.getConfig()
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, TOKEN)
-
+    if TOKEN_TEST != None:
+        config = configManager.getConfig()
+        configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION, TOKEN_TEST)
 
 def _createBasicModules():
     moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "start.py", 'w')

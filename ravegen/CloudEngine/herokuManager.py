@@ -161,7 +161,7 @@ def _verifyHerokuInstallation():
     if(tokens[0] != sad._HEROKU_SNAP_PATH):
         logManager.printVerbose("Snap is not installed")
         if(utils.hasSupport()):
-            answer = inputManager.getYesNoAnswer("Do you want to install snapd (y/n):")
+            answer = inputManager.getYesNoAnswer("Do you want to install snapd? (y/n):")
             if answer:
                 commandManager.runPackageManagerInstall(sad._HEORKU_SNAP_PACKAGE)
                 logManager.printVerbose("Waiting for snapd...")
@@ -185,7 +185,7 @@ def _verifyHerokuInstallation():
     commandManager.runRmCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
     if not flag:
         logManager.printVerbose("heroku-cli is not installed")
-        answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli (y/n):")
+        answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli? (y/n):")
         if answer:
             commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
         else:
