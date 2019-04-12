@@ -100,3 +100,9 @@ def runSnapListCommand(writeFile = None):
 
 def runSnapInstallCommand(package, version):
     _executeCommand(sad._LINUX_SUDO_COMMAND_, sad._LINUX_SNAP_COMMAND_,  [sad._LINUX_SNAP_INSTALL_OPTION_, package, version])
+
+def runGAEAuthListCommand(writeFile):
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_AUTH_OPTION, [sad._LINUX_GAE_AUTH_LIST_OPTION], writeFile=writeFile)
+    
+def runGAELogin():
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_AUTH_OPTION, [sad._LINUX_GAE_AUTH_LOGIN_OPTION])

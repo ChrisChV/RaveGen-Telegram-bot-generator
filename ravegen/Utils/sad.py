@@ -61,6 +61,7 @@ _TEMP_GIT_REMOTE_FILE_NAME = ".tempGitRemoteInfo"
 _TEMP_HEROKU_TOKEN_FILE_NAME = ".tempHerokuToken"
 _TEMP_SNAP_LIST_FILE_NAME = ".tempSnapList"
 _TEMP_PYTHON_PATH_FILE_NAME = ".tempPythonPath"
+_TEMP_GAE_AUTH_FILE_NAME = ".tempGaeAuthList"
 
 
 _CONFIG_RAVEGEN_SECTION_ = "RaveGen"
@@ -97,6 +98,11 @@ _HEORKU_GIT_URL = "git.heroku.com/"
 _HEROKU_PROCFILE_NAME = "Procfile"
 _HEROKU_REQ_FILE_NAME = "requirements.txt"
 _HEROKU_RUNTIME_FILE_NAME = "runtime.txt"
+
+
+_GAE_PATH_ = "/usr/bin/gcloud"
+_GAE_LOGIN_ACTIVE_ = "ACTIVE"
+
 
 _LINUX_SUDO_COMMAND_ = "sudo "
 _LINUX_PACKAGE_MANAGER_INSTALL_OPTION = "install "
@@ -136,6 +142,11 @@ _LINUX_HEROKU_LOGIN_OPTION_ = "login "
 _LINUX_SNAP_COMMAND_ = "snap "
 _LINUX_SNAP_LIST_OPTION_ = "list "
 _LINUX_SNAP_INSTALL_OPTION_ = "install "
+_LINUX_GAE_COMMAND = "gcloud "
+_LINUX_GAE_AUTH_OPTION = "auth "
+_LINUX_GAE_AUTH_LIST_OPTION = "list "
+_LINUX_GAE_AUTH_LOGIN_OPTION = "login "
+
 
 _FEDORA_DIST_NAME_ = "fedora"
 _FEDORA_PACKAGE_MANADER_COMMAND_ = "dnf "
