@@ -103,6 +103,6 @@ def runSnapInstallCommand(package, version):
 
 def runGAEAuthListCommand(writeFile):
     _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_AUTH_OPTION, [sad._LINUX_GAE_AUTH_LIST_OPTION], writeFile=writeFile)
-    
+
 def runGAELogin():
     _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_AUTH_OPTION, [sad._LINUX_GAE_AUTH_LOGIN_OPTION])
