@@ -82,7 +82,7 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
         erroFlag = False
         while True:
             if erroFlag:
-                logManager.printVerbose("The project can't created in heroku. Read the erros above and chose a new heroku project name")
+                logManager.printVerbose("The project can't created in heroku. Read the errors above and chose a new heroku project name")
                 _getNewHerokuName(config)
             projectName = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_)
             token = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)

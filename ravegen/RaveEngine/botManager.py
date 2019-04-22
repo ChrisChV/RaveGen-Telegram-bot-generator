@@ -4,19 +4,12 @@ import Utils.sad as sad
 import Utils.commandManager as commandManager
 import Utils.utils as utils
 import Utils.logManager as logManager
-import Utils.inputManager as inputManager
 import CloudEngine.cloudManager as cloudManager
 import configManager as configManager
 
-
 def generateBot(testFlag = True):
     config = configManager.getConfig()
-    if testFlag:
-        TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION)
-        if TOKEN == sad._INIT_CONFIG_TOKEN_TEST:
-            TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
-    else:
-        TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
+    TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
     if testFlag:
         _generateBot(TOKEN, testFlag=testFlag)
     else:
@@ -50,9 +43,7 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
 
 def changeState(testFlag):
     if testFlag:
-        deployFlag = inputManager.getYesNoAnswer("This option are going to undeploy the bot in the Cloud. Are you sure of that? (y/n): ")
-        if deployFlag:
-            deployBot(withOptions=True)
+        deployBot(withOptions=True)
     else:
         logManager.printVerbose("Changing to deploy mode...")
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -115,6 +106,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
     outputBotFile.write("\tupdater = Updater(TOKEN)\n")
     outputBotFile.write("\tdispatcher = updater.dispatcher\n")
 
+    #_writeModule(outputBotFile, modules)
 
     outputBotFile.write("\tfunctionManager.functionManager.generateHandlers(dispatcher)\n")
 
@@ -133,6 +125,51 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
 
     outputBotFile.write("\tupdater.idle()\n")
     outputBotFile.close()
+
+def _writeModule(outputBotFile, modules):
+    for module in modules:
+        createHandler = "\t" + module + "_handler = CommandHandler('" + module + "'," + module + ")\n"
+        addHandler = "\tdispatcher.add_handler(" + module + "_handler)\n"
+        tempFile = open(sad._MODULES_DIR_ + sad._DF_ + module + "." + sad._MODULES_EXTENTION_)
+        while True:
+            flag, line = _arroba_gen_next_line(tempFile)
+            if(flag == 0):
+                continue
+            if(flag == -1):
+                break
+            if(line == "command"):
+                _ , option = _arroba_gen_next_line(tempFile)
+                if option is None:
+                    break
+                if(option == "args"):
+                    createHandler = "\t" + module + "_handler = CommandHandler('" + module + "'," + module + ", pass_args=True)\n"
+            elif(line == "text"):
+                createHandler = "\t" + module + "_handler = MessageHandler(Filters.text," + module + ")\n"
+            elif(line == "error"):
+                createHandler = "\t" + module + "_error_handler = " + module + "\n"
+                addHandler = "\tdispatcher.add_error_handler(" + module + "_error_handler)\n"
+        tempFile.close()
+        outputBotFile.write(createHandler)
+        outputBotFile.write(addHandler)
+
+
+
+
+def _arroba_gen_next_line(tempFile):
+    line = tempFile.readline()
+    if line:
+        line = line.strip(' ')
+        line = line.rstrip('\n')
+        if(line[0] == '#'):
+            if(line[1] != '@'):
+                return 0, None
+        else:
+            return -1, None
+        line = line[2:]
+        line = line.lower()
+        return 1, line
+    else:
+        return -1, None
 
 def _generateHeaders(outputBotFile, testFlag):
     outputBotFile.write("#HEADERS\n")

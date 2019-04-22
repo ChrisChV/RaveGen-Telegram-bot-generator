@@ -2,13 +2,13 @@ help None Display this help
 init None Initialize a new project in the current path.
 m init Create example modules.
 create None Create a telegram bot with configuration and modules. The output bot is in bot/ directory.
-t create It creates a bot for deploy locally with the test token.
-d create It creates a bot for deploy in the Cloud (Only Heroku, for the moment) with the deploy token.
+t create It creates a bot for deploy in the Cloud (Only Heroku, for the moment).
+d create It creates a bot for deploy locally.
 deploy None Deploy the telegram bot in the current project. If you don't provide options the program verify if a bot exists and it proceeds to deploy, if not, the program creates a test bot and then the program deploys it.
-t deploy It deploys a bot locally with the test token.
-d deploy It deploys a bot in the Cloud (Only Heroku, for the moment) with the deploy token.
-change None Set the Webhook url. By default, deletes the Webhook and deploys the bot locally (Only when you don't use a test Bot).
+t deploy It deploys a bot in the Cloud (Only Heroku, for the moment).
+d deploy It deploys a bot locally.
+change None Set the Webhook url. By default, deletes the Webhook and deploys the bot locally.
 t change Deletes the Webhook and deploys the bot locally.
-d change Sets the Webhook with the url from the configuration file, without deploy.
+d change Set the Webhook with the url from the configuration file, without deploy.
 deleteCloudBot None Delete the bot from de cloud
 version None Display ravegen version

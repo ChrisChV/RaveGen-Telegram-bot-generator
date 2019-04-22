@@ -2,7 +2,7 @@ import Utils.sad as sad
 import Utils.commandManager as commandManager
 import configManager as configManager
 
-def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None, TOKEN_TEST=None):
+def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None, TOKEN_TEST=None, hostingOption=sad._HOSTING_HEROKU_OPTION_):
     commandManager.runMkdirCommand(sad._CONFIG_DIR_NAME_)
     commandManager.runMkdirCommand(sad._MODULES_DIR_)
     commandManager.runMkdirCommand(sad._LOG_DIR_NAME_)
@@ -11,10 +11,13 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None, T
     reqFile.write("ravegen\n")
     reqFile.close()
     runtimeFile = open(sad._CONFIG_RUNTIME_FILE_PATH_, 'w')
-    runtimeFile.write("python-2.7.15\n")
+    if hostingOption == sad._HOSTING_HEROKU_OPTION_:
+        runtimeFile.write("python-2.7.15\n")
+    elif hostingOption == sad._HOSTING_GAE_OPTION_:
+        runtimeFile.write("python27\n")
     runtimeFile.close()
     if fillConfig:
-        configManager.createInitConfig()
+        configManager.createInitConfig(hostingOption=hostingOption)
     if createBasicModules:
         _createBasicModules()
     if TOKEN != None:

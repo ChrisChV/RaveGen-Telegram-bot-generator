@@ -15,7 +15,7 @@ if(os.path.isfile(os.path.expanduser("~/.ravegen/installationPath"))):
     
     pythonPath = line
 else:
-    command = "pip show ravegen-dev > .tempPythonFile"
+    command = "pip show ravegen > .tempPythonFile"
     os.system(command)
     tempFile = open(".tempPythonFile", 'r')
     for line in tempFile:

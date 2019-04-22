@@ -26,14 +26,19 @@ def initProgram(argv):
                 TOKEN_TEST = None
         if TOKEN == "":
             TOKEN = None
+        logManager.printConsole("==================================")
+        logManager.printConsole("Hosting List:")
+        logManager.printConsole("[1] Heroku")
+        logManager.printConsole("[2] Google App Engine")
+        hostingOption = int(inputManager.getInput("Please enter your numeric choice: "))
         if not options:
-            projectManager.createInitProject(TOKEN=TOKEN, TOKEN_TEST=TOKEN_TEST)
+            projectManager.createInitProject(TOKEN=TOKEN, TOKEN_TEST=TOKEN_TEST, hostingOption=hostingOption)
         else:
             createBasicModules = False
             for option in options:
                 if option == 'm':
                     createBasicModules = True
-            projectManager.createInitProject(createBasicModules=createBasicModules, TOKEN=TOKEN, TOKEN_TEST=TOKEN_TEST)
+            projectManager.createInitProject(createBasicModules=createBasicModules, TOKEN=TOKEN, TOKEN_TEST=TOKEN_TEST, hostingOption=hostingOption)
     elif command == "create":
         options = consoleManager.getOptions(argv)
         testFlag = True

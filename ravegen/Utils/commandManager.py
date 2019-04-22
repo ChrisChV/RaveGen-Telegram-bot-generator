@@ -106,3 +106,18 @@ def runGAEAuthListCommand(writeFile):
 
 def runGAELogin():
     _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_AUTH_OPTION, [sad._LINUX_GAE_AUTH_LOGIN_OPTION])
+
+def runGAENewProject(projectName):
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_PROJECTS_OPTION, [sad._LINUX_GAE_PROJECTS_CREATE_OPTION, projectName])
+
+def runGAEListProjects(writeFile):
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_PROJECTS_OPTION, [sad._LINUX_GAE_PROJECTS_LIST_OPTION], writeFile=writeFile)
+
+def runGAEDeleteProject(projectName):
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_PROJECTS_OPTION, [sad._LINUX_GAE_PROJECTS_DELETE_OPTION, projectName])
+
+def runGAESetProject(projectName):
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_CONFIG_OPTION, [sad._LINUX_GAE_CONFIG_SET_OPTION, sad._LINUX_GAE_CONFIG_PROJECT_OPTION, projectName])
+
+def runGAEDeploy():
+    _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_APP_OPTION, [sad._LINUX_GAE_APP_DEPLOY_OPTION])

@@ -33,10 +33,15 @@ def verifyConfig(config):
     configErrorHandler.handle()
 
 
-def createInitConfig():
+def createInitConfig(hostingOption=sad._HOSTING_HEROKU_OPTION_):
+    deploySection = None
+    if hostingOption == sad._HOSTING_HEROKU_OPTION_:
+        deploySection = sad._DEPLOY_HEROKU_OPTION
+    elif hostingOption == sad._HOSTING_GAE_OPTION_:
+        deploySection = sad._DEPLOY_GAE_OPTION
     config = ConfigParser.ConfigParser()
     config.add_section(sad._CONFIG_RAVEGEN_SECTION_)
-    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, sad._DEPLOY_HEROKU_OPTION)
+    config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_HOSTING_OPTION_, deploySection)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_, sad._INIT_CONFIG_TOKEN_)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION, sad._INIT_CONFIG_TOKEN_TEST)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, sad._INIT_CONFIG_DEPLOY_URL)
@@ -44,8 +49,9 @@ def createInitConfig():
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, sad._INIT_CONFIG_WEBHOOK_PATH)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_, sad._INIT_CONFIG_VERBOSE)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_, sad._INIT_CONFIG_LOG)
-    config.add_section(sad._DEPLOY_HEROKU_OPTION)
-    config.set(sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, sad._INIT_CONFIG_PROJECT_NAME)
+    
+    config.add_section(deploySection)
+    config.set(deploySection, sad._CONFIG_PROJECT_NAME_OPTION_, sad._INIT_CONFIG_PROJECT_NAME)
     _save_config(config)
 
 def get(config, section, option):
@@ -72,8 +78,9 @@ def setSection(config, section):
 
 def _verify_hosting_option(hosting):
     flag = False
-    if hosting == sad._DEPLOY_HEROKU_OPTION:
+    if hosting == sad._DEPLOY_HEROKU_OPTION or hosting == sad._DEPLOY_GAE_OPTION:
         flag = True
+    
 
     if not flag:
         error = "Error in ravegen.conf: " + hosting + " hosting doesn't support"
