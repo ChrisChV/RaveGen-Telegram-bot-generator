@@ -24,7 +24,9 @@ class ErrorHandler:
                 terminate = True
             for error in errors:
                 logManager.print_all(self._errorHandlerName + ": " + error)
+        self._errorList = {}
         if terminate:
             logManager.print_all(self._errorHandlerName + ": CRITICAL ERROR")
             logManager.print_all(self._errorHandlerName + ": Terminate execution")
             sys.exit()
+        

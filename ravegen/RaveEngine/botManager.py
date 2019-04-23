@@ -123,7 +123,7 @@ def _generateBot(TOKEN, webhookURL = None, port = None, webhookPath = None, test
         outputBotFile.write("\tupdater.start_polling()\n")
 
 
-    outputBotFile.write("\tupdater.idle()\n")
+    #outputBotFile.write("\tupdater.idle()\n")
     outputBotFile.close()
 
 def _writeModule(outputBotFile, modules):
