@@ -9,7 +9,7 @@ def generateBot(outputBotFile):
     TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
     port = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION)
     webhookURL = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
-    if webhookURL is None:
+    if webhookURL is None or webhookURL == sad._INIT_CONFIG_DEPLOY_URL:
         herokuBotErrorHandler.addError("Deploy URL is empty", errorType=sad._CRITICAL_ERROR_)
     webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION)
     outputBotFile.write('\n')
@@ -24,7 +24,7 @@ def generateBot(outputBotFile):
     outputBotFile.write("\tupdater = Updater(TOKEN)\n")
     outputBotFile.write("\tdispatcher = updater.dispatcher\n")
     outputBotFile.write("\tfunctionManager.functionManager.generateHandlers(dispatcher)\n")
-    if webhookPath is None:
+    if webhookPath is None or webhookPath == sad._INIT_CONFIG_WEBHOOK_PATH:
         outputBotFile.write("\tupdater.start_webhook(listen=\"0.0.0.0\", port=int(PORT), url_path=TOKEN)\n")
         webhookURL += TOKEN
     else:
