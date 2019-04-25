@@ -1,13 +1,16 @@
 #HEADERS
 #TokenFlag False
 import sys
+import os
 from telegram.ext import Updater
-from telegram import Update
-from flask import Flask, request
 import ravegen.Decorators.functionManager as functionManager 
 sys.path.insert(0, '.')
 import modules
 import logging
+
+
+from telegram import Update
+from flask import Flask, request
 
 app = Flask(__name__)
 global updater
@@ -28,7 +31,7 @@ def webhook_handler():
 def set_webhook():
 	dispatcher = updater.dispatcher
 	functionManager.functionManager.generateHandlers(dispatcher)
-	s = updater.bot.setWebhook("https://ravegentest22222.appspot.com/" + TOKEN)	
+	s = updater.bot.setWebhook("https://ravegen12345test.appspot.com/" + TOKEN)	
 	if s:
 		return "webhook setup ok"
 	else:

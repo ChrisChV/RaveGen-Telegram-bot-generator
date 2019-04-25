@@ -50,3 +50,23 @@ def getInstalationPath():
     commandManager.runMkdirCommand(os.path.expanduser(sad._HOME_RAVE_PATH_))
     commandManager.runEchoCommand(res, os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE))
     return res
+
+def _generateHeaders(outputBotFile, testFlag):
+    outputBotFile.write("#HEADERS\n")
+    outputBotFile.write("#" + sad._HEADER_TOKEN_FLAG + " " + str(testFlag) + "\n")
+
+def _getHeaders():
+    outputBotFile = open(sad.OUTPUT_BOT_PATH, 'r')
+    count = 0
+    headers = {}
+    for line in outputBotFile:
+        if(count == 0):
+            count = 1
+            continue
+        if(line[0] != '#'):
+            break
+        line = line[1:]
+        tokens = line.split(" ")
+        headers[tokens[0]] = tokens[1].rstrip('\n')
+    outputBotFile.close()
+    return headers

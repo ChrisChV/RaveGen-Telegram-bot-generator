@@ -1,5 +1,5 @@
-#InstallationPath = /usr/local/lib/python2.7/dist-packages##ubuntu
-InstallationPath = /lib/python2.7/site-packages##fedora
+InstallationPath = /usr/local/lib/python2.7/dist-packages##ubuntu
+#InstallationPath = /lib/python2.7/site-packages##fedora
 
 install:
 	#pip install python-telegram-bot
