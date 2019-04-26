@@ -22,9 +22,9 @@ def generateBot(outputBotFile):
     outputBotFile.write("updater = Updater(TOKEN)\n\n")
 
     if webhookPath is None or webhookPath == sad._INIT_CONFIG_WEBHOOK_PATH:
-        outputBotFile.write("@app.route("/" + TOKEN, methods=['POST'])\n")
+        outputBotFile.write("@app.route('/' + TOKEN, methods=['POST'])\n")
     else:
-        outputBotFile.write("@app.route("/" + " + webhookPath + ", methods=['POST'])\n")
+        outputBotFile.write("@app.route('/" + webhookPath + "', methods=['POST'])\n")
     outputBotFile.write("def webhook_handler():\n")
     outputBotFile.write("\tif request.method == 'POST':\n")
     outputBotFile.write("\t\tlogging.info(request.get_json(force=True))\n")
@@ -38,10 +38,10 @@ def generateBot(outputBotFile):
     if webhookPath is None or webhookPath == sad._INIT_CONFIG_WEBHOOK_PATH:
         outputBotFile.write("\ts = updater.bot.setWebhook('" + deployUrl + "' + TOKEN)\n")
     else:
-        outputBotFile.write("\ts = updater.bot.setWebhook('" + deployUrl + "' + " + webhookPath +")\n")
+        outputBotFile.write("\ts = updater.bot.setWebhook('" + deployUrl + webhookPath + "')\n")
     outputBotFile.write("\tif s:\n")
     outputBotFile.write("\t\treturn 'webhook setup ok'\n")
-    outputBotFile.write("\telse:")
+    outputBotFile.write("\telse:\n")
     outputBotFile.write("\t\treturn 'webhook setup failed'\n\n\n")
     outputBotFile.write("@app.route('/')\n")
     outputBotFile.write("def index():\n")

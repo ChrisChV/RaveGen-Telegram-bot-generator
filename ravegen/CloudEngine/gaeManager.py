@@ -13,6 +13,8 @@ def initConfiguration():
     logManager.printVerbose("Verifying configuration...")
     logManager.printVerbose("Verifying Google Cloud installation...")
     _verifyGAEInstallation()
+    logManager.printVerbose("Verifying Curl installation...")
+    _verifyCurlInstallation()
     logManager.printVerbose("Verifying Google Cloud login...")
     while True:
         if not _verifyGAELogin():
@@ -50,10 +52,19 @@ def initConfiguration():
     logManager.printVerbose("All Configurations... OK")
 
 def deploy():
+    config = configManager.getConfig()
+    deployUrl = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
+    if deployUrl is None or deployUrl == sad._INIT_CONFIG_DEPLOY_URL:        
+        gaeErrorHandler.addError("Deploy Url is emprty", sad._CRITICAL_ERROR_)
+    webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION)
+    if webhookPath is None or webhookPath == sad._INIT_CONFIG_WEBHOOK_PATH:
+        webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
+    gaeErrorHandler.handle()
     _createSkeleton()
     commandManager.runGAEDeploy()
     _deleteSkeleton()
-    logManager.printVerbose("Deploying bot in Google Cloud...OK")
+    commandManager.runCurlCommand(deployUrl + "set_webhook")
+    logManager.printVerbose("\nDeploying bot in Google Cloud...OK")
 
 def deleteCloudApp():
     config = configManager.getConfig()
@@ -65,22 +76,43 @@ def deleteCloudApp():
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "")
 
 def _createSkeleton():
-    appYaml = open(sad._GAE_APP_YAML, 'w')
+    appConfigFile = open(sad._GAE_APPENGINE_CONFIG_FILE_NAME_, 'w')
+    appConfigFile.write("import os\n")
+    appConfigFile.write("from google.appengine.ext import vendor\n")
+    appConfigFile.write("vendor.add(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lib'))\n")
+    appConfigFile.close()
+    commandManager.runCpCommand(sad.OUTPUT_BOT_PATH, sad._ACTUAL_PATH)
+    appYamlFile = open(sad._GAE_APP_YAML, 'w')
     runtimeFile = open(sad._CONFIG_RUNTIME_FILE_PATH_, 'r')
     runtime = runtimeFile.readline()
     runtimeFile.close()
-    appYaml.write("runtime: " + runtime + "\n")
-    appYaml.write("api_version: 1\n")
-    appYaml.write("threadsafe: no\n\n")
-    appYaml.write("handlers:\n")
-    appYaml.write("- url: .*\n")
-    appYaml.write("  script: bot/bot.py\n")
-    appYaml.close()
-    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._OUTPUT_BOT_DIR_ + sad._DF_ + sad._GAE_REQ_FILE_NAME)
+    appYamlFile.write("runtime: " + runtime + "\n")
+    appYamlFile.write("api_version: 1\n")
+    appYamlFile.write("threadsafe: yes\n\n")
+    appYamlFile.write("handlers:\n")
+    appYamlFile.write("- url: .*\n")
+    appYamlFile.write("  script: bot.app\n\n")
+    appYamlFile.write("libraries:\n")
+    appYamlFile.write("- name: webapp2\n")
+    appYamlFile.write("  version: \"2.5.2\"\n")
+    appYamlFile.write("- name: flask\n")
+    appYamlFile.write("  version: latest\n")
+    appYamlFile.write("- name: ssl\n")
+    appYamlFile.write("  version: latest\n")
+    appYamlFile.close()
+    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._GAE_REQ_FILE_NAME)
+    logManager.printVerbose("We need to install the requirements")
+    logManager.printVerbose("We need sudo privileges")
+    logManager.printVerbose("Command to run: sudo pip install -t lib -r requirements.txt")
+    commandManager.runPipInstallReq()
+    commandManager.runTouchSudoCommand(sad._GAE_LIB_DIR_NAME_ + sad._DF_ + sad._INIT_PY)
 
 def _deleteSkeleton():
+    commandManager.runRmCommand(sad._GAE_APPENGINE_CONFIG_FILE_NAME_)
+    commandManager.runRmCommand(sad._OUTPUT_BOT_NAME_)
     commandManager.runRmCommand(sad._GAE_APP_YAML)
-    commandManager.runRmCommand(sad._OUTPUT_BOT_DIR_ + sad._DF_ + sad._GAE_REQ_FILE_NAME)
+    commandManager.runRmCommand(sad._GAE_REQ_FILE_NAME)
+    
 
 def _verifyGAEInstallation():
     commandManager.runLsCommand(sad._GAE_PATH_, writeFile=sad._TEMP_LS_VERIFY_FILE_NAME)
@@ -90,9 +122,9 @@ def _verifyGAEInstallation():
     commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
     tokens = line.split(' ')
     tokens[0] = tokens[0].rstrip('\n')
-    if(tokens[0] != sad._GAE_PATH_):
+    if tokens[0] != sad._GAE_PATH_:
         logManager.printVerbose("Google Cloud SDK is not installed")
-        if(utils.hasSupport()):
+        if utils.hasSupport():
             gaeErrorHandler.addError("You have to install Google Cloud SDK. Instructions: https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=es-419", sad._CRITICAL_ERROR_)
         else:
             gaeErrorHandler.addError("Google Cloud SDK is no installed", sad._CRITICAL_ERROR_)
@@ -121,6 +153,27 @@ def _verifyGAEProject(projectName):
     commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
     return flag
 
+def _verifyCurlInstallation():
+    commandManager.runLsCommand(sad._CURL_PATH, writeFile=sad._TEMP_LS_VERIFY_FILE_NAME)
+    tempFile = open(sad._TEMP_LS_VERIFY_FILE_NAME, 'r')
+    line = tempFile.readline()
+    tempFile.close()
+    commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
+    tokens = line.split(' ')
+    tokens[0] = tokens[0].rstrip('\n')
+    if tokens[0] != sad._CURL_PATH:
+        logManager.printVerbose("Curl is not installed")
+        flagOption = inputManager.getYesNoAnswer("Do you want to install Curl (Y/n): ")
+        if not flagOption:
+            gaeErrorHandler.addError("Curl is necessary to deploy the bot", sad._CRITICAL_ERROR_)
+        else:
+            if utils.hasSupport():
+                commandManager.runPackageManagerInstall(sad._CURL_PACKAGE)
+            else:
+                gaeErrorHandler.addError("Curl is necessary to deploy the bot", sad._CRITICAL_ERROR_)
+    gaeErrorHandler.handle()
+    
+
 def _GAELogin():
     commandManager.runGAELogin()
 
@@ -134,3 +187,4 @@ def _getNewGAEName(config):
     projectName = inputManager.getInput("Enter new GAE project name: ")
     configManager.set(config, sad._DEPLOY_GAE_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, projectName)
     return projectName
+

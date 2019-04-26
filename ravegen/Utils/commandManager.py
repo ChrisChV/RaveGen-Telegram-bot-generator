@@ -1,4 +1,4 @@
-import sad
+import Utils.sad as sad
 import utils
 import subprocess
 
@@ -46,6 +46,9 @@ def runEchoCommand(text, dest):
 def runTouchCommand(firstFile, *args):
     _executeCommand(sad._LINUX_TOUCH_COMMAND_, firstFile, args)
 
+def runTouchSudoCommand(firstFile, *args):
+    _executeCommand(sad._LINUX_SUDO_COMMAND_, sad._LINUX_TOUCH_COMMAND_, [firstFile] + list(args))
+
 def runGitInitCommand():
     _executeCommand(sad._LINUX_GIT_COMAND_, sad._LINUX_GIT_INIT_COMMAND_, [])
 
@@ -79,6 +82,9 @@ def runPythonSiteCommand(writeFile):
 
 def runPipShowRavegen(writeFile):
     _executeCommand(sad._LINUX_PIP_COMMAND_, sad._LINUX_PIP_SHOW_OPTION_, [sad._RAVEGEN_SRC_PATH_], writeFile=writeFile)
+
+def runPipInstallReq():
+    _executeCommand(sad._LINUX_SUDO_COMMAND_, sad._LINUX_PIP_COMMAND_, [sad._LINUX_PIP_INSTALL_OPTION_, sad._LINUX_PIP_TAGET_OPTION_, sad._GAE_LIB_DIR_NAME_, sad._LINUX_PIP_REQ_OPTION_, sad._GAE_REQ_FILE_NAME])
 
 def runHerokuCreateCommand(projectName):
     _executeCommand(sad._LINUX_HEROKU_COMMAND_, sad._LINUX_HEROKU_CREATE_OPTION_, [projectName])
@@ -121,3 +127,6 @@ def runGAESetProject(projectName):
 
 def runGAEDeploy():
     _executeCommand(sad._LINUX_GAE_COMMAND, sad._LINUX_GAE_APP_OPTION, [sad._LINUX_GAE_APP_DEPLOY_OPTION])
+
+def runCurlCommand(url):
+    _executeCommand(sad._LINUX_CURL_COMMAND, url, [])

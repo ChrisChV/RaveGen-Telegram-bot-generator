@@ -30,7 +30,6 @@ def hasSupport():
 def sigintHandler(sig, frame):
     sys.exit()
 
-
 def getInstalationPath():
     if(os.path.isfile(os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE))):
         installationFile = open(os.path.expanduser(sad._HOME_RAVE_INSTALLATION_PATH_FILE), 'r')

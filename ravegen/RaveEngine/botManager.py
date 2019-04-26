@@ -5,6 +5,7 @@ import Utils.commandManager as commandManager
 import Utils.utils as utils
 import Utils.logManager as logManager
 import RaveEngine.herokuBotManager as herokuBotManager
+import RaveEngine.gaeBotManager as gaeBotManager
 import CloudEngine.cloudManager as cloudManager
 import configManager as configManager
 
@@ -44,6 +45,8 @@ def generateBot(testFlag = True):
     else:
         if hosting == sad._DEPLOY_HEROKU_OPTION:
             herokuBotManager.generateBot(outputBotFile)
+        elif hosting == sad._DEPLOY_GAE_OPTION:
+            gaeBotManager.generateBot(outputBotFile)
 
 
 def deployBot(withOptions = False, testFlag = True, generateFlag = True):
@@ -64,6 +67,7 @@ def deployBot(withOptions = False, testFlag = True, generateFlag = True):
         if generateFlag:
             generateBot(testFlag)
         cloudManager.deploy()
+
 
 def changeState(testFlag):
     if testFlag:
@@ -88,7 +92,7 @@ def changeState(testFlag):
 
 def _generateTestBot(outputBotFile):
     config = configManager.getConfig()
-    TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
+    TOKEN = config.get(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION)
     port = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_PORT_OPRION)
     outputBotFile.write('\n')
     outputBotFile.write("if __name__ == \"__main__\":\n")
