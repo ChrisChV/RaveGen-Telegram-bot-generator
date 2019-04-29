@@ -80,7 +80,6 @@ def _verify_hosting_option(hosting):
     flag = False
     if hosting == sad._DEPLOY_HEROKU_OPTION or hosting == sad._DEPLOY_GAE_OPTION:
         flag = True
-    
 
     if not flag:
         error = "Error in ravegen.conf: " + hosting + " hosting doesn't support"

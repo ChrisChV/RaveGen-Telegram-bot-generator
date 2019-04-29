@@ -40,7 +40,7 @@ def initConfiguration():
         logManager.printVerbose("Project hasn't been created in Google Cloud")
         while True:
             _GAECreate(projectName)
-            if _verifyGAEProject(projectName):                
+            if _verifyGAEProject(projectName):
                 token = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
                 deployUrl = sad._HTTPS_ + projectName + sad._GAE_URL_
                 configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, deployUrl)
@@ -54,7 +54,7 @@ def initConfiguration():
 def deploy():
     config = configManager.getConfig()
     deployUrl = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION)
-    if deployUrl is None or deployUrl == sad._INIT_CONFIG_DEPLOY_URL:        
+    if deployUrl is None or deployUrl == sad._INIT_CONFIG_DEPLOY_URL:
         gaeErrorHandler.addError("Deploy Url is emprty", sad._CRITICAL_ERROR_)
     webhookPath = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION)
     if webhookPath is None or webhookPath == sad._INIT_CONFIG_WEBHOOK_PATH:
@@ -117,7 +117,7 @@ def _deleteSkeleton():
 def _verifyGAEInstallation():
     commandManager.runLsCommand(sad._GAE_PATH_, writeFile=sad._TEMP_LS_VERIFY_FILE_NAME)
     tempFile = open(sad._TEMP_LS_VERIFY_FILE_NAME, 'r')
-    line = tempFile.readline()    
+    line = tempFile.readline()
     tempFile.close()
     commandManager.runRmCommand(sad._TEMP_LS_VERIFY_FILE_NAME)
     tokens = line.split(' ')
@@ -172,7 +172,7 @@ def _verifyCurlInstallation():
             else:
                 gaeErrorHandler.addError("Curl is necessary to deploy the bot", sad._CRITICAL_ERROR_)
     gaeErrorHandler.handle()
-    
+
 
 def _GAELogin():
     commandManager.runGAELogin()
@@ -187,4 +187,3 @@ def _getNewGAEName(config):
     projectName = inputManager.getInput("Enter new GAE project name: ")
     configManager.set(config, sad._DEPLOY_GAE_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_, projectName)
     return projectName
-

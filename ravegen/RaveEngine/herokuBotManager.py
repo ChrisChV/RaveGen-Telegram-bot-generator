@@ -35,4 +35,3 @@ def generateBot(outputBotFile):
     outputBotFile.close()
 
     herokuBotErrorHandler.handle()
-
