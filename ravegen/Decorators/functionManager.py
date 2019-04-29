@@ -1,12 +1,18 @@
 from telegram.ext import CommandHandler, MessageHandler, Filters
+from telegram.ext import CallbackQueryHandler
 import telegram
+import json
 import sadDec
+import time
+import logging
+
 
 class FunctionManager:
     def __init__(self):
         self.commands = {}
         self.messages = {}
         self.errors = {}
+        self.dispatcher = None
     
 
     def addCommand(self, commandHandler):
@@ -23,10 +29,12 @@ class FunctionManager:
             func(message=func.filter)
 
     def generateHandlers(self, dispatcher):
+        self.dispatcher = dispatcher
         self.generateCommandHandlers(dispatcher)
         self.generateMsgHandlers(dispatcher)
         self.generateErrorHandlers(dispatcher)
         self.generateHelpCommand(dispatcher)
+        dispatcher.add_handler(CallbackQueryHandler(self.rv_callbackQueryHandler))
 
     def generateCommandHandlers(self, distpatcher):
         for _, command in self.commands.iteritems():
@@ -40,6 +48,47 @@ class FunctionManager:
     def generateErrorHandlers(self, dispatcher):
         for _, error in self.errors.iteritems():
             dispatcher.add_error_handler(error)
+        
+    def rv_callbackQueryHandler(self, bot, update):
+        query = update.callback_query
+        try:
+            data = json.loads(query.data)
+        except json.JSONDecodeError:
+            data = query.data
+
+        if type(data) == dict and sadDec._CALLBACK_QUERY_COMMAND_OPTION in data:
+            text = '/' + data[sadDec._CALLBACK_QUERY_COMMAND_OPTION]
+            if sadDec._CALLBACK_QUERY_ARGS_OPTION in data:
+                text += ' ' + data[sadDec._CALLBACK_QUERY_ARGS_OPTION]
+            newUpdate_dic = {}
+            newUpdate_dic['update_id'] = update['update_id']
+            newUpdate_dic['message'] = {}
+            newUpdate_dic['message']['date'] =  time.mktime(update['callback_query']['message']['date'].timetuple())
+            newUpdate_dic['message']['message_id'] = update['callback_query']['message']['message_id']
+            newUpdate_dic['message']['from'] = {}
+            newUpdate_dic['message']['from']['username'] = update['callback_query']['from_user']['username']
+            newUpdate_dic['message']['from']['first_name'] = update['callback_query']['from_user']['first_name']
+            newUpdate_dic['message']['from']['last_name'] = update['callback_query']['from_user']['last_name']
+            newUpdate_dic['message']['from']['is_bot'] = update['callback_query']['from_user']['is_bot']
+            newUpdate_dic['message']['from']['laguage_code'] = update['callback_query']['from_user']['language_code']
+            newUpdate_dic['message']['from']['id'] = update['callback_query']['from_user']['id']
+            newUpdate_dic['message']['chat'] = {}
+            newUpdate_dic['message']['chat']['username'] = update['callback_query']['message']['chat']['username']
+            newUpdate_dic['message']['chat']['first_name'] = update['callback_query']['message']['chat']['first_name']
+            newUpdate_dic['message']['chat']['last_name'] = update['callback_query']['message']['chat']['last_name']
+            newUpdate_dic['message']['chat']['type'] = update['callback_query']['message']['chat']['type']
+            newUpdate_dic['message']['chat']['id'] = update['callback_query']['message']['chat']['id']
+            newUpdate_dic['message']['text'] = text
+            newUpdate_dic['message']['entities'] = [{}]
+            newUpdate_dic['message']['entities'][0]['length'] = len(data[sadDec._CALLBACK_QUERY_COMMAND_OPTION]) + 1
+            newUpdate_dic['message']['entities'][0]['type'] = "bot_command"
+            newUpdate_dic['message']['entities'][0]['offset'] = 0
+
+            newUpdate = telegram.Update.de_json(newUpdate_dic, bot)
+            self.dispatcher.process_update(newUpdate)
+        else:
+            logging.error("Error in the callback_query format")
+            logging.error(data)
 
     def generateHelpCommand(self, dispatcher):
         if sadDec._BOT_HELP_COMMAND_ not in self.commands:
@@ -67,3 +116,6 @@ class FunctionManager:
         return newKey
 
 functionManager = FunctionManager()
+
+
+
