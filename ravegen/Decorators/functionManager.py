@@ -40,7 +40,7 @@ class FunctionManager:
     def generateErrorHandlers(self, dispatcher):
         for _, error in self.errors.iteritems():
             dispatcher.add_error_handler(error)
-    
+
     def generateHelpCommand(self, dispatcher):
         if sadDec._BOT_HELP_COMMAND_ not in self.commands:
             def help(bot, update):

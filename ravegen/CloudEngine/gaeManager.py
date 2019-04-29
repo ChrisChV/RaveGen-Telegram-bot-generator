@@ -112,7 +112,7 @@ def _deleteSkeleton():
     commandManager.runRmCommand(sad._OUTPUT_BOT_NAME_)
     commandManager.runRmCommand(sad._GAE_APP_YAML)
     commandManager.runRmCommand(sad._GAE_REQ_FILE_NAME)
-    
+
 
 def _verifyGAEInstallation():
     commandManager.runLsCommand(sad._GAE_PATH_, writeFile=sad._TEMP_LS_VERIFY_FILE_NAME)

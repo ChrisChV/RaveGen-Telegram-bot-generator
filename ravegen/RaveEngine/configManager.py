@@ -49,7 +49,7 @@ def createInitConfig(hostingOption=sad._HOSTING_HEROKU_OPTION_):
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, sad._INIT_CONFIG_WEBHOOK_PATH)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_VERBOSE_OPTION_, sad._INIT_CONFIG_VERBOSE)
     config.set(sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_LOG_OPTION_, sad._INIT_CONFIG_LOG)
-    
+
     config.add_section(deploySection)
     config.set(deploySection, sad._CONFIG_PROJECT_NAME_OPTION_, sad._INIT_CONFIG_PROJECT_NAME)
     _save_config(config)

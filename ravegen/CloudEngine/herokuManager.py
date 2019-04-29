@@ -170,7 +170,7 @@ def _verifyHerokuInstallation():
                 herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
         else:
             herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
-    
+
     herokuErrorHandler.handle()
 
     commandManager.runSnapListCommand(sad._TEMP_SNAP_LIST_FILE_NAME)

@@ -29,4 +29,3 @@ class ErrorHandler:
             logManager.print_all(self._errorHandlerName + ": CRITICAL ERROR")
             logManager.print_all(self._errorHandlerName + ": Terminate execution")
             sys.exit()
-        
