@@ -80,9 +80,11 @@ class RaveGen:
 
     def _convertToJson(self, string):
         dic_res = {}
-        tuples = string.split(' ')
+        tuples = string.split(',')
         for _tuple in tuples:
             values = _tuple.split('::')
+            values[0] = values[0].strip()
+            values[1] = values[1].strip()
             dic_res[values[0]] = values[1]
         return dic_res
     
