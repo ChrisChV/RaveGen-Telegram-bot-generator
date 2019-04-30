@@ -1,9 +1,13 @@
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import ReplyKeyboardMarkup
 import functools
 import MessageHandler
 import CommandHandler
 import Error
 import functionManager
 import sadDec
+import json
+import logging
 
 class RaveGen:
     def __init__(self, handler):
@@ -37,8 +41,14 @@ class RaveGen:
             message = ''
             if(args != None):
                 message = ' '.join(args)
-            reply = self.handler(message=message)
-            update.effective_message.reply_text(reply)
+            try:
+                reply, menu = self.handler(message=message)
+                reply_markup = self._generateMenu(menu)
+                update.message.reply_text(reply, reply_markup=reply_markup)
+            except ValueError:
+                reply = self.handler(message=message)
+                update.effective_message.reply_text(reply)
+            
 
         _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True, description=self.handler.description)
         return _newCommandHandler
@@ -49,3 +59,33 @@ class RaveGen:
             print(reply)
         _newErrorHandler = Error.Error(_e_handler, funcName=self.handler.funcName)
         return _newErrorHandler
+
+
+    def _generateMenu(self, menu):
+        keyboard = []
+        for row in menu:
+            keyboard.append([])
+            for button in row:
+                data = self._convertToJson(button[1])
+                if sadDec._MENU_DATA_COMMAND_OPTION in data:
+                    keyboard[-1].append(InlineKeyboardButton('hola', callback_data=self._build_callback(data)))
+                elif sadDec._MENU_DATA_URL_OPTION in data:
+                    keyboard[-1].append(InlineKeyboardButton('adios', url=data[sadDec._MENU_DATA_URL_OPTION]))
+                else:
+                    logging.error("Bad menu formatting")
+                    return None
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        return reply_markup
+                    
+
+    def _convertToJson(self, string):
+        dic_res = {}
+        tuples = string.split(' ')
+        for _tuple in tuples:
+            values = _tuple.split('::')
+            dic_res[values[0]] = values[1]
+        return dic_res
+    
+    def _build_callback(self, data):
+        return_value = json.dumps(data)
+        return return_value
