@@ -12,6 +12,7 @@ class FunctionManager:
         self.commands = {}
         self.messages = {}
         self.errors = {}
+        self.functions = {}
         self.dispatcher = None
     
 
@@ -23,6 +24,9 @@ class FunctionManager:
     
     def addError(self, errorHandler):
         self.errors[errorHandler.funcName] = errorHandler
+    
+    def addFunction(self, functionHandler):
+        self.functions[functionHandler.funcName] = functionHandler
 
     def test_run(self):
         for _, func in self.messages.iteritems():
@@ -86,6 +90,13 @@ class FunctionManager:
 
             newUpdate = telegram.Update.de_json(newUpdate_dic, bot)
             self.dispatcher.process_update(newUpdate)
+        elif type(data) == dict and sadDec._CALLBACK_QUERY_FUNCTION_OPTION in data:
+            if data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION] in self.functions:
+                funcName = data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION]
+                del data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION]
+                self.functions[funcName](bot, update, **data)
+            else:
+                logging.error("Function " + data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION] + " doesn't exist")
         else:
             logging.error("Error in the callback_query format")
             logging.error(data)
