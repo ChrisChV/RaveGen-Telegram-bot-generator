@@ -1,5 +1,4 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram import ReplyKeyboardMarkup
 import functools
 import MessageHandler
 import CommandHandler
@@ -9,6 +8,20 @@ import functionManager
 import sadDec
 import json
 import logging
+
+def _convertToJson(string):
+    dic_res = {}
+    tuples = string.split(',')
+    for _tuple in tuples:
+        values = _tuple.split('::')
+        values[0] = values[0].strip()
+        values[1] = values[1].strip()
+        dic_res[values[0]] = values[1]
+    return dic_res
+    
+def _build_callback(data):
+    return_value = json.dumps(data)
+    return return_value
 
 class RaveGen:
     def __init__(self, handler):
@@ -85,16 +98,15 @@ class RaveGen:
                 logging.error("Bad menu formatting")
         _newFunctionHandler = FunctionHandler.RaveFunction(_f_handler, funcName=self.handler.funcName)
         return _newFunctionHandler
-        
 
     def _generateMenu(self, menu):
         keyboard = []
         for row in menu:
             keyboard.append([])
             for button in row:
-                data = self._convertToJson(button[1])
+                data = _convertToJson(button[1])
                 if sadDec._MENU_DATA_COMMAND_OPTION in data or sadDec._MENU_DATA_FUNCTION_OPTION in data:
-                    keyboard[-1].append(InlineKeyboardButton(button[0], callback_data=self._build_callback(data)))
+                    keyboard[-1].append(InlineKeyboardButton(button[0], callback_data=_build_callback(data)))
                 elif sadDec._MENU_DATA_URL_OPTION in data:
                     keyboard[-1].append(InlineKeyboardButton(button[0], url=data[sadDec._MENU_DATA_URL_OPTION]))
                 else:
@@ -102,19 +114,3 @@ class RaveGen:
                     return None
         reply_markup = InlineKeyboardMarkup(keyboard)
         return reply_markup
-                    
-
-    def _convertToJson(self, string):
-        dic_res = {}
-        tuples = string.split(',')
-        for _tuple in tuples:
-            values = _tuple.split('::')
-            values[0] = values[0].strip()
-            values[1] = values[1].strip()
-            dic_res[values[0]] = values[1]
-        return dic_res
-    
-    def _build_callback(self, data):
-        return_value = json.dumps(data)
-        logging.info(return_value)
-        return return_value

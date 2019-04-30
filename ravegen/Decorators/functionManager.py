@@ -60,7 +60,7 @@ class FunctionManager:
         except json.JSONDecodeError:
             data = query.data
 
-        if type(data) == dict and sadDec._CALLBACK_QUERY_COMMAND_OPTION in data:
+        if isinstance(data, dict) and sadDec._CALLBACK_QUERY_COMMAND_OPTION in data:
             text = '/' + data[sadDec._CALLBACK_QUERY_COMMAND_OPTION]
             if sadDec._CALLBACK_QUERY_ARGS_OPTION in data:
                 text += ' ' + data[sadDec._CALLBACK_QUERY_ARGS_OPTION]
@@ -90,7 +90,7 @@ class FunctionManager:
 
             newUpdate = telegram.Update.de_json(newUpdate_dic, bot)
             self.dispatcher.process_update(newUpdate)
-        elif type(data) == dict and sadDec._CALLBACK_QUERY_FUNCTION_OPTION in data:
+        elif isinstance(data, dict) and sadDec._CALLBACK_QUERY_FUNCTION_OPTION in data:
             if data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION] in self.functions:
                 funcName = data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION]
                 del data[sadDec._CALLBACK_QUERY_FUNCTION_OPTION]
@@ -127,6 +127,3 @@ class FunctionManager:
         return newKey
 
 functionManager = FunctionManager()
-
-
-
