@@ -107,7 +107,7 @@ def _createSkeleton():
         logManager.printVerbose("We need sudo privileges")
         logManager.printVerbose("Command to run: sudo pip install -t lib -r requirements.txt")
         commandManager.runPipInstallReq()
-    commandManager.runRmCommand(sad._GAE_TEMP_REQ_FILE_PATH)    
+    commandManager.runRmCommand(sad._GAE_TEMP_REQ_FILE_PATH)
     commandManager.runTouchSudoCommand(sad._GAE_LIB_DIR_NAME_ + sad._DF_ + sad._INIT_PY)
 
 def sigintHandler(sig, frame):
@@ -190,7 +190,7 @@ def _generateReq():
     tempReq = open(sad._GAE_TEMP_REQ_FILE_PATH, 'w')
     installedReq = open(sad._GAE_REQ_INSTALLED_FILE_PATH, 'a')
     flag = False
-    
+
     for line in reqFile:
         line = line.rstrip('\n')
         if not line in requirements:

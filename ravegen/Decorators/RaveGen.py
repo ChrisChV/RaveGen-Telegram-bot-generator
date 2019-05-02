@@ -78,7 +78,7 @@ class RaveGen:
                 update.effective_message.reply_text(reply)
             except IndexError:
                 logging.error("Bad menu formatting")
-            
+
 
         _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True, description=self.handler.description)
         return _newCommandHandler

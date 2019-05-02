@@ -59,7 +59,7 @@ class FunctionManager:
     def generateErrorHandlers(self, dispatcher):
         for _, error in self.errors.iteritems():
             dispatcher.add_error_handler(error)
-        
+
     def rv_callbackQueryHandler(self, bot, update):
         query = update.callback_query
         try:

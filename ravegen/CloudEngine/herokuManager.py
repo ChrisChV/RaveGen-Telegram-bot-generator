@@ -111,8 +111,8 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
         logManager.printVerbose("Setting git remote heroku...")
         gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
         commandManager.runGitSetRemoteUrlCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
-        
-        
+
+
 
 
 def _crateSkeleton():

@@ -17,7 +17,7 @@ class ErrorHandler:
 
     def handle(self):
         terminate = False
-        
+
 
         for typeOfError, errors in self._errorList.iteritems():
             if(typeOfError == sad._CRITICAL_ERROR_):
