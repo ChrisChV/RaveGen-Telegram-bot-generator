@@ -2,6 +2,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d29961acaea84b9baa6ad32f8e66b09c)](https://app.codacy.com/app/ChrisChV/RaveGen-Telegram-bot-generator?utm_source=github.com&utm_medium=referral&utm_content=ChrisChV/RaveGen-Telegram-bot-generator&utm_campaign=Badge_Grade_Dashboard)
 [![CodeFactor](https://www.codefactor.io/repository/github/chrischv/ravegen-telegram-bot-generator/badge)](https://www.codefactor.io/repository/github/chrischv/ravegen-telegram-bot-generator)
 [![Pypi license Badge](https://img.shields.io/pypi/l/ravegen.svg)](https://pypi.org/project/ravegen/)
+[![Build Status](https://travis-ci.com/ChrisChV/RaveGen-Telegram-bot-generator.svg?branch=master)](https://travis-ci.com/ChrisChV/RaveGen-Telegram-bot-generator)
+[![codecov](https://codecov.io/gh/ChrisChV/RaveGen-Telegram-bot-generator/branch/master/graph/badge.svg)](https://codecov.io/gh/ChrisChV/RaveGen-Telegram-bot-generator)
 # RaveGen: Telegram bot generator
 
 Program for generate, create and deploy telegram bots using [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) for connect with [Telegram Bot API](https://core.telegram.org/bots/api) and Heroku for deploy the bot.
