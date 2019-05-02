@@ -17,13 +17,14 @@ class ErrorHandler:
 
     def handle(self):
         terminate = False
-        
+
 
         for typeOfError, errors in self._errorList.iteritems():
             if(typeOfError == sad._CRITICAL_ERROR_):
                 terminate = True
             for error in errors:
                 logManager.print_all(self._errorHandlerName + ": " + error)
+        self._errorList = {}
         if terminate:
             logManager.print_all(self._errorHandlerName + ": CRITICAL ERROR")
             logManager.print_all(self._errorHandlerName + ": Terminate execution")

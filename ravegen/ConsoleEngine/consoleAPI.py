@@ -18,16 +18,27 @@ def initProgram(argv):
     elif command == "init":
         options = consoleManager.getOptions(argv)
         TOKEN = inputManager.getInput("Bot token (given by @BotFather): ")
+        TOKEN_TEST = None
+        tokenTestFlag = inputManager.getYesNoAnswer("Do you want to have a test Bot? (Y/n): ")
+        if tokenTestFlag:
+            TOKEN_TEST = inputManager.getInput("Test Bot token (given by @BotFather): ")
+            if TOKEN_TEST == "":
+                TOKEN_TEST = None
         if TOKEN == "":
             TOKEN = None
+        logManager.printConsole("==================================")
+        logManager.printConsole("Hosting List:")
+        logManager.printConsole("[1] Heroku")
+        logManager.printConsole("[2] Google App Engine")
+        hostingOption = int(inputManager.getInput("Please enter your numeric choice: "))
         if not options:
-            projectManager.createInitProject(TOKEN=TOKEN)
+            projectManager.createInitProject(TOKEN=TOKEN, TOKEN_TEST=TOKEN_TEST, hostingOption=hostingOption)
         else:
             createBasicModules = False
             for option in options:
                 if option == 'm':
                     createBasicModules = True
-            projectManager.createInitProject(createBasicModules=createBasicModules, TOKEN=TOKEN)
+            projectManager.createInitProject(createBasicModules=createBasicModules, TOKEN=TOKEN, TOKEN_TEST=TOKEN_TEST, hostingOption=hostingOption)
     elif command == "create":
         options = consoleManager.getOptions(argv)
         testFlag = True
@@ -50,6 +61,7 @@ def initProgram(argv):
                     testFlag = False
             botManager.deployBot(withOptions=True, testFlag=testFlag)
     elif command == "change":
+        logManager.printConsole("We recommend you use a test bot instead of change command")
         options = consoleManager.getOptions(argv)
         testFlag = True
         for option in options:

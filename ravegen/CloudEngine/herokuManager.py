@@ -1,4 +1,5 @@
 import time
+import sys
 import Utils.sad as sad
 import Utils.inputManager as inputManager
 import Utils.commandManager as commandManager
@@ -41,8 +42,8 @@ def initConfiguration():
     gitHerokuFlag =  _verifyRemoteHeroku(configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_))
     if gitHerokuFlag > 0:
         logManager.printVerbose("Git has already been configured")
-        
-    
+
+
     _initConfiguration(projectNameFlag, initProjectFlag, gitInitFlag, gitHerokuFlag)
     logManager.printVerbose("All Configurations... OK")
 
@@ -67,6 +68,11 @@ def deleteCloudApp():
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "")
         configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, "")
 
+def sigintHandler(sig, frame):
+    _deleteSkeleton()
+    print "AAAAAAAAAAAAAA"
+    sys.exit()
+
 def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = -1):
     config = configManager.getConfig()
     if gitInitFlag:
@@ -82,7 +88,7 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
         erroFlag = False
         while True:
             if erroFlag:
-                logManager.printVerbose("The project can't created in heroku. Read the erros above and chose a new heroku project name")
+                logManager.printVerbose("The project can't created in heroku. Read the errors above and chose a new heroku project name")
                 _getNewHerokuName(config)
             projectName = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_PROJECT_NAME_OPTION_)
             token = configManager.get(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_OPTION_)
@@ -105,8 +111,8 @@ def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFl
         logManager.printVerbose("Setting git remote heroku...")
         gitUrl = configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_)
         commandManager.runGitSetRemoteUrlCommand(sad._DEPLOY_HEROKU_OPTION, gitUrl)
-        
-        
+
+
 
 
 def _crateSkeleton():
@@ -161,7 +167,7 @@ def _verifyHerokuInstallation():
     if(tokens[0] != sad._HEROKU_SNAP_PATH):
         logManager.printVerbose("Snap is not installed")
         if(utils.hasSupport()):
-            answer = inputManager.getYesNoAnswer("Do you want to install snapd (y/n):")
+            answer = inputManager.getYesNoAnswer("Do you want to install snapd? (y/n):")
             if answer:
                 commandManager.runPackageManagerInstall(sad._HEORKU_SNAP_PACKAGE)
                 logManager.printVerbose("Waiting for snapd...")
@@ -170,7 +176,7 @@ def _verifyHerokuInstallation():
                 herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
         else:
             herokuErrorHandler.addError("Snap is not installed", sad._CRITICAL_ERROR_)
-    
+
     herokuErrorHandler.handle()
 
     commandManager.runSnapListCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
@@ -185,7 +191,7 @@ def _verifyHerokuInstallation():
     commandManager.runRmCommand(sad._TEMP_SNAP_LIST_FILE_NAME)
     if not flag:
         logManager.printVerbose("heroku-cli is not installed")
-        answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli (y/n):")
+        answer = inputManager.getYesNoAnswer("Do you want to install heroku-cli? (y/n):")
         if answer:
             commandManager.runSnapInstallCommand(sad._DEPLOY_HEROKU_OPTION, sad._HEROKU_HEROKU_CLI_VERSION_)
         else:
