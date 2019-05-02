@@ -15,20 +15,20 @@ class FunctionManager:
         self.functions = {}
         self.callback = None
         self.dispatcher = None
-    
+
 
     def addCommand(self, commandHandler):
         self.commands[commandHandler.funcName] = commandHandler
 
     def addMessage(self, messageHandler):
         self.messages[messageHandler.funcName] = messageHandler
-    
+
     def addError(self, errorHandler):
         self.errors[errorHandler.funcName] = errorHandler
-    
+
     def addFunction(self, functionHandler):
         self.functions[functionHandler.funcName] = functionHandler
-    
+
     def addCallBack(self, callbackHandler):
         self.callback = callbackHandler
 

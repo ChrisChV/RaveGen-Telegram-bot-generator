@@ -40,7 +40,7 @@ class RaveGen:
 
         elif(self.handler.handlerType == sadDec._HANDLER_TYPE_ERROR_):
             functionManager.functionManager.addError(self.e_handler())
-        
+
         elif(self.handler.handlerType == sadDec._HANDLER_TYPE_FUNCTION_):
             functionManager.functionManager.addFunction(self.f_handler())
 

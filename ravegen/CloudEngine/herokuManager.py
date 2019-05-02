@@ -42,8 +42,8 @@ def initConfiguration():
     gitHerokuFlag =  _verifyRemoteHeroku(configManager.get(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_))
     if gitHerokuFlag > 0:
         logManager.printVerbose("Git has already been configured")
-        
-    
+
+
     _initConfiguration(projectNameFlag, initProjectFlag, gitInitFlag, gitHerokuFlag)
     logManager.printVerbose("All Configurations... OK")
 
