@@ -20,9 +20,15 @@ def setup():
 def data_generateHeaders():
     return [sad._HEADER_TOKEN_FLAG]
 
+def data_generateBot():
+    data = [(False, sad._HOSTING_HEROKU_OPTION_), (True, sad._HOSTING_HEROKU_OPTION_)]
+    data += [(False, sad._HOSTING_GAE_OPTION_), (True, sad._HOSTING_GAE_OPTION_)]
+    return data
+
 @flaky(3,1)
-@pytest.mark.parametrize('testFlag', [False, True])
-def test_generateBot(testFlag):
+@pytest.mark.parametrize('testFlag, hosting', data_generateBot())
+def test_generateBot(testFlag, hosting):
+    projectManager.createInitProject(createBasicModules=True, hostingOption=hosting)
     if not testFlag:
         with pytest.raises(SystemExit) as pytest_wrapped_e:
             botManager.generateBot(testFlag=testFlag)

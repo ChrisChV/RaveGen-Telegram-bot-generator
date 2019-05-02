@@ -19,10 +19,26 @@ def _convertToJson(string):
         values[1] = values[1].strip()
         dic_res[values[0]] = values[1]
     return dic_res
-    
+
 def _build_callback(data):
     return_value = json.dumps(data)
     return return_value
+
+def _generateMenu(menu):
+        keyboard = []
+        for row in menu:
+            keyboard.append([])
+            for button in row:
+                data = _convertToJson(button[1])
+                if sadDec._MENU_DATA_COMMAND_OPTION in data or sadDec._MENU_DATA_FUNCTION_OPTION in data:
+                    keyboard[-1].append(InlineKeyboardButton(button[0], callback_data=_build_callback(data)))
+                elif sadDec._MENU_DATA_URL_OPTION in data:
+                    keyboard[-1].append(InlineKeyboardButton(button[0], url=data[sadDec._MENU_DATA_URL_OPTION]))
+                else:
+                    logging.error("Bad menu formatting")
+                    return None
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        return reply_markup
 
 class RaveGen:
     def __init__(self, handler):
@@ -53,7 +69,7 @@ class RaveGen:
             message = update.effective_message.text
             try:
                 reply, menu = self.handler(message=message)
-                reply_markup = self._generateMenu(menu)
+                reply_markup = _generateMenu(menu)
                 update.message.reply_text(reply, reply_markup=reply_markup)
             except ValueError:
                 reply = self.handler(message=message)
@@ -71,7 +87,7 @@ class RaveGen:
                 message = ' '.join(args)
             try:
                 reply, menu = self.handler(message=message)
-                reply_markup = self._generateMenu(menu)
+                reply_markup = _generateMenu(menu)
                 update.message.reply_text(reply, reply_markup=reply_markup)
             except ValueError:
                 reply = self.handler(message=message)
@@ -93,7 +109,7 @@ class RaveGen:
         def _f_handler(bot, update, *arg, **karg):
             try:
                 reply, menu = self.handler(*arg, **karg)
-                reply_markup = self._generateMenu(menu)
+                reply_markup = _generateMenu(menu)
                 update.message.reply_text(reply, reply_markup=reply_markup)
             except ValueError:
                 reply = self.handler(*arg, **karg)
@@ -108,7 +124,7 @@ class RaveGen:
             query = update.callback_query
             try:
                 reply, menu = self.handler(query, *arg, **karg)
-                reply_markup = self._generateMenu(menu)
+                reply_markup = _generateMenu(menu)
                 update.message.reply_text(reply, reply_markup=reply_markup)
             except ValueError:
                 reply = self.handler(query, *arg, **karg)
@@ -117,19 +133,3 @@ class RaveGen:
                 logging.error("Bad menu formatting")
         _newCallBackHandler = CallBackHandler.CallBack(_cb_handler, funcName=self.handler.funcName)
         return _newCallBackHandler
-
-    def _generateMenu(self, menu):
-        keyboard = []
-        for row in menu:
-            keyboard.append([])
-            for button in row:
-                data = _convertToJson(button[1])
-                if sadDec._MENU_DATA_COMMAND_OPTION in data or sadDec._MENU_DATA_FUNCTION_OPTION in data:
-                    keyboard[-1].append(InlineKeyboardButton(button[0], callback_data=_build_callback(data)))
-                elif sadDec._MENU_DATA_URL_OPTION in data:
-                    keyboard[-1].append(InlineKeyboardButton(button[0], url=data[sadDec._MENU_DATA_URL_OPTION]))
-                else:
-                    logging.error("Bad menu formatting")
-                    return None
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        return reply_markup
