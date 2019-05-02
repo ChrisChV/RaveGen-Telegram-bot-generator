@@ -13,6 +13,7 @@ class FunctionManager:
         self.messages = {}
         self.errors = {}
         self.functions = {}
+        self.callback = None
         self.dispatcher = None
     
 
@@ -27,6 +28,9 @@ class FunctionManager:
     
     def addFunction(self, functionHandler):
         self.functions[functionHandler.funcName] = functionHandler
+    
+    def addCallBack(self, callbackHandler):
+        self.callback = callbackHandler
 
     def test_run(self):
         for _, func in self.messages.iteritems():
@@ -38,7 +42,10 @@ class FunctionManager:
         self.generateMsgHandlers(dispatcher)
         self.generateErrorHandlers(dispatcher)
         self.generateHelpCommand(dispatcher)
-        dispatcher.add_handler(CallbackQueryHandler(self.rv_callbackQueryHandler))
+        if self.callback:
+            dispatcher.add_handler(CallbackQueryHandler(self.callback))
+        else:
+            dispatcher.add_handler(CallbackQueryHandler(self.rv_callbackQueryHandler))
 
     def generateCommandHandlers(self, distpatcher):
         for _, command in self.commands.iteritems():

@@ -24,6 +24,7 @@ _STR_TRUE_ = "True"
 _STR_FALSE_ = "False"
 
 _INIT_PY = "__init__.py"
+__INIT__ = "__init__"
 
 #_INSTALL_PATH = "/usr/local/lib/python2.7/dist-packages/ravegen/"
 
@@ -107,6 +108,10 @@ _GAE_APP_YAML = "app.yaml"
 _GAE_REQ_FILE_NAME = "requirements.txt"
 _GAE_APPENGINE_CONFIG_FILE_NAME_ = "appengine_config.py"
 _GAE_LIB_DIR_NAME_ = "lib"
+_GAE_REQ_INSTALLED_FILE_NAME = ".gaeREQ"
+_GAE_REQ_INSTALLED_FILE_PATH = _CONFIG_DIR_NAME_ + _DF_ + _GAE_REQ_INSTALLED_FILE_NAME
+_GAE_TEMP_REQ_FILE_NAME = ".gaeTempREQ"
+_GAE_TEMP_REQ_FILE_PATH = _CONFIG_DIR_NAME_ + _DF_ + _GAE_TEMP_REQ_FILE_NAME
 _DEPLOY_GAE_OPTION = "gae"
 
 _HOSTING_HEROKU_OPTION_ = 1

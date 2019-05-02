@@ -25,7 +25,8 @@ def generateBot(testFlag = True):
 
     initFile = open(sad._MODULES_DIR_ + sad._DF_ + sad._INIT_PY, 'w')
     for module in modules:
-        initFile.write("from " + module + " import *\n")
+        if module != sad.__INIT__:
+            initFile.write("from " + module + " import *\n")
     initFile.close()
 
     commandManager.runRmCommand(sad._TEMP_LS_MODULES_FILE_NAME)

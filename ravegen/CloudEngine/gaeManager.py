@@ -5,6 +5,7 @@ import Utils.logManager as logManager
 import Utils.inputManager as inputManager
 import Utils.utils as utils
 import Utils.sad as sad
+import sys
 
 
 gaeErrorHandler = errorHandler.ErrorHandler("GAE Manager")
@@ -100,12 +101,18 @@ def _createSkeleton():
     appYamlFile.write("- name: ssl\n")
     appYamlFile.write("  version: latest\n")
     appYamlFile.close()
-    commandManager.runCpCommand(sad._CONFIG_REQ_FILE_PAHT_, sad._GAE_REQ_FILE_NAME)
-    logManager.printVerbose("We need to install the requirements")
-    logManager.printVerbose("We need sudo privileges")
-    logManager.printVerbose("Command to run: sudo pip install -t lib -r requirements.txt")
-    commandManager.runPipInstallReq()
+    if _generateReq():
+        commandManager.runCpCommand(sad._GAE_TEMP_REQ_FILE_PATH, sad._GAE_REQ_FILE_NAME)
+        logManager.printVerbose("We need to install the requirements")
+        logManager.printVerbose("We need sudo privileges")
+        logManager.printVerbose("Command to run: sudo pip install -t lib -r requirements.txt")
+        commandManager.runPipInstallReq()
+    commandManager.runRmCommand(sad._GAE_TEMP_REQ_FILE_PATH)    
     commandManager.runTouchSudoCommand(sad._GAE_LIB_DIR_NAME_ + sad._DF_ + sad._INIT_PY)
+
+def sigintHandler(sig, frame):
+    _deleteSkeleton()
+    sys.exit()
 
 def _deleteSkeleton():
     commandManager.runRmCommand(sad._GAE_APPENGINE_CONFIG_FILE_NAME_)
@@ -173,6 +180,27 @@ def _verifyCurlInstallation():
                 gaeErrorHandler.addError("Curl is necessary to deploy the bot", sad._CRITICAL_ERROR_)
     gaeErrorHandler.handle()
 
+def _generateReq():
+    requirements = []
+    installedReq = open(sad._GAE_REQ_INSTALLED_FILE_PATH, 'r')
+    for line in installedReq:
+        requirements.append(line.rstrip('\n'))
+    installedReq.close()
+    reqFile = open(sad._CONFIG_REQ_FILE_PAHT_, 'r')
+    tempReq = open(sad._GAE_TEMP_REQ_FILE_PATH, 'w')
+    installedReq = open(sad._GAE_REQ_INSTALLED_FILE_PATH, 'a')
+    flag = False
+    
+    for line in reqFile:
+        line = line.rstrip('\n')
+        if not line in requirements:
+            tempReq.write(line + '\n')
+            installedReq.write(line + '\n')
+            flag = True
+    tempReq.close()
+    installedReq.close()
+    reqFile.close()
+    return flag
 
 def _GAELogin():
     commandManager.runGAELogin()

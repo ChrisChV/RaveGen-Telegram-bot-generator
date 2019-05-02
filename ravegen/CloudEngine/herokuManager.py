@@ -1,4 +1,5 @@
 import time
+import sys
 import Utils.sad as sad
 import Utils.inputManager as inputManager
 import Utils.commandManager as commandManager
@@ -66,6 +67,11 @@ def deleteCloudApp():
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_DEPLOY_URL_OPTION, "")
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_WEBHOOK_PATH_OPTION, "")
         configManager.set(config, sad._DEPLOY_HEROKU_OPTION, sad._CONFIG_GIT_OPTION_, "")
+
+def sigintHandler(sig, frame):
+    _deleteSkeleton()
+    print "AAAAAAAAAAAAAA"
+    sys.exit()
 
 def _initConfiguration(projectNameFlag = True, initProjectFlag = True, gitInitFlag = True, gitHerokuFlag = -1):
     config = configManager.getConfig()

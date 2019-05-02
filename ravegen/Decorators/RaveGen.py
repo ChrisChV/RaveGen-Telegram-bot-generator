@@ -5,6 +5,7 @@ import CommandHandler
 import FunctionHandler
 import Error
 import functionManager
+import CallBackHandler
 import sadDec
 import json
 import logging
@@ -34,14 +35,17 @@ class RaveGen:
         if(self.handler.handlerType == sadDec._HANDLER_TYPE_COMMAND_):
             functionManager.functionManager.addCommand(self.c_handler())
 
-        if(self.handler.handlerType == sadDec._HANDLER_TYPE_MESSAGE_):
+        elif(self.handler.handlerType == sadDec._HANDLER_TYPE_MESSAGE_):
             functionManager.functionManager.addMessage(self.m_handler(filter=self.handler.filter))
 
-        if(self.handler.handlerType == sadDec._HANDLER_TYPE_ERROR_):
+        elif(self.handler.handlerType == sadDec._HANDLER_TYPE_ERROR_):
             functionManager.functionManager.addError(self.e_handler())
         
-        if(self.handler.handlerType == sadDec._HANDLER_TYPE_FUNCTION_):
+        elif(self.handler.handlerType == sadDec._HANDLER_TYPE_FUNCTION_):
             functionManager.functionManager.addFunction(self.f_handler())
+
+        elif(self.handler.handlerType == sadDec._HANDLER_TYPE_CALLBACK_):
+            functionManager.functionManager.addCallBack(self.cb_handler())
 
     def m_handler(self, *arg, **karg):
         _filter = karg["filter"]
@@ -98,6 +102,21 @@ class RaveGen:
                 logging.error("Bad menu formatting")
         _newFunctionHandler = FunctionHandler.RaveFunction(_f_handler, funcName=self.handler.funcName)
         return _newFunctionHandler
+
+    def cb_handler(self, *arg, **karg):
+        def _cb_handler(bot, update, *arg, **karg):
+            query = update.callback_query
+            try:
+                reply, menu = self.handler(query, *arg, **karg)
+                reply_markup = self._generateMenu(menu)
+                update.message.reply_text(reply, reply_markup=reply_markup)
+            except ValueError:
+                reply = self.handler(query, *arg, **karg)
+                update.effective_message.reply_text(reply)
+            except IndexError:
+                logging.error("Bad menu formatting")
+        _newCallBackHandler = CallBackHandler.CallBack(_cb_handler, funcName=self.handler.funcName)
+        return _newCallBackHandler
 
     def _generateMenu(self, menu):
         keyboard = []
