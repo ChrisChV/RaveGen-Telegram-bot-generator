@@ -1,4 +1,4 @@
-.. image:: https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/tree/developing/images/logo/logo.png
+.. image:: https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/blob/developing/images/logo/logo.png
    :target: https://pypi.org/project/ravegen/
    :alt: RaveGen Logo
 
@@ -30,7 +30,10 @@
 RaveGen: Telegram bot generator
 ==================================
 
-Program for generate, create and deploy telegram bots using `python-telegram-bot <https://github.com/python-telegram-bot/python-telegram-bot>`_ for connect with `Telegram Bot API <https://core.telegram.org/bots/api>`_ and Heroku for deploy the bot.
+Program for generate, create and deploy telegram bots readable way. You do not need to know how the Telegram API works or how or where you are going to deploy the bot, you just have to worry about what the bot is going to reply.
+
+RaveGen uses `python-telegram-bot <https://github.com/python-telegram-bot/python-telegram-bot>`_ for connect with `Telegram Bot API <https://core.telegram.org/bots/api>`_ and you can deploy the bot on Heroku or Google App Engine
+
 
 ===========
 Installing
@@ -40,11 +43,19 @@ Installing
 Requirements
 ------------------
 
+Depending on where you want to deploy the bot:
+
 -   Heroku Cli:
 
 .. code:: shell
 
     $ sudo snap install heroku --classic
+
+-   Google App Engine:
+
+    You need to follow the steps in `<https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu>`_
+
+
 
 -------------------------
 RaveGen installation
