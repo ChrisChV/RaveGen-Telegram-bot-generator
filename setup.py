@@ -1,17 +1,17 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ravegen",
-    version="0.2.3",
+    name="ravegen-dev",
+    version="0.2.14",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",
-    description="Program for generate basic telegram bots with python-telegram-bot and deploy it on Heroku ",
+    license='MIT',
+    description="Program for generate, create and deploy telegram bots readable way.",
     long_description=long_description,
-    long_description_content_type="text/markdown",
     install_requires=[
         'python-telegram-bot',
     ],

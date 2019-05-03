@@ -132,7 +132,7 @@ def _verifyGAEInstallation():
     if tokens[0] != sad._GAE_PATH_:
         logManager.printVerbose("Google Cloud SDK is not installed")
         if utils.hasSupport():
-            gaeErrorHandler.addError("You have to install Google Cloud SDK. Instructions: https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=es-419", sad._CRITICAL_ERROR_)
+            gaeErrorHandler.addError("You have to install Google Cloud SDK. Instructions: https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu", sad._CRITICAL_ERROR_)
         else:
             gaeErrorHandler.addError("Google Cloud SDK is no installed", sad._CRITICAL_ERROR_)
     gaeErrorHandler.handle()
