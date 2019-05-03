@@ -2,6 +2,8 @@
    :target: https://pypi.org/project/ravegen/
    :alt: RaveGen Logo
 
+   :raw-html:`<br />`
+
 .. image:: https://img.shields.io/pypi/v/ravegen.svg
    :target: https://pypi.org/project/ravegen/
    :alt: Pypi version Badge
@@ -29,6 +31,7 @@
 ==================================
 RaveGen: Telegram bot generator
 ==================================
+
 
 Program for generate, create and deploy telegram bots readable way. You do not need to know how the Telegram API works or how or where you are going to deploy the bot, you just have to worry about what the bot is going to reply.
 
