@@ -1,7 +1,12 @@
+.. role:: raw-html(raw)
+    :format: html
+
+
 .. image:: https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/blob/developing/images/logo/logo.png
    :target: https://pypi.org/project/ravegen/
    :alt: RaveGen Logo
-
+   
+:raw-html:`<br />`
    
 
 .. image:: https://img.shields.io/pypi/v/ravegen.svg
