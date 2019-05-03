@@ -2,7 +2,7 @@
    :target: https://pypi.org/project/ravegen/
    :alt: RaveGen Logo
 
-   :raw-html:`<br />`
+   
 
 .. image:: https://img.shields.io/pypi/v/ravegen.svg
    :target: https://pypi.org/project/ravegen/
