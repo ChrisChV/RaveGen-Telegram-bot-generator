@@ -39,6 +39,7 @@ Requirements
 -   Heroku Cli:
 
 .. code:: shell
+
     $ sudo snap install heroku --classic
 
 -------------------------
@@ -48,6 +49,7 @@ RaveGen installation
 You can install RaveGen with:
 
 .. code:: shell
+
     $ sudo pip install ravegen --upgrade
 
 **OR** clone this repository and run ``sudo make install``
@@ -69,6 +71,7 @@ Step 2
 Run the follow command and paste the Token:
 
 .. code:: shell
+
     $ ravegen init -m
 
 --------
@@ -78,6 +81,7 @@ Step 3
 Run this command and follow the indications:
 
 .. code:: shell
+
     $ ravegen deploy -d
 
 ---------
@@ -93,6 +97,7 @@ Advanced usage
 If you need help about the commands run:
 
 .. code:: shell
+
     $ ravegen help
 
 Or if you want to know more see the `RaveGen Wiki <https://github.com/ChrisChV/RaveGen-Telegram-bot-generator/wiki>`_
