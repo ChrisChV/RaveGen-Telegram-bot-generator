@@ -67,15 +67,15 @@ class RaveGen:
         _filter = karg["filter"]
         def _m_handler(bot, update):
             message = update.effective_message.text
-            try:
-                reply, menu = self.handler(message=message)
-                reply_markup = _generateMenu(menu)
-                update.message.reply_text(reply, reply_markup=reply_markup)
-            except ValueError:
-                reply = self.handler(message=message)
+            reply = self.handler(message=message)
+            if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
-            except IndexError:
-                logging.error("Bad menu formatting")
+            else:
+                try:
+                    reply_markup = _generateMenu(reply[sadDec._MENU_INDEX_])
+                    update.effective_message.reply_text(reply[sadDec._MESSAGE_INDEX_], reply_markup=reply_markup)
+                except IndexError:
+                    logging.error("Bad menu formatting")
 
         _newMessageHandler = MessageHandler.MessageHandler(_m_handler, _filter, funcName=self.handler.funcName, description=self.handler.description)
         return _newMessageHandler
@@ -85,16 +85,15 @@ class RaveGen:
             message = ''
             if(args != None):
                 message = ' '.join(args)
-            try:
-                reply, menu = self.handler(message=message)
-                reply_markup = _generateMenu(menu)
-                update.message.reply_text(reply, reply_markup=reply_markup)
-            except ValueError:
-                reply = self.handler(message=message)
+            reply = self.handler(message=message)
+            if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
-            except IndexError:
-                logging.error("Bad menu formatting")
-
+            else:
+                try:
+                    reply_markup = _generateMenu(reply[sadDec._MENU_INDEX_])
+                    update.effective_message.reply_text(reply[sadDec._MESSAGE_INDEX_], reply_markup=reply_markup)
+                except IndexError:
+                    logging.error("Bad menu formatting")
 
         _newCommandHandler = CommandHandler._Command(_c_handler, funcName=self.handler.funcName, passArgs=True, description=self.handler.description)
         return _newCommandHandler
@@ -107,29 +106,29 @@ class RaveGen:
 
     def f_handler(self, *arg, **karg):
         def _f_handler(bot, update, *arg, **karg):
-            try:
-                reply, menu = self.handler(*arg, **karg)
-                reply_markup = _generateMenu(menu)
-                update.message.reply_text(reply, reply_markup=reply_markup)
-            except ValueError:
-                reply = self.handler(*arg, **karg)
+            reply = self.handler(*arg, **karg)
+            if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
-            except IndexError:
-                logging.error("Bad menu formatting")
+            else:
+                try:
+                    reply_markup = _generateMenu(reply[sadDec._MENU_INDEX_])
+                    update.effective_message.reply_text(reply[sadDec._MESSAGE_INDEX_], reply_markup=reply_markup)
+                except IndexError:
+                    logging.error("Bad menu formatting")
         _newFunctionHandler = FunctionHandler.RaveFunction(_f_handler, funcName=self.handler.funcName)
         return _newFunctionHandler
 
     def cb_handler(self, *arg, **karg):
         def _cb_handler(bot, update, *arg, **karg):
             query = update.callback_query
-            try:
-                reply, menu = self.handler(query, *arg, **karg)
-                reply_markup = _generateMenu(menu)
-                update.message.reply_text(reply, reply_markup=reply_markup)
-            except ValueError:
-                reply = self.handler(query, *arg, **karg)
+            reply = self.handler(query, *arg, **karg)
+            if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
-            except IndexError:
-                logging.error("Bad menu formatting")
+            else:
+                try:
+                    reply_markup = _generateMenu(reply[sadDec._MENU_INDEX_])
+                    update.effective_message.reply_text(reply[sadDec._MESSAGE_INDEX_], reply_markup=reply_markup)
+                except IndexError:
+                    logging.error("Bad menu formatting")
         _newCallBackHandler = CallBackHandler.CallBack(_cb_handler, funcName=self.handler.funcName)
         return _newCallBackHandler
