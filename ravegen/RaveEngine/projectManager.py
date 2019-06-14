@@ -27,6 +27,9 @@ def createInitProject(fillConfig=True, createBasicModules=False, TOKEN = None, T
     if TOKEN_TEST != None:
         config = configManager.getConfig()
         configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION, TOKEN_TEST)
+    else:
+        config = configManager.getConfig()
+        configManager.set(config, sad._CONFIG_RAVEGEN_SECTION_, sad._CONFIG_TOKEN_TEST_OPTION, TOKEN)
 
 def _createBasicModules():
     moduleFile = open(sad._MODULES_DIR_ + sad._DF_ + "start.py", 'w')
