@@ -68,6 +68,8 @@ class RaveGen:
         def _m_handler(bot, update):
             message = update.effective_message.text
             reply = self.handler(message=message)
+            if reply is None:
+                return
             if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
             else:
@@ -86,6 +88,8 @@ class RaveGen:
             if(args != None):
                 message = ' '.join(args)
             reply = self.handler(message=message)
+            if reply is None:
+                return
             if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
             else:
@@ -107,6 +111,8 @@ class RaveGen:
     def f_handler(self, *arg, **karg):
         def _f_handler(bot, update, *arg, **karg):
             reply = self.handler(*arg, **karg)
+            if reply is None:
+                return
             if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
             else:
@@ -122,6 +128,8 @@ class RaveGen:
         def _cb_handler(bot, update, *arg, **karg):
             query = update.callback_query
             reply = self.handler(query, *arg, **karg)
+            if reply is None:
+                return
             if type(reply) == str or type(reply) == unicode:
                 update.effective_message.reply_text(reply)
             else:
