@@ -70,7 +70,7 @@ class RaveGen:
             reply = self.handler(message=message)
             if reply is None:
                 return
-            if type(reply) == str or type(reply) == unicode:
+            if isinstance(reply, str) or isinstance(reply, unicode):
                 update.effective_message.reply_text(reply)
             else:
                 try:
@@ -90,7 +90,7 @@ class RaveGen:
             reply = self.handler(message=message)
             if reply is None:
                 return
-            if type(reply) == str or type(reply) == unicode:
+            if isinstance(reply, str) or isinstance(reply, unicode):
                 update.effective_message.reply_text(reply)
             else:
                 try:
@@ -113,7 +113,7 @@ class RaveGen:
             reply = self.handler(*arg, **karg)
             if reply is None:
                 return
-            if type(reply) == str or type(reply) == unicode:
+            if isinstance(reply, str) or isinstance(reply, unicode):
                 update.effective_message.reply_text(reply)
             else:
                 try:
@@ -130,7 +130,7 @@ class RaveGen:
             reply = self.handler(query, *arg, **karg)
             if reply is None:
                 return
-            if type(reply) == str or type(reply) == unicode:
+            if isinstance(reply, str) or isinstance(reply, unicode):
                 update.effective_message.reply_text(reply)
             else:
                 try:
