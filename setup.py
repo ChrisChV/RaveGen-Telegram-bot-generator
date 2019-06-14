@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 setuptools.setup(
     name="ravegen",
-    version="0.3.0",
+    version="0.3.1",
     scripts=['ravegen/ravegen'],
     author="Christofer Chavez Carazas",
     author_email="xnpiochv@gmail.com",
