@@ -40,11 +40,39 @@ def _generateMenu(menu):
         reply_markup = InlineKeyboardMarkup(keyboard)
         return reply_markup
 
-class RaveGen:
-    def __init__(self, handler):
+def _verifyUser(update, blacklist, whitelist):
+    if whitelist:
+        return _verifyUser_Whitelist(update, whitelist)
+    if blacklist:
+        return _verifyUser_Blacklist(update, blacklist)
+    return True
+
+def _verifyUser_Blacklist(update, blacklist):
+    id = update.effective_message.from_user.id
+    return not id in blacklist
+
+def _verifyUser_Whitelist(update, whitelist):
+    id = update.effective_message.from_user.id
+    return id in whitelist
+
+def RaveGen(handler = None, whitelist = None, blacklist = None, denialMsg=None):
+    if handler != None:
+        return _RaveGen(handler)
+    def wrapper(handler):
+        return _RaveGen(handler, whitelist=whitelist, blacklist=blacklist, denialMsg=denialMsg)
+    return wrapper
+
+class _RaveGen:
+    def __init__(self, handler, whitelist = None, blacklist = None, denialMsg=None):
         functools.update_wrapper(self, handler)
         self.handler = handler
+        self.whitelist = whitelist
+        self.blacklist = blacklist
+        self.denialMsg = denialMsg
+        if self.denialMsg is None:
+            self.denialMsg = "You don't have permissions for this action"
         self.getNewHandler()
+        
 
 
     def getNewHandler(self):
@@ -66,6 +94,9 @@ class RaveGen:
     def m_handler(self, *arg, **karg):
         _filter = karg["filter"]
         def _m_handler(bot, update):
+            if not _verifyUser(update, self.blacklist, self.whitelist):
+                update.effective_message.reply_text(self.denialMsg)
+                return
             message = update.effective_message.text
             reply = self.handler(message=message)
             if reply is None:
@@ -84,6 +115,9 @@ class RaveGen:
 
     def c_handler(self, *arg, **karg):
         def _c_handler(bot, update, args = None):
+            if not _verifyUser(update, self.blacklist, self.whitelist):
+                update.effective_message.reply_text(self.denialMsg)
+                return
             message = ''
             if(args != None):
                 message = ' '.join(args)
@@ -110,6 +144,9 @@ class RaveGen:
 
     def f_handler(self, *arg, **karg):
         def _f_handler(bot, update, *arg, **karg):
+            if not _verifyUser(update, self.blacklist, self.whitelist):
+                update.effective_message.reply_text(self.denialMsg)
+                return
             reply = self.handler(*arg, **karg)
             if reply is None:
                 return
@@ -126,6 +163,9 @@ class RaveGen:
 
     def cb_handler(self, *arg, **karg):
         def _cb_handler(bot, update, *arg, **karg):
+            if not _verifyUser(update, self.blacklist, self.whitelist):
+                update.effective_message.reply_text(self.denialMsg)
+                return
             query = update.callback_query
             reply = self.handler(query, *arg, **karg)
             if reply is None:
